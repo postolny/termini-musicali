@@ -40,31 +40,22 @@ header h1 {
 }
 
 a {
+  background-position: 50% 100%;
   text-decoration: none;
   color: black;
-  position: relative;
+  text-size-adjust: 100%;
+  background: rgba(0, 0, 0, 0) linear-gradient(rgb(255, 172, 51), rgb(255, 172, 51)) no-repeat scroll 50% 100% / 100% 2px padding-box border-box;
+  padding: 4px 2px;
+  transition: background-size 0.1s ease 0s;
 }
 
-a::after {
-  content: '';
-  display: block;
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background-color: #ffac33;
-  transition: background-color 0.3s ease-in-out, height 0.3s ease-in-out;
-}
-
-a:hover::after {
-  height: 4px;
+a:hover {
+  background-size: 100% 30%;
 }
 
 main {
   display: flex;
-  flex-direction: column;
-  /* Столбец для вертикального расположения */
+  flex-direction: column;  /* Столбец для вертикального расположения */
   max-width: 700px;
   width: 100%;
   padding: 0 20px;
@@ -79,17 +70,15 @@ nav {
 }
 
 nav ul {
-  list-style: none;
-  /* Скрытие маркеров списка */
+  list-style: none;  /* Скрытие маркеров списка */
   margin: 0;
   padding: 0;
 }
 
 nav li {
-  display: inline-block;
-  /* Превращение элементов списка в строчные блоки */
-  margin-right: 20px;
-  /* Отступы между пунктами меню */
+  display: inline-block;  /* Превращение элементов списка в строчные блоки */
+  margin-right: 20px;  /* Отступы между пунктами меню */
+  ;
 }
 
 #buttonWrap {
@@ -106,8 +95,7 @@ nav li {
 
 #search {
   display: flex;
-  justify-content: center;
-  /* Выравнивание элементов по центру */
+  justify-content: center;  /* Выравнивание элементов по центру */
   margin: 0 20px 20px;
 }
 
@@ -128,10 +116,9 @@ nav li {
   border-radius: 5px;
   transition: border-color 0.3s ease;
   outline: none;
-  max-width: 400px;
-  /* Максимальная ширина поля ввода */
-  width: 90vw;
-  /* Ширина поля ввода в зависимости от ширины окна просмотра */
+  max-width: 400px;  /* Максимальная ширина поля ввода */
+  width: 90vw;  /* Ширина поля ввода в зависимости от ширины окна просмотра */
+  ;
 }
 
 .input:focus {
@@ -212,8 +199,7 @@ nav li {
   left: 0;
   right: 0;
   display: flex;
-  justify-content: center;
-  /* Центрирует содержимое по горизонтали */
+  justify-content: center;  /* Центрирует содержимое по горизонтали */
   z-index: 2;
 }
 
@@ -263,10 +249,11 @@ body .darkmode {
 
 .dark-mode a {
   color: #ddd;
+  background: rgba(0, 0, 0, 0) linear-gradient(rgb(0, 123, 255), rgb(0, 123, 255)) no-repeat scroll 50% 100% / 100% 2px padding-box border-box;
 }
 
-.dark-mode a::after {
-  background-color: #007bff;
+.dark-mode a:hover {
+  background-size: 100% 30%;
 }
 
 .dark-mode .box_title h1::after {
@@ -333,8 +320,8 @@ footer ul {
 }
 
 footer ul li {
-  margin-bottom: 10px;
-  /* Расстояние между элементами списка */
+  margin-bottom: 10px;  /* Расстояние между элементами списка */
+  ;
 }
 
 @media (max-width:1050px) {
@@ -347,14 +334,12 @@ footer ul li {
 
 @media (max-width:768px) {
   header h1 {
-    font-size: 0.8em;
-    /* Уменьшение размера шрифта для мобильных устройств */
-    word-wrap: break-word;
-    /* Перенос текста на новую строку */
+    font-size: 0.8em;    /* Уменьшение размера шрифта для мобильных устройств */
+    word-wrap: break-word;    /* Перенос текста на новую строку */
+    ;
   }
 
-  .light svg,
-  .dark svg {
+  .light svg, .dark svg {
     width: 26px;
     height: 26px;
   }
