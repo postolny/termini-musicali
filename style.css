@@ -144,8 +144,8 @@ nav li {
   opacity: 1;
 }
 
-.content {
-  padding: 20px;
+.content:last-child {
+  padding: 0 0 20px 0;
 }
 
 .content h2 {
