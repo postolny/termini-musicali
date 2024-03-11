@@ -40,34 +40,25 @@ header h1 {
 }
 
 a {
-  position: relative;
-  color: #000;
-  transition: all 200ms ease-in-out;
-  z-index: 1;
   text-decoration: none;
+  color: black;
+  position: relative;
 }
 
-a:hover {
-  color: #ffac33;
-}
-
-a:after {
+a::after {
   content: '';
-  background-color: #ffac33;
+  display: block;
   position: absolute;
-  height: 0.1em;
-  width: 104%;
-  left: -2%;
-  bottom: -15%;
-  transition: all 200ms ease-in-out;
-  z-index: -1;
-  border-radius: 0.05em;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #ffac33;
+  transition: background-color 0.3s ease-in-out, height 0.3s ease-in-out;
 }
 
-a:hover:after {
-  height: 145%;
-  bottom: -20%;
-  background-color: rgba(255, 172, 51, 0.2);
+a:hover::after {
+  height: 4px;
 }
 
 main {
@@ -274,16 +265,8 @@ body .darkmode {
   color: #ddd;
 }
 
-.dark-mode a:hover {
-  color: #51d2ef;
-}
-
-.dark-mode a:after {
-  background-color: #51d2ef;
-}
-
-.dark-mode a:hover:after {
-  background-color: rgba(81, 210, 239, 0.2);
+.dark-mode a::after {
+  background-color: #007bff;
 }
 
 .dark-mode .box_title h1::after {
