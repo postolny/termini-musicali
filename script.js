@@ -40,8 +40,22 @@ $(document).ready(function() {
         $('#copyButton').css('visibility', 'visible');
         return false; // отменяем стандартное поведение
       },
+      autoFocus: true, // получаем фокус на элементе списка
       maxHeight: 200,
       scroll: true,
+    });
+
+    // Обработчик события нажатия клавиши Enter
+    $("#search").on("keyup", function(event) {
+      if (event.keyCode === 13) { // Код клавиши Enter
+        var val = $(this).val().toLowerCase().trim();
+        var foundItem = array.find(function(item) {
+          return item.label.toLowerCase() === val;
+        });
+        if (foundItem) {
+          displayResult(foundItem);
+        }
+      }
     });
 
     $('#search-tr').on('input', function() {
