@@ -7,18 +7,6 @@ $(document).ready(function() {
 
     console.log(myArray1);
 
-    $("#search-tr").on("keyup", function() {
-      var val = $(this).val().toLowerCase().trim();
-      var foundItem = myArray1.find(function(item) {
-        return item.label.toLowerCase() === val;
-      });
-      if (foundItem) {
-        $("#search-res").html(foundItem.value);
-      } else {
-        $("#search-res").html("");
-      }
-    });
-
     // Инициализация автозаполнения при загрузке страницы
     $("#search-tr").autocomplete({
       source: function(request, response) {
@@ -45,7 +33,6 @@ $(document).ready(function() {
 
         // Получение ответа объединением массивов exactMatch, startsWith и rest
         response(exactMatch.concat(startsWith, rest));
-        //response(filteredData);
       },
       select: function(event, ui) {
         $("#search-tr").val(ui.item.label);
@@ -102,15 +89,6 @@ $(document).ready(function() {
 
     // Добавляем событие input после вставки символа
     input.trigger('input');
-  });
-
-  // Добавляем обработчик для события выбора элемента из списка автозаполнения
-  $('#search-tr').autocomplete({
-    select: function(event, ui) {
-      // Очищаем поле ввода при выборе элемента из списка
-      $(this).val(ui.item.value);
-      return false;
-    }
   });
 
   //Копирование результата поиска
