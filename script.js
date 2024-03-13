@@ -140,6 +140,13 @@ $(document).ready(function() {
   var currentYear = new Date().getFullYear();
   $('#currentYear').html("&copy; " + currentYear + " ");
 
+  var email = "terminimusicali@gmail.com";
+  var obfuscatedEmail = "";
+  for (var i = 0; i < email.length; i++) {
+    obfuscatedEmail += "&#" + email.charCodeAt(i) + ";";
+  }
+  $('#indirizzoSegreto span').html('<a href="mailto:' + email + '">' + obfuscatedEmail + '</a>');
+
   // Dark mode
   // Проверяем, есть ли значение в localStorage для тёмного режима
   var darkMode = getLocalStorage('darkMode');

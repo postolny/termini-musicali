@@ -78,7 +78,6 @@ nav ul {
 nav li {
   display: inline-block;  /* Превращение элементов списка в строчные блоки */
   margin-right: 20px;  /* Отступы между пунктами меню */
-  ;
 }
 
 #buttonWrap {
@@ -321,7 +320,10 @@ footer ul {
 
 footer ul li {
   margin-bottom: 10px;  /* Расстояние между элементами списка */
-  ;
+}
+
+#indirizzoSegreto {
+  margin-bottom: 10px;
 }
 
 @media (max-width:1050px) {
