@@ -40,7 +40,7 @@ $(document).ready(function() {
         $('#copyButton').css('visibility', 'visible');
         return false; // отменяем стандартное поведение
       },
-      autoFocus: true, // получаем фокус на элементе списка
+      autoFocus: false,
       maxHeight: 200,
       scroll: true,
       focus: function(event, ui) {
