@@ -43,20 +43,18 @@ $(document).ready(function() {
       autoFocus: true, // получаем фокус на элементе списка
       maxHeight: 200,
       scroll: true,
-    });
-
-    // Обработчик события нажатия клавиши Enter
-    $("#search").on("keyup", function(event) {
-      if (event.keyCode === 13) { // Код клавиши Enter
-        var val = $(this).val().toLowerCase().trim();
-        var foundItem = array.find(function(item) {
-          return item.label.toLowerCase() === val;
-        });
-        if (foundItem) {
-          displayResult(foundItem);
-        }
+      focus: function(event, ui) {
+        // Предотвращаем автоматическое заполнение поля ввода
+        return false;
       }
     });
+
+    $('#search-tr').on('keydown', function(event) {
+      if (event.keyCode === $.ui.keyCode.DOWN || event.keyCode === $.ui.keyCode.UP) {
+        event.preventDefault();
+      }
+    });
+
 
     $('#search-tr').on('input', function() {
       if ($(this).val() !== '') {
