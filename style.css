@@ -55,7 +55,8 @@ a:hover {
 
 main {
   display: flex;
-  flex-direction: column;  /* Столбец для вертикального расположения */
+  flex-direction: column;
+  /* Столбец для вертикального расположения */
   max-width: 700px;
   width: 100%;
   padding: 0 20px;
@@ -70,14 +71,17 @@ nav {
 }
 
 nav ul {
-  list-style: none;  /* Скрытие маркеров списка */
+  list-style: none;
+  /* Скрытие маркеров списка */
   margin: 0;
   padding: 0;
 }
 
 nav li {
-  display: inline-block;  /* Превращение элементов списка в строчные блоки */
-  margin-right: 20px;  /* Отступы между пунктами меню */
+  display: inline-block;
+  /* Превращение элементов списка в строчные блоки */
+  margin-right: 20px;
+  /* Отступы между пунктами меню */
 }
 
 #buttonWrap {
@@ -94,7 +98,8 @@ nav li {
 
 #search {
   display: flex;
-  justify-content: center;  /* Выравнивание элементов по центру */
+  justify-content: center;
+  /* Выравнивание элементов по центру */
   margin: 0 20px 20px;
 }
 
@@ -115,9 +120,10 @@ nav li {
   border-radius: 5px;
   transition: border-color 0.3s ease;
   outline: none;
-  max-width: 400px;  /* Максимальная ширина поля ввода */
-  width: 90vw;  /* Ширина поля ввода в зависимости от ширины окна просмотра */
-  ;
+  max-width: 400px;
+  /* Максимальная ширина поля ввода */
+  width: 90vw;
+  /* Ширина поля ввода в зависимости от ширины окна просмотра */
 }
 
 .input:focus {
@@ -198,7 +204,8 @@ nav li {
   left: 0;
   right: 0;
   display: flex;
-  justify-content: center;  /* Центрирует содержимое по горизонтали */
+  justify-content: center;
+  /* Центрирует содержимое по горизонтали */
   z-index: 2;
 }
 
@@ -319,7 +326,8 @@ footer ul {
 }
 
 footer ul li {
-  margin-bottom: 10px;  /* Расстояние между элементами списка */
+  margin-bottom: 10px;
+  /* Расстояние между элементами списка */
 }
 
 #indirizzoSegreto {
@@ -336,12 +344,14 @@ footer ul li {
 
 @media (max-width:768px) {
   header h1 {
-    font-size: 0.8em;    /* Уменьшение размера шрифта для мобильных устройств */
-    word-wrap: break-word;    /* Перенос текста на новую строку */
-    ;
+    font-size: 0.8em;
+    /* Уменьшение размера шрифта для мобильных устройств */
+    word-wrap: break-word;
+    /* Перенос текста на новую строку */
   }
 
-  .light svg, .dark svg {
+  .light svg,
+  .dark svg {
     width: 26px;
     height: 26px;
   }
