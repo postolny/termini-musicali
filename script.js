@@ -11,7 +11,6 @@ $(document).ready(function() {
     $("#search-tr").autocomplete({
       source: function(request, response) {
         var term = request.term.toLowerCase();
-        var startsWith = []; // Массив для элементов, которые начинаются с введённого слова
         var exactMatch = []; // Массив для точных совпадений с введённым словом
         var rest = []; // Массив для остальных слов
 
@@ -21,18 +20,15 @@ $(document).ready(function() {
 
         // Проходим по каждому элементу в массиве filteredData
         filteredData.forEach(function(item) {
-          // Проверяем, начинается ли ключ элемента с введённого слова
-          if (item.label.toLowerCase().startsWith(term)) {
-            startsWith.push(item); // Если да, добавляем элемент в массив startsWith
-          } else if (item.label.toLowerCase() === term) {
-            exactMatch.push(item); // Если ключ точно совпадает с введённым словом, добавляем элемент в массив exactMatch
+          if (item.label.toLowerCase() === term) {
+            exactMatch.push(item);
           } else {
-            rest.push(item); // Если ни одно из условий не выполняется, добавляем элемент в массив rest
+            rest.push(item);
           }
         });
 
-        // Получение ответа объединением массивов exactMatch, startsWith и rest
-        response(exactMatch.concat(startsWith, rest));
+        // Получение ответа объединением массивов exactMatch и rest
+        response(exactMatch.concat(rest));
       },
       select: function(event, ui) {
         $("#search-tr").val(ui.item.label);
