@@ -1,11 +1,25 @@
 $(document).ready(function() {
   var myArray1;
+  var randomArray;
 
   // Загрузка данных JSON
   $.getJSON('data.json').done(function(data) {
     myArray1 = data;
 
     console.log(myArray1);
+
+    function loadRandomData() {
+      $.getJSON('data.json').done(function(data) {
+        randomArray = data;
+        console.log(randomArray);
+        var rand = Math.floor(Math.random() * randomArray.length);
+        $("#rand").html('<span>' + randomArray[rand].label + '</span>: ' + randomArray[rand].value);
+      }).fail(function() {
+        setTimeout(loadRandomData, 5000);
+      });
+    }
+
+    loadRandomData();
 
     // Инициализация автозаполнения при загрузке страницы
     $("#search-tr").autocomplete({
@@ -81,6 +95,17 @@ $(document).ready(function() {
         $("#search-tr").val(foundItem.label); // Подставляем в поле результат обработки клика по ссылке
       }
     });
+
+    $("#rand").on("click", "a", function(event) {
+      event.preventDefault();
+      var term = $(this).text().trim().toLowerCase();
+      var foundItem = myArray1.find(function(item) {
+        return item.label.toLowerCase() === term;
+      });
+      if (foundItem) {
+        $("#rand").html('<span>' + foundItem.label + '</span>: ' + foundItem.value);
+      }
+    });
   });
   $('.input-char').click(function() {
     var char = $(this).text();
@@ -131,6 +156,7 @@ $(document).ready(function() {
       $(this).toggle($(this).text().toLowerCase().indexOf(s) > -1);
     });
   });
+
   var currentYear = new Date().getFullYear();
   $('#currentYear').html("&copy; " + currentYear + " ");
 
