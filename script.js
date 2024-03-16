@@ -124,12 +124,24 @@ $(document).ready(function() {
 
   //Копирование результата поиска
   $(document).on('click', '#copyButton', function() {
-    var textToCopy = $('#search-res').text();
-    var tempInput = $('<input>');
-    $('body').append(tempInput);
-    tempInput.val(textToCopy).select();
+    var sourceContainer = $('#search-res')[0]; // Получаем элемент #search-res
+    var textToCopy = sourceContainer.innerText.trim(); // Получаем текст из #search-res и убираем пробелы по краям
+    var htmlToCopy = sourceContainer.innerHTML; // Получаем HTML-разметку из #search-res
+    // Создаем временный элемент div, чтобы скопировать текст с переносами строк
+    var tempDiv = $('<div>').html(htmlToCopy).css({
+      position: 'absolute',
+      left: '-1000px',
+      whiteSpace: 'pre-wrap'
+    });
+    $('body').append(tempDiv);
+    var range = document.createRange();
+    range.selectNodeContents(tempDiv[0]);
+    var selection = window.getSelection();
+    selection.removeAllRanges();
+    selection.addRange(range);
     document.execCommand('copy');
-    tempInput.remove();
+    tempDiv.remove(); // Удаляем временный элемент
+    // Выводим сообщение об успешном копировании текста
     var $alert = $('#clipboardAlert');
     $alert.text('Текст скопирован в буфер обмена');
     $alert.fadeIn();
