@@ -13,7 +13,7 @@ $(document).ready(function() {
         randomArray = data;
         console.log(randomArray);
         var rand = Math.floor(Math.random() * randomArray.length);
-        $("#rand").html('<span>' + randomArray[rand].label + '</span>: ' + randomArray[rand].value);
+        $("#rand").html('<span>' + randomArray[rand].label + '</span><span id="copyButton"></span><br>' + randomArray[rand].value);
       }).fail(function() {
         setTimeout(loadRandomData, 5000);
       });
@@ -46,8 +46,8 @@ $(document).ready(function() {
       },
       select: function(event, ui) {
         $("#search-tr").val(ui.item.label);
-        $("#search-res").html('<span>' + ui.item.label + '</span>: ' + ui.item.value);
-        $('#copyButton').css('visibility', 'visible');
+        $("#search-res").html('<span>' + ui.item.label + '</span><span id="copyButton"></span><br>' + ui.item.value);
+        //$('#copyButton').css('visibility', 'visible');
         return false; // отменяем стандартное поведение
       },
       autoFocus: false,
@@ -70,7 +70,6 @@ $(document).ready(function() {
       if ($(this).val() !== '') {
         $("#search-res").html('');
         $('#clearInput').css('opacity', '1');
-        $('#copyButton').css('visibility', 'hidden');
       } else {
         $('#clearInput').css('opacity', '0');
       }
@@ -80,7 +79,6 @@ $(document).ready(function() {
       $('#search-tr').val('');
       $("#search-res").html('');
       $(this).css('opacity', '0');
-      $('#copyButton').css('visibility', 'hidden');
     });
 
     // Обработка клика по ссылке
@@ -91,7 +89,7 @@ $(document).ready(function() {
         return item.label.toLowerCase() === term || item.value.toLowerCase() === term;
       });
       if (foundItem) {
-        $("#search-res").html('<span>' + foundItem.label + '</span>: ' + foundItem.value);
+        $("#search-res").html('<span>' + foundItem.label + '</span><span id="copyButton"></span><br>' + foundItem.value);
         $("#search-tr").val(foundItem.label); // Подставляем в поле результат обработки клика по ссылке
       }
     });
@@ -103,7 +101,7 @@ $(document).ready(function() {
         return item.label.toLowerCase() === term;
       });
       if (foundItem) {
-        $("#rand").html('<span>' + foundItem.label + '</span>: ' + foundItem.value);
+        $("#rand").html('<span>' + foundItem.label + '</span><span id="copyButton"></span><br>' + foundItem.value);
       }
     });
   });
@@ -125,7 +123,7 @@ $(document).ready(function() {
   });
 
   //Копирование результата поиска
-  $('#copyButton').click(function() {
+  $(document).on('click', '#copyButton', function() {
     var textToCopy = $('#search-res').text();
     var tempInput = $('<input>');
     $('body').append(tempInput);
@@ -146,7 +144,6 @@ $(document).ready(function() {
       $('#search-tr').val('');
       $("#search-res").html('');
       $('#clearInput').css('opacity', '0');
-      $('#copyButton').css('visibility', 'hidden');
     }
   });
 

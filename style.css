@@ -5,6 +5,10 @@
   box-sizing: border-box;
 }
 
+input {
+  text-decoration-skip-ink: none;
+}
+
 body {
   font: 16px/1.5 Arial, Helvetica, sans-serif;
   color: #333;
@@ -110,7 +114,8 @@ nav li {
   overflow-x: hidden;
 }
 
-#search-res span, #rand span {
+#search-res span,
+#rand span {
   font-weight: bold;
 }
 
@@ -186,21 +191,14 @@ nav li {
   border-top: 1px solid #ccc;
 }
 
-/* При переносе строки текста иконка svg будет всегда оставаться рядом с ним*/
 #copyButton {
-  position: relative;
-  display: inline-block;
+  background-image: url('images/copy.svg');
+  width: 16px;
+  height: 16px;
   vertical-align: middle;
+  margin-left: 5px;
+  display: inline-block;
   cursor: pointer;
-  visibility: hidden;
-}
-
-#copyButton svg {
-  position: absolute;
-  top: 0;
-  left: 100%;
-  top: 50%;
-  transform: translateY(-50%);
 }
 
 #clipboardAlertContainer {
