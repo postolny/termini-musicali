@@ -191,13 +191,21 @@ nav li {
   border-top: 1px solid #ccc;
 }
 
-#copyButton {
+#copyButton,
+#copyIcon {
   background-image: url('images/copy.svg');
   width: 16px;
   height: 16px;
   vertical-align: middle;
-  margin-left: 5px;
   display: inline-block;
+}
+
+#copyIcon {
+  margin-left: 2px;
+}
+
+#copyButton {
+  margin-left: 5px;
   cursor: pointer;
 }
 
@@ -273,7 +281,8 @@ body .darkmode {
   color: #333;
 }
 
-.dark-mode #copyButton {
+.dark-mode #copyButton,
+.dark-mode #copyIcon {
   filter: invert(100%);
 }
 
