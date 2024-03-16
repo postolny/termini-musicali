@@ -273,6 +273,10 @@ body .darkmode {
   color: #333;
 }
 
+.dark-mode #copyButton {
+  filter: invert(100%);
+}
+
 .dark-mode footer {
   background-color: #333;
 }
