@@ -167,6 +167,14 @@ nav li {
   border-left: 5px solid #03c03c;
 }
 
+kbd {
+  background-color: #f0f0f0;
+  color: #333;
+  padding: 2px 5px;
+  border-radius: 3px;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1), inset 0 2px 0 rgba(0, 0, 0, 0.1);
+}
+
 .footer {
   background-color: #f0f0f0;
   box-shadow: 0 -2px 3px rgba(0, 0, 0, 0.4);
@@ -284,6 +292,12 @@ body .darkmode {
 .dark-mode #copyButton,
 .dark-mode #copyIcon {
   filter: invert(100%);
+}
+
+.dark-mode kbd {
+  background-color: #333;
+  color: #fff;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1), inset 0 2px 0 rgba(255, 255, 255, 0.2);
 }
 
 .dark-mode footer {
