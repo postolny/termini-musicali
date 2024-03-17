@@ -50,7 +50,7 @@ $(document).ready(function() {
         //$('#copyButton').css('visibility', 'visible');
         return false; // отменяем стандартное поведение
       },
-      autoFocus: false,
+      autoFocus: true,
       maxHeight: 200,
       scroll: true,
       focus: function(event, ui) {
