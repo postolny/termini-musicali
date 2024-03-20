@@ -35,7 +35,7 @@ $(document).ready(function() {
           randomArray = data;
           console.log(randomArray);
           var rand = Math.floor(Math.random() * randomArray.length);
-          $("#rand").html('<span>' + randomArray[rand].label + '</span><span id="copyBu;tton"></span><br>' + randomArray[rand].value);
+          $("#rand").html('<span>' + randomArray[rand].label + '</span><span id="copyButton"></span><br>' + randomArray[rand].value);
           addTitle();
         }).fail(function() {
           setTimeout(loadRandomData, 5000);
