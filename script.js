@@ -1,110 +1,135 @@
 $(document).ready(function() {
+
   var myArray1;
   var randomArray;
+  var tooltips = {};
 
   // Загрузка данных JSON
-  $.getJSON('data.json').done(function(data) {
+  $.getJSON('data/data.json').done(function(data) {
     myArray1 = data;
 
     console.log(myArray1);
 
-    function loadRandomData() {
-      $.getJSON('data.json').done(function(data) {
-        randomArray = data;
-        console.log(randomArray);
-        var rand = Math.floor(Math.random() * randomArray.length);
-        $("#rand").html('<span>' + randomArray[rand].label + '</span><span id="copyButton"></span><br>' + randomArray[rand].value);
-      }).fail(function() {
-        setTimeout(loadRandomData, 5000);
+    $.getJSON('data/tooltips.json').done(function(data) {
+      tooltips = data;
+      console.log(tooltips);
+      // Заполняем объект подсказками
+      tooltips.forEach(function(item) {
+        tooltips[item.word] = item.tooltip;
       });
-    }
 
-    loadRandomData();
-
-    // Инициализация автозаполнения при загрузке страницы
-    $("#search-tr").autocomplete({
-      source: function(request, response) {
-        var term = request.term.toLowerCase();
-        var exactMatch = []; // Массив для точных совпадений с введённым словом
-        var rest = []; // Массив для остальных слов
-
-        var filteredData = myArray1.filter(function(item) {
-          return item.label.toLowerCase().indexOf(term) !== -1;
-        });
-
-        // Проходим по каждому элементу в массиве filteredData
-        filteredData.forEach(function(item) {
-          if (item.label.toLowerCase() === term) {
-            exactMatch.push(item);
-          } else {
-            rest.push(item);
+      function addTitle() {
+        // Добавляем атрибут title для слов, обёрнутых в теги <i>
+        $('i').each(function() {
+          var word = $(this).text().trim(); // Получаем слово
+          var tooltip = tooltips[word]; // Получаем подсказку для этого слова
+          if (tooltip) {
+            // Если есть подсказка, добавляем атрибут title
+            $(this).attr('title', tooltip);
           }
         });
-
-        // Получение ответа объединением массивов exactMatch и rest
-        response(exactMatch.concat(rest));
-      },
-      select: function(event, ui) {
-        $("#search-tr").val(ui.item.label);
-        $("#search-res").html('<span>' + ui.item.label + '</span><span id="copyButton"></span><br>' + ui.item.value);
-        //$('#copyButton').css('visibility', 'visible');
-        return false; // отменяем стандартное поведение
-      },
-      autoFocus: true,
-      maxHeight: 200,
-      scroll: true,
-      focus: function(event, ui) {
-        // Предотвращаем автоматическое заполнение поля ввода
-        return false;
       }
-    });
 
-    $('#search-tr').on('keydown', function(event) {
-      if (event.keyCode === $.ui.keyCode.DOWN || event.keyCode === $.ui.keyCode.UP) {
-        event.preventDefault();
+      function loadRandomData() {
+        $.getJSON('data/data.json').done(function(data) {
+          randomArray = data;
+          console.log(randomArray);
+          var rand = Math.floor(Math.random() * randomArray.length);
+          $("#rand").html('<span>' + randomArray[rand].label + '</span><span id="copyBu;tton"></span><br>' + randomArray[rand].value);
+          addTitle();
+        }).fail(function() {
+          setTimeout(loadRandomData, 5000);
+        });
       }
-    });
 
+      loadRandomData();
 
-    $('#search-tr').on('input', function() {
-      if ($(this).val() !== '') {
+      // Инициализация автозаполнения при загрузке страницы
+      $("#search-tr").autocomplete({
+        source: function(request, response) {
+          var term = request.term.toLowerCase();
+          var exactMatch = []; // Массив для точных совпадений с введённым словом
+          var rest = []; // Массив для остальных слов
+
+          var filteredData = myArray1.filter(function(item) {
+            return item.label.toLowerCase().indexOf(term) !== -1;
+          });
+
+          // Проходим по каждому элементу в массиве filteredData
+          filteredData.forEach(function(item) {
+            if (item.label.toLowerCase() === term) {
+              exactMatch.push(item);
+            } else {
+              rest.push(item);
+            }
+          });
+
+          // Получение ответа объединением массивов exactMatch и rest
+          response(exactMatch.concat(rest));
+        },
+        select: function(event, ui) {
+          $("#search-tr").val(ui.item.label);
+          $("#search-res").html('<span>' + ui.item.label + '</span><span id="copyButton"></span><br>' + ui.item.value);
+          addTitle();
+          return false; // отменяем стандартное поведение
+        },
+        autoFocus: true,
+        maxHeight: 200,
+        scroll: true,
+        focus: function(event, ui) {
+          // Предотвращаем автоматическое заполнение поля ввода
+          return false;
+        }
+      });
+
+      $('#search-tr').on('keydown', function(event) {
+        if (event.keyCode === $.ui.keyCode.DOWN || event.keyCode === $.ui.keyCode.UP) {
+          event.preventDefault();
+        }
+      });
+
+      $('#search-tr').on('input', function() {
+        if ($(this).val() !== '') {
+          $("#search-res").html('');
+          $('#clearInput').css('opacity', '1');
+        } else {
+          $('#clearInput').css('opacity', '0');
+        }
+      });
+
+      $('#clearInput').on('click', function() {
+        $('#search-tr').val('');
         $("#search-res").html('');
-        $('#clearInput').css('opacity', '1');
-      } else {
-        $('#clearInput').css('opacity', '0');
-      }
-    });
-
-    $('#clearInput').on('click', function() {
-      $('#search-tr').val('');
-      $("#search-res").html('');
-      $(this).css('opacity', '0');
-    });
-
-    // Обработка клика по ссылке
-    $("#search-res").on("click", "a", function(event) {
-      event.preventDefault();
-      var term = $(this).text().trim().toLowerCase();
-      var foundItem = myArray1.find(function(item) {
-        return item.label.toLowerCase() === term || item.value.toLowerCase() === term;
+        $(this).css('opacity', '0');
       });
-      if (foundItem) {
-        $("#search-res").html('<span>' + foundItem.label + '</span><span id="copyButton"></span><br>' + foundItem.value);
-        $("#search-tr").val(foundItem.label); // Подставляем в поле результат обработки клика по ссылке
-      }
-    });
 
-    $("#rand").on("click", "a", function(event) {
-      event.preventDefault();
-      var term = $(this).text().trim().toLowerCase();
-      var foundItem = myArray1.find(function(item) {
-        return item.label.toLowerCase() === term;
+      // Обработка клика по ссылке
+      $("#search-res").on("click", "a", function(event) {
+        event.preventDefault();
+        var term = $(this).text().trim().toLowerCase();
+        var foundItem = myArray1.find(function(item) {
+          return item.label.toLowerCase() === term || item.value.toLowerCase() === term;
+        });
+        if (foundItem) {
+          $("#search-res").html('<span>' + foundItem.label + '</span><span id="copyButton"></span><br>' + foundItem.value);
+          $("#search-tr").val(foundItem.label); // Подставляем в поле результат обработки клика по ссылке
+        }
       });
-      if (foundItem) {
-        $("#rand").html('<span>' + foundItem.label + '</span><span id="copyButton"></span><br>' + foundItem.value);
-      }
+
+      $("#rand").on("click", "a", function(event) {
+        event.preventDefault();
+        var term = $(this).text().trim().toLowerCase();
+        var foundItem = myArray1.find(function(item) {
+          return item.label.toLowerCase() === term;
+        });
+        if (foundItem) {
+          $("#rand").html('<span>' + foundItem.label + '</span><span id="copyButton"></span><br>' + foundItem.value);
+        }
+      });
     });
   });
+
+  $(document).tooltip();
   $('.input-char').click(function() {
     var char = $(this).text();
     var input = $('#search-tr');
@@ -231,4 +256,5 @@ $(document).ready(function() {
   function setLocalStorage(key, value) {
     localStorage.setItem(key, value);
   }
+
 });
