@@ -114,6 +114,7 @@ $(document).ready(function() {
           $("#search-res").html('<span>' + foundItem.label + '</span><span id="copyButton"></span><br>' + foundItem.value);
           $("#search-tr").val(foundItem.label); // Подставляем в поле результат обработки клика по ссылке
         }
+        addTitle();
       });
 
       $("#rand").on("click", "a", function(event) {
@@ -125,6 +126,7 @@ $(document).ready(function() {
         if (foundItem) {
           $("#rand").html('<span>' + foundItem.label + '</span><span id="copyButton"></span><br>' + foundItem.value);
         }
+        addTitle();
       });
     });
   });
