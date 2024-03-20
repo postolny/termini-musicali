@@ -5,10 +5,6 @@
   box-sizing: border-box;
 }
 
-input {
-  text-decoration-skip-ink: none;
-}
-
 body {
   font: 16px/1.5 Arial, Helvetica, sans-serif;
   color: #333;
