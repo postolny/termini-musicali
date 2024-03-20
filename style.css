@@ -158,6 +158,12 @@ nav li {
   opacity: 1;
 }
 
+#search-res i,
+#rand i {
+  color: #03c03c;
+  cursor: help;
+}
+
 .content:last-child {
   padding: 0 0 20px 0;
 }
