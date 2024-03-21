@@ -6,6 +6,8 @@
     {"word": "m", "tooltip": "(sostantivo) maschile - существительное мужского рода"},
     {"word": "p.pass.", "tooltip": "participio passato - причастие прошедшего времени"},
     {"word": "p.pres.", "tooltip": "participio presente - причастие настоящего времени"},
+    {"word": "(pl -i)", "tooltip": "plurale - множественное число"},
+    {"word": "prov", "tooltip": "proverbio - пословица, поговорка"},
     {"word": "vi", "tooltip": "verbo intransitivo - непереходный глагол"},
     {"word": "vt", "tooltip": "verbo transitivo - переходный глагол"}
 ]
