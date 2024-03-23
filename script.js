@@ -44,6 +44,10 @@ $(document).ready(function() {
 
       loadRandomData();
 
+      $('.random-icon').click(function() {
+        loadRandomData(); // Вызываем функцию при нажатии на иконку
+      });
+
       // Инициализация автозаполнения при загрузке страницы
       $("#search-tr").autocomplete({
         source: function(request, response) {

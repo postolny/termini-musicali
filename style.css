@@ -177,6 +177,28 @@ nav li {
   border-left: 5px solid #03c03c;
 }
 
+.random-icon {
+  cursor: pointer;
+  vertical-align: middle;
+  margin-left: 3px;
+  transition: transform 0.3s ease;
+}
+
+.random-icon:hover {
+  animation: rotateOnce 1s forwards;
+  /* Поворачиваем один раз */
+}
+
+@keyframes rotateOnce {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 kbd {
   background-color: #f0f0f0;
   color: #333;
