@@ -182,11 +182,18 @@ nav li {
   vertical-align: middle;
   margin-left: 3px;
   transition: transform 0.3s ease;
+  animation: none;
 }
 
 .random-icon:hover {
   animation: rotateOnce 1s forwards;
   /* Поворачиваем один раз */
+}
+
+@media only screen and (max-width: 768px) {
+  .random-icon {
+    animation: none !important;
+  }
 }
 
 @keyframes rotateOnce {
