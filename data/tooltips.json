@@ -1,6 +1,8 @@
 [
+    {"word": "acc.", "tooltip": "accusativo, винительный (падеж)"},
     {"word": "agg", "tooltip": "aggettivo - прилагательное"},
     {"word": "avv", "tooltip": "avverbio - наречие"},
+    {"word": "(e)", "tooltip": "вспомогательный глагол essere"},
     {"word": "f", "tooltip": "(sostantivo) femminile - существительное женского рода"},
     {"word": "ger", "tooltip": "gerundio - герундий"},
     {"word": "m", "tooltip": "(sostantivo) maschile - существительное мужского рода"},
@@ -11,5 +13,6 @@
     {"word": "vi", "tooltip": "verbo intransitivo - непереходный глагол"},
     {"word": "vt", "tooltip": "verbo transitivo - переходный глагол"},
     {"word": "ирон.", "tooltip": "употребляется иронически, в ироническом смысле"},
-    {"word": "муз.", "tooltip": "музыкальный термин"}
+    {"word": "муз.", "tooltip": "музыкальный термин"},
+    {"word": "непр.", "tooltip": "неправильный глагол"}
 ]
