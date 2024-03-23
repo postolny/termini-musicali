@@ -234,8 +234,7 @@ kbd {
   border-top: 1px solid #ccc;
 }
 
-#copyButton,
-#copyIcon {
+#copyButton {
   background-image: url('images/copy.svg');
   width: 16px;
   height: 16px;
@@ -243,8 +242,9 @@ kbd {
   display: inline-block;
 }
 
-#copyIcon {
-  margin-left: 2px;
+#copyIcon,
+#randomIcon {
+  vertical-align: middle;
 }
 
 #copyButton {
@@ -325,7 +325,8 @@ body .darkmode {
 }
 
 .dark-mode #copyButton,
-.dark-mode #copyIcon {
+.dark-mode #copyIcon,
+.dark-mode #randomIcon {
   filter: invert(100%);
 }
 
