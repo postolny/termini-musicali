@@ -181,19 +181,15 @@ nav li {
   cursor: pointer;
   vertical-align: middle;
   margin-left: 3px;
-  transition: transform 0.3s ease;
-  animation: none;
+  animation: rotateOnce 1s linear;
 }
 
-.random-icon:hover {
-  animation: rotateOnce 1s forwards;
-  /* Поворачиваем один раз */
+.running {
+  animation-play-state: running !important;
 }
 
-@media only screen and (max-width: 768px) {
-  .random-icon {
-    animation: none !important;
-  }
+.paused {
+  animation-play-state: paused !important;
 }
 
 @keyframes rotateOnce {

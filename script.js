@@ -44,8 +44,23 @@ $(document).ready(function() {
 
       loadRandomData();
 
+      var timeout;
+
       $('.random-icon').click(function() {
+
         loadRandomData(); // Вызываем функцию при нажатии на иконку
+
+        var icon = $(this);
+
+        // Проверяем, есть ли уже класс running
+        if (!icon.hasClass('running')) {
+          icon.removeClass('running paused').hide(0).show(0).addClass('running');
+
+          clearTimeout(timeout);
+          timeout = setTimeout(function() {
+            icon.addClass('paused').removeClass('running');
+          }, 1000);
+        }
       });
 
       // Инициализация автозаполнения при загрузке страницы
