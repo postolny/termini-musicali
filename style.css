@@ -333,6 +333,11 @@ body .darkmode {
   filter: invert(100%);
 }
 
+.dark-mode #clipboardAlert {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
 .dark-mode kbd {
   background-color: #333;
   color: #fff;
