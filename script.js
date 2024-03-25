@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2024 Postolny I. A.
- * (https://postolny.github.io/ |terminimusicali@gmail.com)
+ * (https://postolny.github.io/ | terminimusicali@gmail.com)
  * Данный скрипт написан с той лишь целью,
  * чтобы предоставить людям возможность бесплатно
  * воспользоваться словарём. Однако это не предполагает,
@@ -16,6 +16,7 @@ $(document).ready(function() {
   var tooltips = {};
 
   // Загрузка данных JSON
+
   $.getJSON('data/data.json').done(function(data) {
     myArray1 = data;
 
@@ -158,7 +159,11 @@ $(document).ready(function() {
         }
         addTitle();
       });
+    }).fail(function() {
+      console.log("Не удалось загрузить данные.");
     });
+  }).fail(function() {
+    console.log("Не удалось загрузить данные.");
   });
 
   $(document).tooltip();
@@ -240,53 +245,27 @@ $(document).ready(function() {
   $('#indirizzoSegreto span').html('<a href="mailto:' + email + '">' + obfuscatedEmail + '</a>');
 
   // Dark mode
-  // Проверяем, есть ли значение в localStorage для тёмного режима
-  var darkMode = getLocalStorage('darkMode');
-  // Если значение в куки указывает на тёмный режим, применяем его
-  if (darkMode === 'true') {
-    // Включаем темный режим
-    enableDarkMode();
+
+  // Функция для переключения темы
+  function toggleDarkMode() {
+    $('body').toggleClass('dark-mode');
+    $('.light-mode-icon').toggle();
+    $('.dark-mode-icon').toggle();
+    // Сохраняем выбор пользователя
+    const isDarkMode = $('body').hasClass('dark-mode');
+    localStorage.setItem('dark-mode', isDarkMode);
   }
-  // Обработчик события для переключения тёмного режима
-  $('.darkmode').on('click', function() {
-    if (darkMode === 'true') {
-      darkMode = 'false';
-      disableDarkMode();
-    } else {
-      darkMode = 'true';
-      enableDarkMode();
-    }
-    // Устанавливаем значение в localStorage
-    setLocalStorage('darkMode', darkMode);
+
+  $('.icon').click(function() {
+    toggleDarkMode();
   });
 
-  function enableDarkMode() {
-    // Применяем стили для тёмного режима
+  // Проверяем, была ли выбрана темная тема при предыдущем посещении сайта
+  const isDarkMode = localStorage.getItem('dark-mode') === 'true';
+  if (isDarkMode) {
     $('body').addClass('dark-mode');
-    // Меняем иконку
-    $('.light').hide();
-    $('.dark').show();
-  }
-
-  function disableDarkMode() {
-    // Проверяем, есть ли класс dark-mode
-    if ($('body').hasClass('dark-mode')) {
-      // Удаляем стили для тёмного режима
-      $('body').removeClass('dark-mode');
-    }
-    // Меняем иконку
-    $('.dark').hide();
-    $('.light').show();
-  }
-
-  // Функция для получения значения из localStorage
-  function getLocalStorage(key) {
-    return localStorage.getItem(key);
-  }
-
-  // Функция для установки значения в localStorage
-  function setLocalStorage(key, value) {
-    localStorage.setItem(key, value);
+    $('.light-mode-icon').hide();
+    $('.dark-mode-icon').show();
   }
 
 });

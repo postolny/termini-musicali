@@ -1,15 +1,57 @@
-/* Сброс стилей */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+:root {
+  --bg-color: Snow;
+  --text-color: #333;
+
+  --clipboardAlert-color: #fff;
+  --clipboardAlert-bg-color: #333;
+
+  --diagonal-header-bg-color: linear-gradient(45deg, #333 50%, #f0f0f0 50%);
+  --diagonal-header-h1-bg-color: linear-gradient(45deg, #f0f0f0 50%, #333 50%);
+
+  --link-color: black;
+  --link-bg-color: linear-gradient(rgb(255, 172, 51), rgb(255, 172, 51));
+  --link-hover-bg-color: rgba(0, 0, 0, 0);
+
+  --footer-bg-color: #f0f0f0;
+
+  --kbd-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1), inset 0 2px 0 rgba(0, 0, 0, 0.1);
+
+  --th-bg-color: #c9e3fe;
+}
+
+body.dark-mode {
+  --bg-color: #202225;
+  --text-color: #f9f9f9;
+
+  --clipboardAlert-color: #333;
+  --clipboardAlert-bg-color: #f0f0f0;
+
+  --diagonal-header-bg-color: linear-gradient(-45deg, #333 50%, #f0f0f0 50%);
+  --diagonal-header-h1-bg-color: linear-gradient(-45deg, #f0f0f0 50%, #333 50%);
+
+  --filter: invert(100%);
+
+  --link-color: #ddd;
+  --link-bg-color: linear-gradient(rgb(0, 123, 255), rgb(0, 123, 255));
+  --link-hover-bg-color: background: rgba(0, 0, 0, 0);
+
+  --footer-bg-color: #333;
+
+  --kbd-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1), inset 0 2px 0 rgba(255, 255, 255, 0.2);
+
+  --th-bg-color: #03c03c;
+}
+
 body {
   font: 16px/1.5 Arial, Helvetica, sans-serif;
-  color: #333;
-  background-color: Snow;
-  transition: color 0.5s ease, background-color 0.5s ease;
+  color: var(--text-color);
+  background-color: var(--bg-color);
 }
 
 header {
@@ -20,21 +62,17 @@ header {
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.4);
 }
 
-header h1 {
-  margin: 0;
-}
-
 .diagonal-header {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(45deg, #333 50%, #f0f0f0 50%);
+  background: var(--diagonal-header-bg-color);
 }
 
 .diagonal-header h1 {
   margin: 0;
   padding: 20px;
   color: transparent;
-  background: linear-gradient(45deg, #f0f0f0 50%, #333 50%);
+  background: var(--diagonal-header-h1-bg-color);
   -webkit-background-clip: text;
   background-clip: text;
 }
@@ -43,14 +81,33 @@ h2 {
   margin: 20px 0;
 }
 
+.darkmodeIcon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.icon {
+  display: none;
+  cursor: pointer;
+}
+
+.light-mode-icon {
+  display: block;
+}
+
+.dark-mode-icon {
+  display: none;
+}
+
 a {
-  background-position: 50% 100%;
+  background: rgba(0, 0, 0, 0) var(--link-bg-color) no-repeat scroll 50% 100% / 100% 2px padding-box border-box;
   text-decoration: none;
-  color: black;
+  color: var(--link-color);
   text-size-adjust: 100%;
-  background: rgba(0, 0, 0, 0) linear-gradient(rgb(255, 172, 51), rgb(255, 172, 51)) no-repeat scroll 50% 100% / 100% 2px padding-box border-box;
   padding: 4px 2px;
-  transition: background-size 0.1s ease 0s;
+  transition: background-size 0.1s ease;
 }
 
 a:hover {
@@ -65,6 +122,14 @@ main {
   width: 100%;
   padding: 0 20px;
   margin: auto;
+}
+
+.content:last-child {
+  padding: 0 0 20px 0;
+}
+
+.content h2 {
+  text-align: center;
 }
 
 nav {
@@ -88,6 +153,13 @@ nav li {
   /* Отступы между пунктами меню */
 }
 
+#search {
+  display: flex;
+  justify-content: center;
+  /* Выравнивание элементов по центру */
+  margin: 0 20px 20px;
+}
+
 #buttonWrap {
   text-align: center;
   margin: 14px 7px 7px;
@@ -100,23 +172,9 @@ nav li {
   cursor: pointer;
 }
 
-#search {
-  display: flex;
-  justify-content: center;
-  /* Выравнивание элементов по центру */
-  margin: 0 20px 20px;
-}
-
-/* Максимальная высота выпадающего списка ui-autocomplete */
-.ui-autocomplete {
-  max-height: 200px;
-  overflow-y: scroll;
-  overflow-x: hidden;
-}
-
-#search-res span,
-#rand span {
-  font-weight: bold;
+#inputWrap {
+  position: relative;
+  display: inline-block;
 }
 
 .input {
@@ -135,9 +193,11 @@ nav li {
   border-color: #007bff;
 }
 
-#inputWrap {
-  position: relative;
-  display: inline-block;
+/* Максимальная высота выпадающего списка ui-autocomplete */
+.ui-autocomplete {
+  max-height: 200px;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .clear-input {
@@ -145,13 +205,19 @@ nav li {
   right: 10px;
   top: 50%;
   transform: translateY(-50%);
-  cursor: pointer;
+  color: #333;
   opacity: 0;
+  cursor: pointer;
   transition: opacity 0.3s ease;
 }
 
 .clear-input:hover {
   opacity: 1;
+}
+
+#search-res span,
+#rand span {
+  font-weight: bold;
 }
 
 #search-res i,
@@ -160,86 +226,20 @@ nav li {
   cursor: help;
 }
 
-.content:last-child {
-  padding: 0 0 20px 0;
-}
-
-.content h2 {
-  text-align: center;
-}
-
-.searchWrap {
-  padding: 20px 0;
-}
-
-.blockquote {
-  padding-left: 10px;
-  border-left: 5px solid #03c03c;
-}
-
-.random-icon {
-  cursor: pointer;
-  vertical-align: middle;
-  margin-left: 3px;
-  animation: rotateOnce 1s linear;
-}
-
-.running {
-  animation-play-state: running !important;
-}
-
-.paused {
-  animation-play-state: paused !important;
-}
-
-@keyframes rotateOnce {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-kbd {
-  background-color: #f0f0f0;
-  color: #333;
-  padding: 2px 5px;
-  border-radius: 3px;
-  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1), inset 0 2px 0 rgba(0, 0, 0, 0.1);
-}
-
-.footer {
-  background-color: #f0f0f0;
-  box-shadow: 0 -2px 3px rgba(0, 0, 0, 0.4);
-}
-
-.footer-inner {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  padding: 10px 20px;
-}
-
-.footer-column {
-  flex: 1;
-  margin-right: 20px;
-}
-
-.footer-copyright {
-  text-align: center;
-  padding: 20px;
-  border-top: 1px solid #ccc;
+#copyButton,
+#copyIcon,
+#randomIcon {
+  filter: var(--filter);
 }
 
 #copyButton {
   background-image: url('images/copy.svg');
   width: 16px;
   height: 16px;
-  vertical-align: middle;
   display: inline-block;
+  margin-left: 5px;
+  vertical-align: middle;
+  cursor: pointer;
 }
 
 #copyIcon,
@@ -247,9 +247,16 @@ kbd {
   vertical-align: middle;
 }
 
-#copyButton {
-  margin-left: 5px;
-  cursor: pointer;
+#clipboardAlert {
+  max-width: 300px;
+  padding: 10px 20px;
+  text-align: center;
+  background-color: var(--clipboardAlert-bg-color);
+  color: var(--clipboardAlert-color);
+  border-radius: 5px;
+  display: none;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 #clipboardAlertContainer {
@@ -263,111 +270,9 @@ kbd {
   z-index: 2;
 }
 
-#clipboardAlert {
-  max-width: 300px;
-  padding: 10px 20px;
-  text-align: center;
-  background-color: #333;
-  color: #fff;
-  border-radius: 5px;
-  display: none;
-  margin-left: 10px;
-  margin-right: 10px;
-}
-
-/* Dark mode */
-body .darkmode {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  cursor: pointer;
-}
-
-.dark-mode .diagonal-header {
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(-45deg, #333 50%, #f0f0f0 50%);
-}
-
-.dark-mode .diagonal-header h1 {
-  margin: 0;
-  padding: 20px;
-  color: transparent;
-  background: linear-gradient(-45deg, #f0f0f0 50%, #333 50%);
-  -webkit-background-clip: text;
-  background-clip: text;
-}
-
-.dark {
-  display: none;
-}
-
-.dark-mode {
-  background-color: #202225;
-  color: #f9f9f9;
-}
-
-.dark-mode a {
-  color: #ddd;
-  background: rgba(0, 0, 0, 0) linear-gradient(rgb(0, 123, 255), rgb(0, 123, 255)) no-repeat scroll 50% 100% / 100% 2px padding-box border-box;
-}
-
-.dark-mode a:hover {
-  background-size: 100% 30%;
-}
-
-.dark-mode .box_title h1::after {
-  background-color: #03c03c;
-}
-
-.dark-mode .clear-input {
-  color: #333;
-}
-
-.dark-mode #copyButton,
-.dark-mode #copyIcon,
-.dark-mode #randomIcon {
-  filter: invert(100%);
-}
-
-.dark-mode #clipboardAlert {
-  background-color: #f0f0f0;
-  color: #333;
-}
-
-.dark-mode kbd {
-  background-color: #333;
-  color: #fff;
-  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1), inset 0 2px 0 rgba(255, 255, 255, 0.2);
-}
-
-.dark-mode footer {
-  background-color: #333;
-}
-
-.dark-mode table th {
-  background-color: #03c03c;
-}
-
-table {
-  border-collapse: collapse;
-  width: 100%;
-  table-layout: fixed;
-  margin: 0 0 1rem;
-}
-
-table td {
-  padding: 10px;
-  border: 1px solid #ccc;
-  vertical-align: top;
-  width: 100%;
-}
-
-table th {
-  padding: 10px;
-  border: 1px solid #ccc;
-  background-color: #c9e3fe;
-  text-align: left;
+/* на странице Условные сокращения */
+.searchWrap {
+  padding: 20px 0;
 }
 
 .input-search {
@@ -389,6 +294,91 @@ table th {
 .input-search:focus {
   outline: none;
   border-color: #aaa;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed;
+  margin: 0 0 1rem;
+}
+
+table td {
+  padding: 10px;
+  border: 1px solid #ccc;
+  vertical-align: top;
+  width: 100%;
+}
+
+table th {
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: var(--th-bg-color);
+  text-align: left;
+}
+
+/* На странице Как пользоваться словарём */
+kbd {
+  background-color: var(--footer-bg-color);
+  color: var(--text-color);
+  padding: 2px 5px;
+  border-radius: 3px;
+  box-shadow: var(--kbd-box-shadow);
+}
+
+/* Случайный термин */
+.blockquote {
+  padding-left: 10px;
+  border-left: 5px solid #03c03c;
+}
+
+.random-icon {
+  cursor: pointer;
+  vertical-align: middle;
+  margin-left: 3px;
+  animation: rotateOnce 1s linear;
+}
+
+@keyframes rotateOnce {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.running {
+  animation-play-state: running !important;
+}
+
+.paused {
+  animation-play-state: paused !important;
+}
+
+.footer {
+  background-color: var(--footer-bg-color);
+  box-shadow: 0 -2px 3px rgba(0, 0, 0, 0.4);
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  padding: 10px 20px;
+}
+
+.footer-column {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.footer-copyright {
+  text-align: center;
+  padding: 20px;
+  border-top: 1px solid #ccc;
 }
 
 footer ul {
@@ -416,8 +406,8 @@ footer ul li {
     /* Перенос текста на новую строку */
   }
 
-  .light svg,
-  .dark svg {
+  svg.icon,
+  svg.icon {
     width: 26px;
     height: 26px;
   }
@@ -426,7 +416,6 @@ footer ul li {
     margin: 2px 2px;
     padding: 3px 6px;
     font-size: 14px;
-    cursor: pointer;
   }
 
   table thead {
@@ -446,7 +435,7 @@ footer ul li {
     border: 1px solid #ccc;
   }
 
-  table td:before {
+  table td::before {
     content: attr(aria-label);
     float: left;
     font-weight: bold;
