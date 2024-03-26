@@ -14,6 +14,7 @@ $(document).ready(function() {
   var myArray1;
   var randomArray;
   var tooltips = {};
+  var history = [];
 
   // Загрузка данных JSON
 
@@ -99,6 +100,16 @@ $(document).ready(function() {
           response(exactMatch.concat(rest));
         },
         select: function(event, ui) {
+          var term = ui.item.label.toLowerCase();
+          var foundItem = myArray1.find(function(item) {
+            return item.label.toLowerCase() === term || item.value.toLowerCase() === term;
+          });
+          if (term !== "") {
+            if (foundItem && history.indexOf(foundItem.label) === -1) {
+              history.push(term); // Добавляем запрос в историю
+              updateHistory(); // Обновляем отображение истории
+            }
+          }
           $("#search-tr").val(ui.item.label);
           $("#search-res").html('<span>' + ui.item.label + '</span><span id="copyButton"></span><br>' + ui.item.value);
           addTitle();
@@ -133,7 +144,6 @@ $(document).ready(function() {
         $("#search-res").html('');
         $(this).css('opacity', '0');
       });
-
       // Обработка клика по ссылке
       $("#search-res").on("click", "a", function(event) {
         event.preventDefault();
@@ -141,9 +151,46 @@ $(document).ready(function() {
         var foundItem = myArray1.find(function(item) {
           return item.label.toLowerCase() === term || item.value.toLowerCase() === term;
         });
-        if (foundItem) {
+        // Если найденный элемент не добавлен в историю, то он добавляется, а история обновляется
+        if (foundItem && history.indexOf(foundItem.label) === -1) {
           $("#search-res").html('<span>' + foundItem.label + '</span><span id="copyButton"></span><br>' + foundItem.value);
           $("#search-tr").val(foundItem.label); // Подставляем в поле результат обработки клика по ссылке
+          history.push(foundItem.label); // Добавляем переход в историю
+          updateHistory(); // Обновляем отображение истории
+          // А иначе, если элемент уже есть в истории, он просто отображается без изменений
+        } else if (foundItem) {
+          $("#search-res").html('<span>' + foundItem.label + '</span><span id="copyButton"></span><br>' + foundItem.value);
+          $("#search-tr").val(foundItem.label); // Подставляем в поле результат обработки клика по ссылке
+        }
+        addTitle();
+      });
+
+      // Функция для обновления отображения истории
+      function updateHistory() {
+        var historyHtml = "";
+        for (var i = 0; i < history.length; i++) {
+          historyHtml += "<li><a href='#'>" + history[i] + "</a></li>";
+        }
+        var historyList = "<ul>" + historyHtml + "</ul>";
+
+        if (history.length > 0) {
+          var historyWithHeader = "<h4>История</h4>" + historyList;
+          $("#history").html(historyWithHeader);
+        } else {
+          $("#history").empty(); // Очищаем содержимое, если история пуста
+        }
+      }
+
+      // Обработчик клика по ссылке в блоке #history
+      $("#history").on("click", "a", function(event) {
+        event.preventDefault();
+        var term = $(this).text().trim().toLowerCase();
+        var foundItem = myArray1.find(function(item) {
+          return item.label.toLowerCase() === term || item.value.toLowerCase() === term;
+        });
+        if (foundItem) {
+          $("#search-res").html('<span>' + foundItem.label + '</span><span id="copyButton"></span><br>' + foundItem.value);
+          $("#search-tr").val(foundItem.label);
         }
         addTitle();
       });
@@ -225,6 +272,14 @@ $(document).ready(function() {
       $("#search-res").html('');
       $('#clearInput').css('opacity', '0');
     }
+  });
+
+  $(".openModal").click(function() {
+    $("#historyModal").fadeIn();
+  });
+
+  $(".close").click(function() {
+    $("#historyModal").fadeOut();
   });
 
   $("#search-all").on("keyup", function() {

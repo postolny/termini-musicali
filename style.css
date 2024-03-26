@@ -177,6 +177,64 @@ nav li {
   display: inline-block;
 }
 
+.openModal {
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.modal {
+  color: #333;
+  display: none;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  width: 100%;
+  max-width: 200px;
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 10px 25px 10px 10px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+}
+
+.modal h4 {
+  font-size: 1.1em;
+}
+
+.modal,
+.modal ul li a {
+  color: #333;
+}
+
+.modal ul {
+  padding-left: 5px;
+  list-style-type: none;
+}
+
+.modal ul li {
+  position: relative;
+  padding-left: 10px;
+  margin-left: 0;
+}
+
+.modal ul li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+}
+
+.close {
+  position: absolute;
+  top: 0;
+  right: 5px;
+  cursor: pointer;
+}
+
 .input {
   padding: 10px;
   border: 1px solid #ccc;
@@ -228,7 +286,8 @@ nav li {
 
 #copyButton,
 #copyIcon,
-#randomIcon {
+#randomIcon,
+#historyIcon {
   filter: var(--filter);
 }
 
@@ -243,7 +302,8 @@ nav li {
 }
 
 #copyIcon,
-#randomIcon {
+#randomIcon,
+#historyIcon {
   vertical-align: middle;
 }
 
@@ -399,6 +459,7 @@ footer ul li {
 }
 
 @media (max-width:768px) {
+
   header h1 {
     font-size: 0.8em;
     /* Уменьшение размера шрифта для мобильных устройств */
@@ -406,7 +467,6 @@ footer ul li {
     /* Перенос текста на новую строку */
   }
 
-  svg.icon,
   svg.icon {
     width: 26px;
     height: 26px;
