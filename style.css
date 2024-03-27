@@ -160,9 +160,16 @@ nav li {
   margin: 0 20px 20px;
 }
 
+/* Вместо text-align: center; для выравнивания с удалением лишних отступов у inline-элементов, создаваемых браузером */
 #buttonWrap {
-  text-align: center;
+  display: flex;
+  justify-content: center;
   margin: 14px 7px 7px;
+}
+
+#openModal {
+  display: flex;
+  align-items: center;
 }
 
 #buttonWrap button {
