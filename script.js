@@ -8,6 +8,7 @@
  * в том или ином виде или распространять его,
  * нарушая тем самым авторские права.
  */
+
 $(document).ready(function() {
 
   var myArray1;
@@ -148,6 +149,18 @@ $(document).ready(function() {
         }
       });
 
+      // Обработчик события отпускания клавиши
+      $('#search-tr').on('keyup', function(event) {
+        if (event.which === 8) { // Проверяем нажатие клавиши Backspace
+          var currentValue = $(this).val();
+
+          // Проверяем, был ли текст удален
+          if (currentValue === '') {
+            $("#search-res").html('');
+          }
+        }
+      });
+
       $('#clearInput').on('click', function() {
         $('#search-tr').val('');
         $("#search-res").html('');
@@ -200,6 +213,13 @@ $(document).ready(function() {
         if (foundItem) {
           $("#search-res").html('<span>' + foundItem.label + '</span><span id="copyButton"></span><br>' + foundItem.value);
           $("#search-tr").val(foundItem.label);
+        }
+
+        // Проверяем, нужно ли показывать крестик
+        if (foundItem.label !== '') {
+          $('#clearInput').css('opacity', '1');
+        } else {
+          $('#clearInput').css('opacity', '0');
         }
         addTitle();
       });
