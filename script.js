@@ -74,7 +74,7 @@ $(document).ready(function() {
             icon.addClass('paused').removeClass('running');
           }, 1000);
         }
-        scrollIfNeeded();
+        scrollToElement('#rand', '#termineCasuale');
       });
 
       // Инициализация автозаполнения при загрузке страницы
@@ -185,6 +185,7 @@ $(document).ready(function() {
           $("#search-tr").val(foundItem.label); // Подставляем в поле результат обработки клика по ссылке
         }
         addTitle();
+        scrollToElement('#search-res', '#buttonWrap');
       });
 
       // Функция для обновления отображения истории
@@ -222,6 +223,7 @@ $(document).ready(function() {
           $('#clearInput').css('opacity', '0');
         }
         addTitle();
+        scrollToElement('#search-res', '#buttonWrap');
       });
 
       $("#rand").on("click", "a", function(event) {
@@ -234,7 +236,7 @@ $(document).ready(function() {
           $("#rand").html('<span>' + foundItem.label + '</span><span id="copyButton"></span><br>' + foundItem.value);
         }
         addTitle();
-        scrollIfNeeded();
+        scrollToElement('#rand', '#termineCasuale');
       });
     }).fail(function() {
       console.log("Не удалось загрузить данные.");
@@ -245,15 +247,14 @@ $(document).ready(function() {
 
   $(document).tooltip();
 
-  // Функция для проверки и прокрутки страницы к заголовку #termineCasuale
-  function scrollIfNeeded() {
-    var $block = $('#rand');
-    var $header = $('#termineCasuale');
-    var headerOffset = $header.offset().top;
+  function scrollToElement(sourceSelector, targetSelector) {
+    var $source = $(sourceSelector);
+    var $target = $(targetSelector);
+    var targetOffset = $target.offset().top;
 
-    // Прокручиваем страницу к верху заголовка
+    // Прокручиваем страницу так, чтобы верх source элемента была выровнена с верхом target элемента
     $('html, body').animate({
-      scrollTop: headerOffset
+      scrollTop: targetOffset
     }, 500);
   }
 
