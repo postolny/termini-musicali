@@ -114,6 +114,7 @@ $(document).ready(function() {
           $("#search-tr").val(ui.item.label);
           $("#search-res").html('<span>' + ui.item.label + '</span><span id="copyButton"></span><br>' + ui.item.value);
           addTitle();
+          scrollToElement('#search-res', '#buttonWrap');
           return false; // отменяем стандартное поведение
         },
         autoFocus: true,
