@@ -8,7 +8,6 @@
  * в том или ином виде или распространять его,
  * нарушая тем самым авторские права.
  */
-
 $(document).ready(function() {
 
   var myArray1;
@@ -131,9 +130,18 @@ $(document).ready(function() {
         }
       });
 
-      $('#search-tr').on('input', function() {
-        if ($(this).val() !== '') {
+      var previousValue = $('#search-tr').val();
+
+      $('#search-tr').on('input', function(event) {
+        var currentValue = $(this).val();
+
+        if (currentValue === '' && previousValue !== '') {
           $("#search-res").html('');
+        }
+
+        previousValue = currentValue;
+
+        if (currentValue !== '') {
           $('#clearInput').css('opacity', '1');
         } else {
           $('#clearInput').css('opacity', '0');
