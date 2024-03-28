@@ -74,6 +74,7 @@ $(document).ready(function() {
             icon.addClass('paused').removeClass('running');
           }, 1000);
         }
+        scrollIfNeeded();
       });
 
       // Инициализация автозаполнения при загрузке страницы
@@ -214,6 +215,19 @@ $(document).ready(function() {
   });
 
   $(document).tooltip();
+
+  // Функция для проверки и прокрутки страницы к заголовку #termineCasuale
+  function scrollIfNeeded() {
+    var $block = $('#rand');
+    var $header = $('#termineCasuale');
+    var headerOffset = $header.offset().top;
+
+    // Прокручиваем страницу к верху заголовка
+    $('html, body').animate({
+      scrollTop: headerOffset
+    }, 500);
+  }
+
   $('.input-char').click(function() {
     var char = $(this).text();
     var input = $('#search-tr');
