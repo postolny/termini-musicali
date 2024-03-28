@@ -9,10 +9,13 @@
     {"word": "p.pass.", "tooltip": "participio passato - причастие прошедшего времени"},
     {"word": "p.pres.", "tooltip": "participio presente - причастие настоящего времени"},
     {"word": "(pl -i)", "tooltip": "plurale - множественное число"},
+    {"word": "prep", "tooltip": "preposizione - предлог"},
     {"word": "prov", "tooltip": "proverbio - пословица, поговорка"},
     {"word": "vi", "tooltip": "verbo intransitivo - непереходный глагол"},
     {"word": "vt", "tooltip": "verbo transitivo - переходный глагол"},
     {"word": "ирон.", "tooltip": "употребляется иронически, в ироническом смысле"},
     {"word": "муз.", "tooltip": "музыкальный термин"},
-    {"word": "непр.", "tooltip": "неправильный глагол"}
+    {"word": "непр.", "tooltip": "неправильный глагол"},
+    {"word": "перен.", "tooltip": "в переносном значении"},
+    {"word": "рел.", "tooltip": "религия"}
 ]
