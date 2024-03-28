@@ -206,6 +206,7 @@ $(document).ready(function() {
           $("#rand").html('<span>' + foundItem.label + '</span><span id="copyButton"></span><br>' + foundItem.value);
         }
         addTitle();
+        scrollIfNeeded();
       });
     }).fail(function() {
       console.log("Не удалось загрузить данные.");
