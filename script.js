@@ -240,7 +240,7 @@ $(document).ready(function() {
                 // Создаем ссылку, вставляя слова внутри тега <a>, сохраняя апостроф
                 return "<a href='#'>" + cleanedWords.replace(/'/g, '&#39;') + "</a>";
               })
-              .replace(/\&/g, '<br>&nbsp;•');
+              .replace(/\*/g, '<br>&nbsp;•');
 
             $(this).replaceWith(replacedText);
           }
