@@ -8,7 +8,6 @@
  * в том или ином виде или распространять его,
  * нарушая тем самым авторские права.
  */
-
 $(document).ready(function() {
 
   var myArray1;
@@ -234,12 +233,16 @@ $(document).ready(function() {
       function replaceTextWithLinks() {
         $('#search-res, #rand').contents().each(function() {
           if (this.nodeType === Node.TEXT_NODE) {
-            $(this).replaceWith($(this).text().replace(/#([\w'-]+)/g, function(match, words) {
-              // Заменяем дефисы и апострофы на пробелы и возвращаем результат
-              var cleanedWords = words.replace(/[-]/g, ' ');
-              // Создаем ссылку, вставляя слова внутри тега <a>, сохраняя апостроф
-              return "<a href='#'>" + cleanedWords.replace(/'/g, '&#39;') + "</a>";
-            }));
+            var replacedText = $(this).text()
+              .replace(/#([\w'-]+)/g, function(match, words) {
+                // Заменяем дефисы и апострофы на пробелы и возвращаем результат
+                var cleanedWords = words.replace(/[-]/g, ' ');
+                // Создаем ссылку, вставляя слова внутри тега <a>, сохраняя апостроф
+                return "<a href='#'>" + cleanedWords.replace(/'/g, '&#39;') + "</a>";
+              })
+              .replace(/\+/g, '<br>&nbsp;•');
+
+            $(this).replaceWith(replacedText);
           }
         });
       }
