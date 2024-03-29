@@ -50,6 +50,7 @@ $(document).ready(function() {
           var rand = Math.floor(Math.random() * randomArray.length);
           $("#rand").html('<span>' + randomArray[rand].label + '</span><span id="copyButton"></span><br>' + randomArray[rand].value);
           addTitle();
+          replaceTextWithLinks();
         }).fail(function() {
           setTimeout(loadRandomData, 5000);
         });
@@ -114,6 +115,7 @@ $(document).ready(function() {
           $("#search-tr").val(ui.item.label);
           $("#search-res").html('<span>' + ui.item.label + '</span><span id="copyButton"></span><br>' + ui.item.value);
           addTitle();
+          replaceTextWithLinks();
           scrollToElement('#search-res', '#buttonWrap');
           return false; // отменяем стандартное поведение
         },
@@ -186,6 +188,7 @@ $(document).ready(function() {
           $("#search-tr").val(foundItem.label); // Подставляем в поле результат обработки клика по ссылке
         }
         addTitle();
+        replaceTextWithLinks();
         scrollToElement('#search-res', '#buttonWrap');
       });
 
@@ -224,8 +227,22 @@ $(document).ready(function() {
           $('#clearInput').css('opacity', '0');
         }
         addTitle();
+        replaceTextWithLinks();
         scrollToElement('#search-res', '#buttonWrap');
       });
+
+      function replaceTextWithLinks() {
+        $('#search-res, #rand').contents().each(function() {
+          if (this.nodeType === Node.TEXT_NODE) {
+            $(this).replaceWith($(this).text().replace(/#([\w'-]+)/g, function(match, words) {
+              // Заменяем дефисы и апострофы на пробелы и возвращаем результат
+              var cleanedWords = words.replace(/[-]/g, ' ');
+              // Создаем ссылку, вставляя слова внутри тега <a>, сохраняя апостроф
+              return "<a href='#'>" + cleanedWords.replace(/'/g, '&#39;') + "</a>";
+            }));
+          }
+        });
+      }
 
       $("#rand").on("click", "a", function(event) {
         event.preventDefault();
@@ -237,6 +254,7 @@ $(document).ready(function() {
           $("#rand").html('<span>' + foundItem.label + '</span><span id="copyButton"></span><br>' + foundItem.value);
         }
         addTitle();
+        replaceTextWithLinks();
         scrollToElement('#rand', '#termineCasuale');
       });
     }).fail(function() {
