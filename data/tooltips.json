@@ -11,6 +11,7 @@
     {"word": "pl", "tooltip": "plurale - множественное число"},
     {"word": "prep", "tooltip": "preposizione - предлог"},
     {"word": "prov", "tooltip": "proverbio - пословица, поговорка"},
+    {"word": "strum.", "tooltip": "strumentale - творительный (падеж)"},
     {"word": "vi", "tooltip": "verbo intransitivo - непереходный глагол"},
     {"word": "vt", "tooltip": "verbo transitivo - переходный глагол"},
     {"word": "ирон.", "tooltip": "употребляется иронически, в ироническом смысле"},
