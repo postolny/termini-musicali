@@ -109,12 +109,13 @@ $(document).ready(function() {
           if (term !== "") {
             if (foundItem && history.indexOf(foundItem.label) === -1) {
               history.push(term); // Добавляем запрос в историю
-              updateHistory(); // Обновляем отображение истории
+              // Обновляем отображение истории и прокручиваем до текущего элемента списка
+              updateAndScrollToCurrent()
             } else if (foundItem) {
               // Если элемент уже есть в истории, просто отображаем его
               var index = history.indexOf(foundItem.label);
               if (index !== -1) {
-                updateHistory();
+                updateAndScrollToCurrent()
                 $("#history li").removeClass("current");
                 $("#history li:eq(" + index + ")").addClass("current");
               }
@@ -189,7 +190,8 @@ $(document).ready(function() {
           $("#search-res").html('<span>' + foundItem.label + '</span><span id="copyButton"></span><br>' + foundItem.value);
           $("#search-tr").val(foundItem.label); // Подставляем в поле результат обработки клика по ссылке
           history.push(foundItem.label); // Добавляем переход в историю
-          updateHistory(); // Обновляем отображение истории
+          // Обновляем отображение истории и прокручиваем до текущего элемента списка
+          updateAndScrollToCurrent()
 
           // Добавляем класс "current" к последнему элементу в #history
           $("#history li").removeClass("current");
@@ -201,7 +203,7 @@ $(document).ready(function() {
           // Если элемент уже есть в истории, просто отображаем его
           var index = history.indexOf(foundItem.label);
           if (index !== -1) {
-            updateHistory();
+            updateAndScrollToCurrent()
             $("#history li").removeClass("current");
             $("#history li:eq(" + index + ")").addClass("current");
           }
@@ -252,6 +254,30 @@ $(document).ready(function() {
         replaceTextWithLinks();
         scrollToElement('#search-res', '#buttonWrap');
       });
+
+      function scrollToCurrent() {
+        var $historyContainer = $(".modal");
+        var $currentItem = $historyContainer.find("li.current");
+        if ($currentItem.length > 0) {
+          var containerTop = $historyContainer.offset().top;
+          var containerBottom = containerTop + $historyContainer.height();
+          var itemTop = $currentItem.offset().top;
+          var itemBottom = itemTop + $currentItem.outerHeight();
+
+          if (itemTop < containerTop) {
+            // Если элемент выше видимой области, прокручиваем .modal вверх
+            $historyContainer.scrollTop($historyContainer.scrollTop() - (containerTop - itemTop));
+          } else if (itemBottom > containerBottom) {
+            // Если элемент ниже видимой области, прокручиваем .modal вниз
+            $historyContainer.scrollTop($historyContainer.scrollTop() + (itemBottom - containerBottom));
+          }
+        }
+      }
+
+      function updateAndScrollToCurrent() {
+        updateHistory();
+        scrollToCurrent();
+      }
 
       function replaceTextWithLinks() {
         $('#search-res, #rand').contents().each(function() {
