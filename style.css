@@ -242,6 +242,17 @@ nav li {
   cursor: pointer;
 }
 
+#history li.current::after {
+  content: "";
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 8px solid #333;
+  margin-left: 3px;
+}
+
 .input {
   padding: 10px;
   border: 1px solid #ccc;

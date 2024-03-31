@@ -8,6 +8,7 @@
  * в том или ином виде или распространять его,
  * нарушая тем самым авторские права.
  */
+
 $(document).ready(function() {
 
   var myArray1;
@@ -181,10 +182,21 @@ $(document).ready(function() {
           $("#search-tr").val(foundItem.label); // Подставляем в поле результат обработки клика по ссылке
           history.push(foundItem.label); // Добавляем переход в историю
           updateHistory(); // Обновляем отображение истории
+
+          // Добавляем класс "current" к последнему элементу в #history
+          $("#history li").removeClass("current");
+          $("#history li:last-child").addClass("current");
           // А иначе, если элемент уже есть в истории, он просто отображается без изменений
         } else if (foundItem) {
           $("#search-res").html('<span>' + foundItem.label + '</span><span id="copyButton"></span><br>' + foundItem.value);
           $("#search-tr").val(foundItem.label); // Подставляем в поле результат обработки клика по ссылке
+          // Если элемент уже есть в истории, просто отображаем его
+          var index = history.indexOf(foundItem.label);
+          if (index !== -1) {
+            updateHistory();
+            $("#history li").removeClass("current");
+            $("#history li:eq(" + index + ")").addClass("current");
+          }
         }
         addTitle();
         replaceTextWithLinks();
@@ -195,7 +207,8 @@ $(document).ready(function() {
       function updateHistory() {
         var historyHtml = "";
         for (var i = 0; i < history.length; i++) {
-          historyHtml += "<li><a href='#'>" + history[i] + "</a></li>";
+          var className = (i === history.length - 1) ? "current" : ""; // Добавляем класс "current" к последнему элементу
+          historyHtml += "<li class='" + className + "'><a href='#'>" + history[i] + "</a></li>";
         }
         var historyList = "<ul>" + historyHtml + "</ul>";
 
@@ -210,6 +223,8 @@ $(document).ready(function() {
       // Обработчик клика по ссылке в блоке #history
       $("#history").on("click", "a", function(event) {
         event.preventDefault();
+        $("#history li").removeClass("current"); // Убираем класс "current" у всех элементов списка
+        $(this).parent().addClass("current"); // Добавляем класс "current" к родительскому элементу текущей ссылки
         var term = $(this).text().trim().toLowerCase();
         var foundItem = myArray1.find(function(item) {
           return item.label.toLowerCase() === term || item.value.toLowerCase() === term;
