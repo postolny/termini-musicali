@@ -110,6 +110,14 @@ $(document).ready(function() {
             if (foundItem && history.indexOf(foundItem.label) === -1) {
               history.push(term); // Добавляем запрос в историю
               updateHistory(); // Обновляем отображение истории
+            } else if (foundItem) {
+              // Если элемент уже есть в истории, просто отображаем его
+              var index = history.indexOf(foundItem.label);
+              if (index !== -1) {
+                updateHistory();
+                $("#history li").removeClass("current");
+                $("#history li:eq(" + index + ")").addClass("current");
+              }
             }
           }
           $("#search-tr").val(ui.item.label);
