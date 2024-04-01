@@ -8,7 +8,6 @@
  * в том или ином виде или распространять его,
  * нарушая тем самым авторские права.
  */
-
 $(document).ready(function() {
 
   var myArray1;
@@ -380,21 +379,30 @@ $(document).ready(function() {
     }, 2000);
   });
 
-  // Удаление результатов по нажатию Escape
-  $(document).keyup(function(e) {
-    if (e.keyCode === 27) {
-      $('#search-tr').val('');
-      $("#search-res").html('');
-      $('#clearInput').css('opacity', '0');
-    }
-  });
-
   $(".openModal").click(function() {
     $("#historyModal").fadeIn();
   });
 
   $(".close").click(function() {
     $("#historyModal").fadeOut();
+  });
+
+  $(document).on("keydown", function(event) {
+    // Открытие окна истории по нажатию Ctrl + M
+    if (event.ctrlKey && event.keyCode === 77) {
+      $("#historyModal").fadeIn();
+    }
+    // Закрытие окна истории по нажатию Escape
+    if (event.key === "Escape") {
+      $("#historyModal").fadeOut();
+    }
+    // Очистка поля поиска и удаление результатов поиска по нажатию Ctrl + Backspace
+    if (event.ctrlKey && event.key === "Backspace") {
+      event.preventDefault();
+      $('#search-tr').val('').focus();
+      $("#search-res").html('');
+      $('#clearInput').css('opacity', '0');
+    }
   });
 
   $("#search-all").on("keyup", function() {
