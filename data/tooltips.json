@@ -4,6 +4,7 @@
     {"word": "avv", "tooltip": "avverbio - наречие"},
     {"word": "(e)", "tooltip": "вспомогательный глагол essere"},
     {"word": "f", "tooltip": "(sostantivo) femminile - существительное женского рода"},
+    {"word": "folcl.", "tooltip": "folclore - фольклор"},
     {"word": "ger", "tooltip": "gerundio - герундий"},
     {"word": "m", "tooltip": "(sostantivo) maschile - существительное мужского рода"},
     {"word": "p.pass.", "tooltip": "participio passato - причастие прошедшего времени"},
@@ -12,6 +13,7 @@
     {"word": "prep", "tooltip": "preposizione - предлог"},
     {"word": "prov", "tooltip": "proverbio - пословица, поговорка"},
     {"word": "strum.", "tooltip": "strumentale - творительный (падеж)"},
+    {"word": "teatr.", "tooltip": "teatrale, театр"},
     {"word": "vi", "tooltip": "verbo intransitivo - непереходный глагол"},
     {"word": "vt", "tooltip": "verbo transitivo - переходный глагол"},
     {"word": "ирон.", "tooltip": "употребляется иронически, в ироническом смысле"},
@@ -19,5 +21,6 @@
     {"word": "муз.", "tooltip": "музыкальный термин"},
     {"word": "непр.", "tooltip": "неправильный глагол"},
     {"word": "перен.", "tooltip": "в переносном значении"},
-    {"word": "рел.", "tooltip": "религия"}
+    {"word": "рел.", "tooltip": "религия"},
+    {"word": "шутл.", "tooltip": "шутливое слово (выражение)"}
 ]
