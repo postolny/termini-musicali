@@ -101,7 +101,9 @@ h2 {
   display: none;
 }
 
-a {
+nav a,
+section.content a,
+footer a {
   background: rgba(0, 0, 0, 0) var(--link-bg-color) no-repeat scroll 50% 100% / 100% 2px padding-box border-box;
   text-decoration: none;
   color: var(--link-color);
@@ -110,7 +112,9 @@ a {
   transition: background-size 0.1s ease;
 }
 
-a:hover {
+nav a:hover,
+section.content a:hover,
+footer a:hover {
   background-size: 100% 30%;
 }
 
@@ -215,15 +219,10 @@ nav li {
 
 .modal ul li a {
   color: #333;
-  /* Цвет ссылки независимо от режима */
-  background: none;
-  /* Отключаем фон */
-  background-color: transparent;
-  /* Отключаем цвет фона */
-  background-size: auto;
-  /* Отключаем размер фона */
+  text-decoration: none;
   transition: box-shadow 0.3s ease;
   margin-right: 3px;
+  padding-bottom: 3px;
 }
 
 .modal ul li a:hover {
