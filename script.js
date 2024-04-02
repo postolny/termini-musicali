@@ -125,6 +125,8 @@ $(document).ready(function() {
           addTitle();
           replaceTextWithLinks();
           scrollToElement('#search-res', '#buttonWrap');
+          // Вызов функции с задержкой, дабы избежать конфликта функций прокрутки
+          setTimeout(smoothScrollToCurrent, 1000);
           return false; // отменяем стандартное поведение
         },
         autoFocus: true,
@@ -209,7 +211,16 @@ $(document).ready(function() {
         addTitle();
         replaceTextWithLinks();
         scrollToElement('#search-res', '#buttonWrap');
+        // Вызов функции с задержкой, дабы избежать конфликта функций прокрутки
+        setTimeout(smoothScrollToCurrent, 1000);
       });
+
+      // Функция для прокрутки до текущего элемента в списке истории
+      function smoothScrollToCurrent() {
+        $("#history li.current").get(0).scrollIntoView({
+          behavior: "smooth"
+        });
+      }
 
       // Функция для обновления отображения истории
       function updateHistory() {
