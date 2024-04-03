@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'Nunito';
+  src: url('Nunito-VariableFont_wght.ttf') format('truetype');
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -58,7 +63,7 @@ header {
   padding: 20px;
   text-align: center;
   font-family: Arial, sans-serif;
-  font-size: 1.5em;
+  font-size: 24px;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.4);
 }
 
@@ -75,6 +80,10 @@ header {
   background: var(--diagonal-header-h1-bg-color);
   -webkit-background-clip: text;
   background-clip: text;
+  font-family: "Nunito", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 900;
+  font-style: normal;
 }
 
 h2 {
@@ -492,7 +501,7 @@ footer ul li {
 @media (max-width:768px) {
 
   header h1 {
-    font-size: 0.8em;
+    font-size: 1em;
     /* Уменьшение размера шрифта для мобильных устройств */
     word-wrap: break-word;
     /* Перенос текста на новую строку */
