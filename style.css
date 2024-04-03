@@ -30,6 +30,9 @@
   --kbd-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1), inset 0 2px 0 rgba(0, 0, 0, 0.1);
 
   --th-bg-color: #c9e3fe;
+
+  --fill-pdf: #333;
+  --link-hover-pdf: rgb(255, 172, 51);
 }
 
 body.dark-mode {
@@ -53,6 +56,9 @@ body.dark-mode {
   --kbd-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1), inset 0 2px 0 rgba(255, 255, 255, 0.2);
 
   --th-bg-color: #03c03c;
+
+  --fill-pdf: #fff;
+  --link-hover-pdf: rgb(0, 123, 255);
 }
 
 body {
@@ -108,7 +114,7 @@ header {
 }
 
 nav a,
-section.content a,
+section.content a:not(.download-pdf),
 footer a {
   background: rgba(0, 0, 0, 0) var(--link-bg-color) no-repeat scroll 50% 100% / 100% 2px padding-box border-box;
   text-decoration: none;
@@ -119,7 +125,7 @@ footer a {
 }
 
 nav a:hover,
-section.content a:hover,
+section.content a:not(.download-pdf):hover,
 footer a:hover {
   background-size: 100% 30%;
 }
@@ -146,6 +152,34 @@ main {
   font-style: normal;
   font-size: 24px;
   text-align: center;
+}
+
+.download-pdf {
+  position: relative;
+  text-decoration: none;
+  color: #333;
+  display: inline-block;
+}
+
+.download-pdf span {
+  color: var(--text-color);
+  border-bottom: 1px solid #dfdfdf;
+  transition: border-bottom-color 0.3s ease;
+}
+
+.download-pdf:hover span {
+  border-bottom: 1px solid var(--link-hover-pdf);
+}
+
+.download-pdf .pdf-icon {
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+.download-pdf .pdf-icon path {
+  fill: var(--fill-pdf);
 }
 
 nav {
