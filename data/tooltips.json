@@ -16,6 +16,7 @@
     {"word": "teatr.", "tooltip": "teatrale, театр"},
     {"word": "vi", "tooltip": "verbo intransitivo - непереходный глагол"},
     {"word": "vt", "tooltip": "verbo transitivo - переходный глагол"},
+    {"word": "бюр.", "tooltip": "бюрократический жаргон"},
     {"word": "ирон.", "tooltip": "употребляется иронически, в ироническом смысле"},
     {"word": "мат.", "tooltip": "математика"},
     {"word": "муз.", "tooltip": "музыкальный термин"},
