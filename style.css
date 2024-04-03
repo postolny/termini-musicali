@@ -1,6 +1,8 @@
 @font-face {
   font-family: 'Nunito';
-  src: url('Nunito-VariableFont_wght.ttf') format('truetype');
+  src: url('fonts/Nunito-VariableFont_wght.ttf') format('truetype-variations'),
+    url('fonts/Nunito-ExtraBold.ttf') format('truetype');
+  font-weight: 200 1000;
 }
 
 * {
@@ -80,6 +82,7 @@ header {
   background: var(--diagonal-header-h1-bg-color);
   -webkit-background-clip: text;
   background-clip: text;
+
   font-family: "Nunito", sans-serif;
   font-optical-sizing: auto;
   font-weight: 900;
