@@ -64,8 +64,6 @@ body {
 header {
   padding: 20px;
   text-align: center;
-  font-family: Arial, sans-serif;
-  font-size: 24px;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.4);
 }
 
@@ -77,20 +75,16 @@ header {
 
 .diagonal-header h1 {
   margin: 0;
-  padding: 20px;
+  padding: 20px 0;
   color: transparent;
   background: var(--diagonal-header-h1-bg-color);
   -webkit-background-clip: text;
   background-clip: text;
-
+  font-size: 48px;
   font-family: "Nunito", sans-serif;
   font-optical-sizing: auto;
   font-weight: 900;
   font-style: normal;
-}
-
-h2 {
-  margin: 20px 0;
 }
 
 .darkmodeIcon {
@@ -145,6 +139,12 @@ main {
 }
 
 .content h2 {
+  margin: 20px 0;
+  font-family: "Nunito", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 24px;
   text-align: center;
 }
 
@@ -503,11 +503,15 @@ footer ul li {
 
 @media (max-width:768px) {
 
-  header h1 {
-    font-size: 1em;
+  .diagonal-header h1 {
+    font-size: 1.5em;
     /* Уменьшение размера шрифта для мобильных устройств */
     word-wrap: break-word;
     /* Перенос текста на новую строку */
+  }
+
+  .content h2 {
+    font-size: 1.3em;
   }
 
   svg.icon {
