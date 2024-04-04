@@ -407,6 +407,14 @@ nav li {
   display: none;
 }
 
+.show-hidden-content {
+  white-space: nowrap;
+}
+
+.visible {
+  display: inline;
+}
+
 /* на странице Условные сокращения */
 .searchWrap {
   padding: 20px 0;

@@ -434,9 +434,11 @@ $(document).ready(function() {
 
   $('.show-hidden-content').click(function(e) {
     e.preventDefault();
-    $('.hidden-content').show();
-    $(this).hide();
-    $('.dots').hide();
+    $('.hidden-content').toggleClass('visible');
+    $('.dots').toggle();
+    $(this).text(function(i, text) {
+      return text === "Показать больше" ? "Показать меньше" : "Показать больше";
+    });
   });
 
 });
