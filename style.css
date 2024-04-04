@@ -32,7 +32,6 @@
 
   --th-bg-color: #c9e3fe;
 
-  --fill-pdf: #333;
   --link-hover-pdf: rgb(255, 172, 51);
 }
 
@@ -58,7 +57,6 @@ body.dark-mode {
 
   --th-bg-color: #03c03c;
 
-  --fill-pdf: #fff;
   --link-hover-pdf: rgb(0, 123, 255);
 }
 
@@ -172,15 +170,10 @@ main {
   border-bottom: 1px solid var(--link-hover-pdf);
 }
 
-.download-pdf .pdf-icon {
+.download-pdf #pdfIcon {
   width: 20px;
   height: 20px;
-  vertical-align: middle;
   margin-right: 5px;
-}
-
-.download-pdf .pdf-icon path {
-  fill: var(--fill-pdf);
 }
 
 nav {
@@ -364,6 +357,7 @@ nav li {
 
 #copyButton,
 #copyIcon,
+#pdfIcon,
 #randomIcon,
 #historyIcon {
   filter: var(--filter);
@@ -380,6 +374,7 @@ nav li {
 }
 
 #copyIcon,
+#pdfIcon,
 #randomIcon,
 #historyIcon {
   vertical-align: middle;
