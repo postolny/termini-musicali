@@ -403,6 +403,10 @@ nav li {
   z-index: 2;
 }
 
+.hidden-content {
+  display: none;
+}
+
 /* на странице Условные сокращения */
 .searchWrap {
   padding: 20px 0;

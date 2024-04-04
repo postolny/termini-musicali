@@ -432,4 +432,11 @@ $(document).ready(function() {
     $('.dark-mode-icon').show();
   }
 
+  $('.show-hidden-content').click(function(e) {
+    e.preventDefault();
+    $('.hidden-content').show();
+    $(this).hide();
+    $('.dots').hide();
+  });
+
 });
