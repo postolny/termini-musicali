@@ -13,6 +13,7 @@
     {"word": "prep", "tooltip": "preposizione - предлог"},
     {"word": "prov", "tooltip": "proverbio - пословица, поговорка"},
     {"word": "strum.", "tooltip": "strumentale - творительный (падеж)"},
+    {"word": "superl.", "tooltip": "superlativo - превосходная степень"},
     {"word": "teatr.", "tooltip": "teatrale, театр"},
     {"word": "vi", "tooltip": "verbo intransitivo - непереходный глагол"},
     {"word": "vt", "tooltip": "verbo transitivo - переходный глагол"},
