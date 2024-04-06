@@ -2,6 +2,7 @@
     {"word": "acc.", "tooltip": "accusativo, винительный (падеж)"},
     {"word": "agg", "tooltip": "aggettivo - прилагательное"},
     {"word": "avv", "tooltip": "avverbio - наречие"},
+    {"word": "cong", "tooltip": "congiunzione - союз"},
     {"word": "(e)", "tooltip": "вспомогательный глагол essere"},
     {"word": "f", "tooltip": "(sostantivo) femminile - существительное женского рода"},
     {"word": "folcl.", "tooltip": "folclore - фольклор"},
