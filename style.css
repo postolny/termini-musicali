@@ -361,7 +361,8 @@ nav li {
 #historyIcon,
 #playButton,
 #playButtonRandom,
-#playIcon {
+#playIcon,
+.IconColorSwitcher {
   filter: var(--filter);
 }
 
