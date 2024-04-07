@@ -170,10 +170,11 @@ main {
   border-bottom: 1px solid var(--link-hover-pdf);
 }
 
-.download-pdf #pdfIcon {
+#pdfIcon {
   width: 20px;
   height: 20px;
   margin-right: 5px;
+  vertical-align: middle;
 }
 
 nav {
@@ -361,7 +362,8 @@ nav li {
 #copyButton+svg,
 #playButton+svg,
 #playButtonRandom+svg,
-#playIcon {
+#playIcon,
+#pdfIcon {
   filter: var(--filter);
 }
 
