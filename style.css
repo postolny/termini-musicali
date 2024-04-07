@@ -355,12 +355,12 @@ nav li {
   cursor: help;
 }
 
-#copyButton,
-#copyIcon,
 #randomIcon,
 #historyIcon,
-#playButton + svg,
-#playButtonRandom + svg,
+#copyIcon,
+#copyButton+svg,
+#playButton+svg,
+#playButtonRandom+svg,
 #playIcon {
   filter: var(--filter);
 }
@@ -374,7 +374,6 @@ nav li {
 }
 
 #copyButton {
-  background-image: url('images/copy.svg');
   width: 16px;
   height: 16px;
 }
@@ -385,10 +384,10 @@ nav li {
   height: 24px;
 }
 
-#copyIcon,
-#copyButton,
 #randomIcon,
 #historyIcon,
+#copyIcon,
+#copyButton,
 #playButton,
 #playButtonRandom,
 #playIcon {

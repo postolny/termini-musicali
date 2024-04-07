@@ -15,6 +15,9 @@ $(document).ready(function() {
   var randomArray;
   var tooltips = {};
   var history = [];
+  var copy = '<span id="copyButton"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="currentColor" fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/></svg></span>';
+  var playBtnRand = '<span id="playButtonRandom"></span><br>';
+  var playBtn = '<span id="playButton"></span><br>';
 
   // Загрузка данных JSON
 
@@ -48,7 +51,7 @@ $(document).ready(function() {
           randomArray = data;
           console.log(randomArray);
           var rand = Math.floor(Math.random() * randomArray.length);
-          $("#rand").html('<span>' + randomArray[rand].label + '</span><span id="copyButton"></span><span id="playButtonRandom"></span><br>' + randomArray[rand].value);
+          $("#rand").html('<span>' + randomArray[rand].label + '</span>' + copy + playBtnRand + randomArray[rand].value);
           handlePlayButton(randomArray[rand], "#playButtonRandom");
           addTitle();
           replaceTextWithLinks();
@@ -122,7 +125,7 @@ $(document).ready(function() {
             }
           }
           $("#search-tr").val(ui.item.label);
-          $("#search-res").html('<span>' + ui.item.label + '</span><span id="copyButton"></span><span id="playButton"></span><br>' + ui.item.value);
+          $("#search-res").html('<span>' + ui.item.label + '</span>' + copy + playBtn + ui.item.value);
           handlePlayButton(ui.item, "#playButton");
           addTitle();
           replaceTextWithLinks();
@@ -190,7 +193,7 @@ $(document).ready(function() {
         });
         // Если найденный элемент не добавлен в историю, то он добавляется, а история обновляется
         if (foundItem && history.indexOf(foundItem.label) === -1) {
-          $("#search-res").html('<span>' + foundItem.label + '</span><span id="copyButton"></span><span id="playButton"></span><br>' + foundItem.value);
+          $("#search-res").html('<span>' + foundItem.label + '</span>' + copy + playBtn + foundItem.value);
           $("#search-tr").val(foundItem.label); // Подставляем в поле результат обработки клика по ссылке
           history.push(foundItem.label); // Добавляем переход в историю
           updateHistory(); // Обновляем отображение истории
@@ -200,7 +203,7 @@ $(document).ready(function() {
           $("#history li:last-child").addClass("current");
           // А иначе, если элемент уже есть в истории, он просто отображается без изменений
         } else if (foundItem) {
-          $("#search-res").html('<span>' + foundItem.label + '</span><span id="copyButton"></span><span id="playButton"></span><br>' + foundItem.value);
+          $("#search-res").html('<span>' + foundItem.label + '</span>' + copy + playBtn + foundItem.value);
           $("#search-tr").val(foundItem.label); // Подставляем в поле результат обработки клика по ссылке
           // Если элемент уже есть в истории, просто отображаем его
           var index = history.indexOf(foundItem.label);
@@ -252,7 +255,7 @@ $(document).ready(function() {
           return item.label.toLowerCase() === term || item.value.toLowerCase() === term;
         });
         if (foundItem) {
-          $("#search-res").html('<span>' + foundItem.label + '</span><span id="copyButton"></span><span id="playButton"></span><br>' + foundItem.value);
+          $("#search-res").html('<span>' + foundItem.label + '</span>' + copy + playBtn + foundItem.value);
           $("#search-tr").val(foundItem.label);
         }
 
@@ -292,7 +295,7 @@ $(document).ready(function() {
           return item.label.toLowerCase() === term;
         });
         if (foundItem) {
-          $("#rand").html('<span>' + foundItem.label + '</span><span id="copyButton"></span><span id="playButtonRandom"></span><br>' + foundItem.value);
+          $("#rand").html('<span>' + foundItem.label + '</span>' + copy + playBtnRand + foundItem.value);
         }
         handlePlayButton(foundItem, "#playButtonRandom");
         addTitle();
