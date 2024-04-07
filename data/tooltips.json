@@ -7,6 +7,7 @@
     {"word": "f", "tooltip": "(sostantivo) femminile - существительное женского рода"},
     {"word": "folcl.", "tooltip": "folclore - фольклор"},
     {"word": "ger", "tooltip": "gerundio - герундий"},
+    {"word": "invar", "tooltip": "(forma) invariabile - неизменяемая форма"},
     {"word": "m", "tooltip": "(sostantivo) maschile - существительное мужского рода"},
     {"word": "p.pass.", "tooltip": "participio passato - причастие прошедшего времени"},
     {"word": "p.pres.", "tooltip": "participio presente - причастие настоящего времени"},
@@ -26,5 +27,6 @@
     {"word": "перен.", "tooltip": "в переносном значении"},
     {"word": "разг.", "tooltip": "разговорное слово (выражение)"},
     {"word": "рел.", "tooltip": "религия"},
-    {"word": "шутл.", "tooltip": "шутливое слово (выражение)"}
+    {"word": "шутл.", "tooltip": "шутливое слово (выражение)"},
+    {"word": "эк.", "tooltip": "экономика"}
 ]
