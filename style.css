@@ -359,10 +359,9 @@ nav li {
 #copyIcon,
 #randomIcon,
 #historyIcon,
-#playButton,
-#playButtonRandom,
-#playIcon,
-.IconColorSwitcher {
+#playButton + svg,
+#playButtonRandom + svg,
+#playIcon {
   filter: var(--filter);
 }
 
