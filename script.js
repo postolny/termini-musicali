@@ -48,7 +48,8 @@ $(document).ready(function() {
           randomArray = data;
           console.log(randomArray);
           var rand = Math.floor(Math.random() * randomArray.length);
-          $("#rand").html('<span>' + randomArray[rand].label + '</span><span id="copyButton"></span><br>' + randomArray[rand].value);
+          $("#rand").html('<span>' + randomArray[rand].label + '</span><span id="copyButton"></span><span id="playButtonRandom"></span><br>' + randomArray[rand].value);
+          handlePlayButton(randomArray[rand], "#playButtonRandom");
           addTitle();
           replaceTextWithLinks();
         }).fail(function() {
@@ -121,7 +122,8 @@ $(document).ready(function() {
             }
           }
           $("#search-tr").val(ui.item.label);
-          $("#search-res").html('<span>' + ui.item.label + '</span><span id="copyButton"></span><br>' + ui.item.value);
+          $("#search-res").html('<span>' + ui.item.label + '</span><span id="copyButton"></span><span id="playButton"></span><br>' + ui.item.value);
+          handlePlayButton(ui.item, "#playButton");
           addTitle();
           replaceTextWithLinks();
           scrollToElement('#search-res', '#buttonWrap');
@@ -188,7 +190,7 @@ $(document).ready(function() {
         });
         // Если найденный элемент не добавлен в историю, то он добавляется, а история обновляется
         if (foundItem && history.indexOf(foundItem.label) === -1) {
-          $("#search-res").html('<span>' + foundItem.label + '</span><span id="copyButton"></span><br>' + foundItem.value);
+          $("#search-res").html('<span>' + foundItem.label + '</span><span id="copyButton"></span><span id="playButton"></span><br>' + foundItem.value);
           $("#search-tr").val(foundItem.label); // Подставляем в поле результат обработки клика по ссылке
           history.push(foundItem.label); // Добавляем переход в историю
           updateHistory(); // Обновляем отображение истории
@@ -198,7 +200,7 @@ $(document).ready(function() {
           $("#history li:last-child").addClass("current");
           // А иначе, если элемент уже есть в истории, он просто отображается без изменений
         } else if (foundItem) {
-          $("#search-res").html('<span>' + foundItem.label + '</span><span id="copyButton"></span><br>' + foundItem.value);
+          $("#search-res").html('<span>' + foundItem.label + '</span><span id="copyButton"></span><span id="playButton"></span><br>' + foundItem.value);
           $("#search-tr").val(foundItem.label); // Подставляем в поле результат обработки клика по ссылке
           // Если элемент уже есть в истории, просто отображаем его
           var index = history.indexOf(foundItem.label);
@@ -208,6 +210,7 @@ $(document).ready(function() {
             $("#history li:eq(" + index + ")").addClass("current");
           }
         }
+        handlePlayButton(foundItem, "#playButton");
         addTitle();
         replaceTextWithLinks();
         scrollToElement('#search-res', '#buttonWrap');
@@ -249,7 +252,7 @@ $(document).ready(function() {
           return item.label.toLowerCase() === term || item.value.toLowerCase() === term;
         });
         if (foundItem) {
-          $("#search-res").html('<span>' + foundItem.label + '</span><span id="copyButton"></span><br>' + foundItem.value);
+          $("#search-res").html('<span>' + foundItem.label + '</span><span id="copyButton"></span><span id="playButton"></span><br>' + foundItem.value);
           $("#search-tr").val(foundItem.label);
         }
 
@@ -259,6 +262,7 @@ $(document).ready(function() {
         } else {
           $('#clearInput').css('opacity', '0');
         }
+        handlePlayButton(foundItem, "#playButton");
         addTitle();
         replaceTextWithLinks();
         scrollToElement('#search-res', '#buttonWrap');
@@ -288,12 +292,60 @@ $(document).ready(function() {
           return item.label.toLowerCase() === term;
         });
         if (foundItem) {
-          $("#rand").html('<span>' + foundItem.label + '</span><span id="copyButton"></span><br>' + foundItem.value);
+          $("#rand").html('<span>' + foundItem.label + '</span><span id="copyButton"></span><span id="playButtonRandom"></span><br>' + foundItem.value);
         }
+        handlePlayButton(foundItem, "#playButtonRandom");
         addTitle();
         replaceTextWithLinks();
         scrollToElement('#rand', '#termineCasuale');
       });
+
+      function handlePlayButton(uiItem, buttonSelector) {
+        var playButton = $(buttonSelector);
+        var playIcon = 'images/play.svg';
+        var stopIcon = 'images/stop.svg';
+        var audio = new Audio(uiItem.audio); // Создаем объект Audio
+
+        // Изначально устанавливаем иконку воспроизведения
+        setPlayButtonIcon(false);
+
+        // Функция для установки иконки на кнопке воспроизведения
+        function setPlayButtonIcon(isPlaying) {
+          var iconPath = isPlaying ? stopIcon : playIcon;
+          playButton.css('background-image', 'url(' + iconPath + ')');
+          uiItem.isPlaying = isPlaying; // Сохраняем состояние проигрывания
+        }
+
+        playButton.off("click").on("click", function() {
+          console.log("Play button clicked");
+
+          if (!uiItem.isPlaying || audio.paused) {
+            // Если не воспроизводится или на паузе, начинаем воспроизведение заново
+            audio.currentTime = 0; // Сбрасываем текущую позицию
+            audio.play();
+            setPlayButtonIcon(true); // Устанавливаем иконку паузы
+          } else {
+            // Если уже воспроизводится, ставим на паузу
+            audio.pause();
+            setPlayButtonIcon(false); // Устанавливаем иконку воспроизведения
+          }
+        });
+
+        // Обработчик события завершения проигрывания аудио
+        $(audio).on("ended", function() {
+          setPlayButtonIcon(false); // Восстанавливаем иконку воспроизведения
+        });
+
+        // Проверяем наличие аудио для выбранного элемента
+        if (uiItem.audio) {
+          // Показываем кнопку воспроизведения
+          playButton.show();
+        } else {
+          // Если аудио отсутствует, скрываем кнопку воспроизведения
+          playButton.hide();
+        }
+      }
+
     }).fail(function() {
       console.log("Не удалось загрузить данные.");
     });

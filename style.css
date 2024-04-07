@@ -357,26 +357,41 @@ nav li {
 
 #copyButton,
 #copyIcon,
-#pdfIcon,
 #randomIcon,
-#historyIcon {
+#historyIcon,
+#playButton,
+#playButtonRandom,
+#playIcon {
   filter: var(--filter);
+}
+
+#copyButton,
+#playButton,
+#playButtonRandom {
+  display: inline-block;
+  margin-left: 5px;
+  cursor: pointer;
 }
 
 #copyButton {
   background-image: url('images/copy.svg');
   width: 16px;
   height: 16px;
-  display: inline-block;
-  margin-left: 5px;
-  vertical-align: middle;
-  cursor: pointer;
+}
+
+#playButton,
+#playButtonRandom {
+  width: 24px;
+  height: 24px;
 }
 
 #copyIcon,
-#pdfIcon,
+#copyButton,
 #randomIcon,
-#historyIcon {
+#historyIcon,
+#playButton,
+#playButtonRandom,
+#playIcon {
   vertical-align: middle;
 }
 
