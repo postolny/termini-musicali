@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Викторина</title>
+  <meta name="description" content="Хотите проверить насколько хорошо вы знаете значение и применение музыкальных терминов? На этой странице вы чможете это сделать!" />
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+</head>
+
+<body>
+
+  <header class="diagonal-header">
+    <h1>Викторина</h1>
+  </header>
+  <nav>
+    <ul>
+      <li><a href="https://postolny.github.io/termini-musicali/">К словарю</a></li>
+    </ul>
+  </nav>
+  <main>
+    <div class="darkmodeIcon">
+      <svg class="icon light-mode-icon" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 26 26">
+          <path d="M12.906-.031a1 1 0 0 0-.125.031A1 1 0 0 0 12 1v3a1 1 0 1 0 2 0V1a1 1 0 0 0-1.094-1.031M6.844 1.594a1 1 0 0 0-.719 1.5l1.5 2.625a1.008 1.008 0 0 0 1.75-1l-1.5-2.625a1 1 0 0 0-1.031-.5m11.968 0a1 1 0 0 0-.687.5l-1.5 2.625a1.008 1.008 0 0 0 1.75 1l1.5-2.625a1 1 0 0 0-.969-1.5a1 1 0 0 0-.093 0zm4.532 4.375A1 1 0 0 0 23.25 6a1 1 0 0 0-.344.125l-2.625 1.5a1.008 1.008 0 0 0 1 1.75l2.625-1.5a1 1 0 0 0-.562-1.906M2.437 6a1 1 0 0 0-.343 1.875l2.625 1.5a1.008 1.008 0 0 0 1-1.75l-2.625-1.5A1 1 0 0 0 2.438 6zM13 6a7 7 0 1 0 0 14a7 7 0 0 0 0-14m0 2c2.757 0 5 2.243 5 5s-2.243 5-5 5s-5-2.243-5-5s2.243-5 5-5M.719 12A1.004 1.004 0 0 0 1 14h3a1 1 0 1 0 0-2H1a1 1 0 0 0-.094 0a1.001 1.001 0 0 0-.094 0a1.004 1.004 0 0 0-.093 0m21 0A1.004 1.004 0 0 0 22 14h3a1 1 0 1 0 0-2h-3a1 1 0 0 0-.094 0a1.001 1.001 0 0 0-.093 0a1.004 1.004 0 0 0-.094 0M5.156 16.469a1 1 0 0 0-.093.031a1 1 0 0 0-.344.125l-2.625 1.5a1.008 1.008 0 0 0 1 1.75l2.625-1.5a1 1 0 0 0-.563-1.906m15.469.031a1 1 0 0 0-.344 1.875l2.625 1.5a1.008 1.008 0 0 0 1-1.75l-2.625-1.5a1 1 0 0 0-.656-.125M8.312 19.781a1 1 0 0 0-.687.5l-1.5 2.625a1.008 1.008 0 0 0 1.75 1l1.5-2.625a1 1 0 0 0-.969-1.5a1 1 0 0 0-.094 0m9.032 0a1 1 0 0 0-.719 1.5l1.5 2.625a1.008 1.008 0 0 0 1.75-1l-1.5-2.625a1 1 0 0 0-1.031-.5m-4.438 1.188a1 1 0 0 0-.125.031A1 1 0 0 0 12 22v3a1 1 0 1 0 2 0v-3a1 1 0 0 0-1.094-1.031" fill="#FFAC33" />
+        </svg>
+      <svg class="icon dark-mode-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26" width="50" height="50">
+          <path d="M9.5 0.0625L8.875 2.34375L6.625 1.75L8.25 3.46875L6.625 5.15625L8.875 4.5625L9.5 6.875L10.125 4.5625L12.375 5.15625L10.75 3.46875L12.375 1.75L10.125 2.34375 Z M 2.46875 6.5L1.96875 8.3125L0.15625 7.84375L1.46875 9.1875L0.15625 10.53125L1.96875 10.0625L2.46875 11.875L3 10.0625L4.8125 10.53125L3.5 9.1875L4.8125 7.84375L3 8.3125 Z M 18.09375 7.1875C21.007813 8.464844 23.03125 11.386719 23.03125 14.78125C23.03125 19.363281 19.347656 23.0625 14.78125 23.0625C11.386719 23.0625 8.464844 21.015625 7.1875 18.09375C7.972656 22.488281 11.816406 25.8125 16.4375 25.8125C21.617188 25.8125 25.8125 21.632813 25.8125 16.4375C25.8125 11.8125 22.476563 7.972656 18.09375 7.1875Z" fill="#FFFFFF" />
+        </svg>
+    </div>
+    <section class="content">
+      <div id="quiz-container">
+        <h2 id="question-text"></h2>
+        <div id="answers-container">
+          <button type="button" class="answer-btn" data-answer="Ответ 1"></button>
+    <button type="button" class="answer-btn" data-answer="Ответ 2"></button>
+    <button type="button" class="answer-btn" data-answer="Ответ 3"></button>
+        </div>
+        <p id="quiz-result"></p>
+      </div>
+    </section>
+
+  </main>
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-column">
+        <ul>
+          <li>
+            <p id="indirizzoSegreto"><span></span></p>
+          </li>
+          <li><a href="https://postolny.github.io/">Мой сайт</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <ul>
+          <li><a href="https://postolny.github.io/a-memoria/">A memoria</a></li>
+          <li><a href="https://postolny.github.io/venice-classic-radio-2/">Venice Classic Radio</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <ul>
+          <li><a href="https://postolny.github.io/termini-musicali/">К словарю</a></li>
+          <li><a href="https://postolny.github.io/termini-musicali/come-usare-il-dizionario">Как пользоваться словарём</a></li>
+          <li><a href="https://postolny.github.io/termini-musicali/abbreviazioni">Условные сокращения</a></li>
+          <li><a href="https://postolny.github.io/termini-musicali/termini-e-condizioni">Условия и положения</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <span id="currentYear"></span><a href="https://postolny.github.io/">Игорь Постольный</a> Все права защищены
+    </div>
+  </footer>
+  <div class="quizModalWrapper">
+    <div id="Modal" class="quizModal">
+      <span class="quizModalClose">&#10006;</span>
+      <div id="quizModalContent"></div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script type="text/javascript" src="script.js"></script>
+</body>
+
+</html>
