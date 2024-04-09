@@ -511,6 +511,7 @@ $(document).ready(function() {
     // Закрытие окна истории по нажатию Escape
     if (event.key === "Escape") {
       $("#historyModal").fadeOut();
+      $(".quizModalWrapper, .active").removeClass('active');
     }
     // Очистка поля поиска и удаление результатов поиска по нажатию Ctrl + Backspace
     if (event.ctrlKey && event.key === "Backspace") {
