@@ -16,5 +16,5 @@
   { "question": "Выберите правильный перевод фразы «sei forte nella musica»", "answers": ["громче играй эту музыку", "твоя музыка слишком громкая", "ты силён в музыке"], "correctIndex": 2 },
   { "question": "Итальянское слово «capriccio» происходит от латинского - «capra». Как переводится это латинское слово?", "answers": ["коза", "свинья", "корова"], "correctIndex": 0 },
   { "question": "Указание в нотах «con espressione» велит играть выразительно. Имеет ли слово «espressione» какое-либо отношение к математике?", "answers": ["да", "нет"], "correctIndex": 0 },
-  { "question": "Переведите идиому «largo a parole»:", "answers": ["врун", "щедрый на слова", "тугодум"], "correctIndex": 0 }
+  { "question": "Переведите идиому «largo a parole»:", "answers": ["врун", "щедрый на слова", "тугодум"], "correctIndex": 1 }
 ]
