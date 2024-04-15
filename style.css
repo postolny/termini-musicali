@@ -10,6 +10,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  outline: none;
 }
 
 :root {
@@ -33,6 +34,8 @@
   --th-bg-color: #c9e3fe;
 
   --link-hover-pdf: rgb(255, 172, 51);
+
+  --toggleIntervalloIcon: #333;
 }
 
 body.dark-mode {
@@ -60,6 +63,8 @@ body.dark-mode {
   --th-bg-color: #03c03c;
 
   --link-hover-pdf: rgb(0, 123, 255);
+
+  --toggleIntervalloIcon: #03c03c;
 }
 
 body {
@@ -314,7 +319,6 @@ nav li {
   border: 1px solid #ccc;
   border-radius: 5px;
   transition: border-color 0.3s ease;
-  outline: none;
   max-width: 400px;
   /* Максимальная ширина поля ввода */
   width: 90vw;
@@ -450,12 +454,10 @@ nav li {
   display: block;
   font-style: normal;
   font-weight: 300;
-  outline: 0;
   transition: all ease-out 0.2s;
 }
 
 .input-search:focus {
-  outline: none;
   border-color: #aaa;
 }
 
@@ -611,6 +613,122 @@ kbd {
   }
 }
 
+#intervalloButtonWrap .intervalloBtn {
+  background-color: #ff008d;
+}
+
+#intervalloButtonWrap .intervalloBtn:hover {
+  background-color: #ff008d;
+}
+
+#intervalloButtonWrap .intervalloBtn:active {
+  background-color: #f50087;
+}
+
+#intervalloButtonWrap {
+  display: flex;
+  justify-content: center;
+  margin: 5px;
+}
+
+#intervalloButtonWrap button {
+  margin: 0 2px;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  border: none;
+  border-radius: 3px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+  background-color: #007bff;
+  color: white;
+}
+
+#intervalloButtonWrap button:hover {
+  background-color: #4CAF50;
+  color: white;
+}
+
+#intervalloButtonWrap button:active {
+  background-color: #45a049;
+}
+
+#intervallo {
+  text-align: center;
+}
+
+/* Стили для обертки переключателя */
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+}
+
+/* Скрытый чекбокс */
+.toggle-switch input {
+  display: none;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #007bff;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.slider::before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  left: 4px;
+  bottom: 3px;
+  background-color: white;
+  transition: .4s;
+}
+
+.toggle-switch input:checked+.slider::before {
+  transform: translateX(24px);
+}
+
+.before-content,
+.after-content {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.before-content {
+  left: -41px;
+}
+
+.after-content {
+  right: -26px;
+}
+
+.before-content svg {
+  width: 34px;
+  height: 35px;
+}
+
+.after-content svg {
+  width: 19px;
+  height: 35px;
+}
+
+.before-content svg,
+.after-content svg {
+  vertical-align: middle;
+  fill: var(--toggleIntervalloIcon);
+}
+
 .footer {
   background-color: var(--footer-bg-color);
   box-shadow: 0 -2px 3px rgba(0, 0, 0, 0.4);
@@ -683,6 +801,11 @@ footer ul li {
   #quiz-container button {
     padding: 5px;
     font-size: 1em;
+  }
+
+  #intervalloButtonWrap button {
+    padding: 4px 6px;
+    font-size: 14px;
   }
 
   table thead {
