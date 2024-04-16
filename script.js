@@ -786,9 +786,9 @@ $(document).ready(function() {
     $("#historyModal").fadeOut();
   });
 
-  $(document).on("keydown", function() {
-    // Открытие окна истории по нажатию Ctrl + M
-    if (event.ctrlKey && event.keyCode === 77) {
+  $(document).on("keydown", function(event) {
+    // Открытие окна истории по нажатию Ctrl + M (или той же клавиши с кодом 77 для русской раскладки)
+    if (event.ctrlKey && event.altKey && (event.key === 'm' || event.keyCode === 77)) {
       $("#historyModal").fadeIn();
     }
     // Закрытие окна истории по нажатию Escape
