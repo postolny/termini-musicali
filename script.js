@@ -431,14 +431,15 @@ $(document).ready(function() {
 
           displayQuestion();
 
+          // Получаем все ноты из ключей объекта intervalli
+          var allNotes = Object.keys(intervalli).flatMap(interval => interval.split('-'));
+
           $(".intervalloPlayButton").click(function() {
 
             playClicked = true; // Устанавливаем флаг, что кнопка .intervalloPlayButton была нажата
 
-            const notes = ["c", "cis", "d", "dis", "e", "fa", "fis", "g", "gis", "a", "b", "h", "c2", "cis2", "d2", "dis2", "e2"];
-
-            var note1 = notes[Math.floor(Math.random() * notes.length)];
-            var note2 = notes[Math.floor(Math.random() * notes.length)];
+            var note1 = allNotes[Math.floor(Math.random() * allNotes.length)];
+            var note2 = allNotes[Math.floor(Math.random() * allNotes.length)];
 
             playSound(note1);
             setTimeout(function() {
