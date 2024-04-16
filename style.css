@@ -29,7 +29,8 @@
 
   --footer-bg-color: #f0f0f0;
 
-  --kbd-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1), inset 0 2px 0 rgba(0, 0, 0, 0.1);
+  --kbd-bg-color: transparent linear-gradient(to bottom, #f0f0f0, #fcfcfc) repeat scroll 0 0;
+  --kbd-border-color: #c6c6c6;
 
   --th-bg-color: #c9e3fe;
 
@@ -58,7 +59,8 @@ body.dark-mode {
 
   --footer-bg-color: #333;
 
-  --kbd-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1), inset 0 2px 0 rgba(255, 255, 255, 0.2);
+  --kbd-bg-color: transparent linear-gradient(to bottom, #333333, #3a3a3a) repeat scroll 0 0;
+  --kbd-border-color: #565656;
 
   --th-bg-color: #03c03c;
 
@@ -488,11 +490,13 @@ table th {
 }
 
 kbd {
-  background-color: var(--footer-bg-color);
-  color: var(--text-color);
-  padding: 2px 5px;
+  padding: 1px 6px;
+  background: var(--kbd-bg-color);
+  border-color: var(--kbd-border-color);
   border-radius: 3px;
-  box-shadow: var(--kbd-box-shadow);
+  border-style: solid;
+  border-width: 1px 1px 2px;
+  color: var(--text-color);
 }
 
 /* Случайный термин */
