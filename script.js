@@ -788,7 +788,9 @@ $(document).ready(function() {
 
   $(document).on("keydown", function(event) {
     // Открытие окна истории по нажатию Ctrl + M
-    if (event.ctrlKey && event.keyCode === 77) {
+    if ((event.ctrlKey && event.keyCode === 77) || (event.ctrlKey && event.key === 'm')) {
+      // Для Cent Browser (Ctrl + M)
+      event.preventDefault();
       $("#historyModal").fadeIn();
     }
     // Закрытие окна истории по нажатию Escape
