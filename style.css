@@ -483,6 +483,10 @@ table th {
 }
 
 /* На странице Как пользоваться словарём */
+.hotkey-container {
+  display: inline-block;
+}
+
 kbd {
   background-color: var(--footer-bg-color);
   color: var(--text-color);
