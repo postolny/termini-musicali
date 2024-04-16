@@ -786,11 +786,9 @@ $(document).ready(function() {
     $("#historyModal").fadeOut();
   });
 
-  $(document).on("keydown", function(event) {
+  $(document).on("keydown", function() {
     // Открытие окна истории по нажатию Ctrl + M
-    if ((event.ctrlKey && event.keyCode === 77) || (event.ctrlKey && event.key === 'm')) {
-      // Для Cent Browser (Ctrl + M)
-      event.preventDefault();
+    if (event.ctrlKey && event.keyCode === 77) {
       $("#historyModal").fadeIn();
     }
     // Закрытие окна истории по нажатию Escape
@@ -800,7 +798,6 @@ $(document).ready(function() {
     }
     // Очистка поля поиска и удаление результатов поиска по нажатию Ctrl + Backspace
     if (event.ctrlKey && event.key === "Backspace") {
-      event.preventDefault();
       $('#search-tr').val('').focus();
       $("#search-res").html('');
       $('#clearInput').css('opacity', '0');
