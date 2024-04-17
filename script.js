@@ -21,7 +21,7 @@ $(document).ready(function() {
   var playBtn = '<span id="playButton"></span><br>';
   var lastPlayedInterval = "";
   var lastNameInterval = "";
-  var intervalName = "";
+  var intervalli = {};
   var playClicked = false;
   var delayTime = 1000;
 
@@ -39,7 +39,6 @@ $(document).ready(function() {
       tooltips.forEach(function(item) {
         tooltips[item.word] = item.tooltip;
       });
-
 
       $.getJSON('data/quiz.json').done(function(data) {
         var quizArray = data;
@@ -434,6 +433,93 @@ $(document).ready(function() {
           // Получаем все ноты из ключей объекта intervalli
           var allNotes = Object.keys(intervalli).flatMap(interval => interval.split('-'));
 
+          // Функция проверки интервала и вывода сообщений
+          function handleIntervalCheck(intervalName) {
+            var resultMessage;
+
+            if (playClicked) {
+              if (intervalli[lastNameInterval] === intervalName) {
+                resultMessage = "Верно! " + intervalName + ".";
+              } else {
+                resultMessage = "Неверно! Не " + intervalName + ", а " + intervalli[lastNameInterval];
+              }
+              // Сбрасываем флаг после выполнения проверки
+              playClicked = false;
+            } else {
+              resultMessage = "Сначала нажмите кнопку Проиграть интервал";
+            }
+
+            showAlert(resultMessage);
+          }
+
+          $("#unisono").on("click", function() {
+            handleIntervalCheck("Унисон");
+          });
+
+          $("#secondaMinore").on("click", function() {
+            handleIntervalCheck("Малая секунда");
+          });
+
+          $("#secondaMaggiore").on("click", function() {
+            handleIntervalCheck("Большая секунда");
+          });
+
+          $("#terzaMinore").on("click", function() {
+            handleIntervalCheck("Малая терция");
+          });
+
+          $("#terzaMaggiore").on("click", function() {
+            handleIntervalCheck("Большая терция");
+          });
+
+          $("#quarta").on("click", function() {
+            handleIntervalCheck("Кварта");
+          });
+
+          $("#tritono").on("click", function() {
+            handleIntervalCheck("Увеличенная кварта");
+          });
+
+          $("#quinta").on("click", function() {
+            handleIntervalCheck("Квинта");
+          });
+
+          $("#sestaMinore").on("click", function() {
+            handleIntervalCheck("Малая секста");
+          });
+
+          $("#sestaMaggiore").on("click", function() {
+            handleIntervalCheck("Большая секста");
+          });
+
+          $("#settimaMinore").on("click", function() {
+            handleIntervalCheck("Малая септима");
+          });
+
+          $("#settimaMaggiore").on("click", function() {
+            handleIntervalCheck("Большая септима");
+          });
+
+          $("#ottava").on("click", function() {
+            handleIntervalCheck("Октава");
+          });
+
+          $("#nonaMinore").on("click", function() {
+            handleIntervalCheck("Малая нона");
+          });
+
+          $("#nonaMaggiore").on("click", function() {
+            handleIntervalCheck("Большая нона");
+          });
+
+          $("#decimaMinore").on("click", function() {
+            handleIntervalCheck("Малая децима");
+          });
+
+          $("#decimaMaggiore").on("click", function() {
+            handleIntervalCheck("Большая децима");
+          });
+
           $(".intervalloPlayButton").click(function() {
 
             playClicked = true; // Устанавливаем флаг, что кнопка .intervalloPlayButton была нажата
@@ -454,6 +540,13 @@ $(document).ready(function() {
             }, delayTime); // Задержка 1s или 0
           });
 
+          function playSound(note) {
+            var audio = new Audio("snd/note/" + note + ".mp3");
+            audio.play().catch(function(error) {
+              console.error("Ошибка воспроизведения звука:", error);
+            });
+          }
+
           $('#toggleTimeout').change(function() {
             // Проверяем состояние чекбокса
             if ($(this).is(':checked')) {
@@ -471,229 +564,6 @@ $(document).ready(function() {
             $(".quizModalWrapper, .active").addClass('active');
           }
 
-          $("#unisono").on("click", function() {
-            if (playClicked) {
-              if (intervalli[lastNameInterval] === "Унисон") {
-                showAlert("Верно! Унисон.");
-              } else {
-                showAlert('Неверно! Правильный ответ: ' + intervalName);
-              }
-              // Сбрасываем флаг после выполнения проверки
-              playClicked = false;
-            } else {
-              showAlert("Сначала нажмите кнопку Проиграть интервал");
-            }
-          });
-
-          $("#secondaMinore").on("click", function() {
-            if (playClicked) {
-              if (intervalli[lastNameInterval] === "Малая секунда") {
-                showAlert("Верно! Малая секунда.");
-              } else {
-                showAlert("Неверно! Правильный ответ: " + intervalName);
-              }
-              playClicked = false;
-            } else {
-              showAlert("Сначала нажмите кнопку Проиграть интервал");
-            }
-          });
-
-          $("#secondaMaggiore").on("click", function() {
-            if (playClicked) {
-              if (intervalli[lastNameInterval] === "Большая секунда") {
-                showAlert("Верно! Большая секунда.");
-              } else {
-                showAlert('Неверно! Правильный ответ: ' + intervalName);
-              }
-              // Сбрасываем флаг после выполнения проверки
-              playClicked = false;
-            } else {
-              showAlert("Сначала нажмите кнопку Проиграть интервал");
-            }
-          });
-
-          $("#terzaMinore").on("click", function() {
-            if (playClicked) {
-              if (intervalli[lastNameInterval] === "Малая терция") {
-                showAlert("Верно! Малая терция.");
-              } else {
-                showAlert('Неверно! Правильный ответ: ' + intervalName);
-              }
-              playClicked = false;
-            } else {
-              showAlert("Сначала нажмите кнопку Проиграть интервал");
-            }
-          });
-
-          $("#terzaMaggiore").on("click", function() {
-            if (playClicked) {
-              if (intervalli[lastNameInterval] === "Большая терция") {
-                showAlert("Верно! Большая терция.");
-              } else {
-                showAlert('Неверно! Правильный ответ: ' + intervalName);
-              }
-              playClicked = false;
-            } else {
-              showAlert("Сначала нажмите кнопку Проиграть интервал");
-            }
-          });
-
-          $("#quarta").on("click", function() {
-            if (playClicked) {
-              if (intervalli[lastNameInterval] === "Кварта") {
-                showAlert("Верно! Кварта.");
-              } else {
-                showAlert('Неверно! Правильный ответ: ' + intervalName);
-              }
-              playClicked = false;
-            } else {
-              showAlert("Сначала нажмите кнопку Проиграть интервал");
-            }
-          });
-
-          $("#tritono").on("click", function() {
-            if (playClicked) {
-              if (intervalli[lastNameInterval] === "Увеличенная кварта") {
-                showAlert("Верно! Увеличенная кварта.");
-              } else {
-                showAlert('Неверно! Правильный ответ: ' + intervalName);
-              }
-              playClicked = false;
-            } else {
-              showAlert("Сначала нажмите кнопку Проиграть интервал");
-            }
-          });
-
-          $("#quinta").on("click", function() {
-            if (playClicked) {
-              if (intervalli[lastNameInterval] === "Квинта") {
-                showAlert("Верно! Квинта.");
-              } else {
-                showAlert('Неверно! Правильный ответ: ' + intervalName);
-              }
-              playClicked = false;
-            } else {
-              showAlert("Сначала нажмите кнопку Проиграть интервал");
-            }
-          });
-
-          $("#sestaMinore").on("click", function() {
-            if (playClicked) {
-              if (intervalli[lastNameInterval] === "Малая секста") {
-                showAlert("Верно! Малая секста.");
-              } else {
-                showAlert('Неверно! Правильный ответ: ' + intervalName);
-              }
-              playClicked = false;
-            } else {
-              showAlert("Сначала нажмите кнопку Проиграть интервал");
-            }
-          });
-
-          $("#sestaMaggiore").on("click", function() {
-            if (playClicked) {
-              if (intervalli[lastNameInterval] === "Большая секста") {
-                showAlert("Верно! Большая секста.");
-              } else {
-                showAlert('Неверно! Правильный ответ: ' + intervalName);
-              }
-              playClicked = false;
-            } else {
-              showAlert("Сначала нажмите кнопку Проиграть интервал");
-            }
-          });
-
-          $("#settimaMinore").on("click", function() {
-            if (playClicked) {
-              if (intervalli[lastNameInterval] === "Малая септима") {
-                showAlert("Верно! Малая септима.");
-              } else {
-                showAlert('Неверно! Правильный ответ: ' + intervalName);
-              }
-              playClicked = false;
-            } else {
-              showAlert("Сначала нажмите кнопку Проиграть интервал");
-            }
-          });
-
-          $("#settimaMaggiore").on("click", function() {
-            if (playClicked) {
-              if (intervalli[lastNameInterval] === "Большая септима") {
-                showAlert("Верно! Большая септима.");
-              } else {
-                showAlert('Неверно! Правильный ответ: ' + intervalName);
-              }
-              playClicked = false;
-            } else {
-              showAlert("Сначала нажмите кнопку Проиграть интервал");
-            }
-          });
-
-          $("#ottava").on("click", function() {
-            if (playClicked) {
-              if (intervalli[lastNameInterval] === "Октава") {
-                showAlert("Верно! Октава.");
-              } else {
-                showAlert('Неверно! Правильный ответ: ' + intervalName);
-              }
-              playClicked = false;
-            } else {
-              showAlert("Сначала нажмите кнопку Проиграть интервал");
-            }
-          });
-
-          $("#nonaMinore").on("click", function() {
-            if (playClicked) {
-              if (intervalli[lastNameInterval] === "БМалая нона") {
-                showAlert("Верно! Малая нона.");
-              } else {
-                showAlert('Неверно! Правильный ответ: ' + intervalName);
-              }
-              playClicked = false;
-            } else {
-              showAlert("Сначала нажмите кнопку Проиграть интервал");
-            }
-          });
-
-          $("#nonaMaggiore").on("click", function() {
-            if (playClicked) {
-              if (intervalli[lastNameInterval] === "Большая нона") {
-                showAlert("Верно! Большая нона.");
-              } else {
-                showAlert('Неверно! Правильный ответ: ' + intervalName);
-              }
-              playClicked = false;
-            } else {
-              showAlert("Сначала нажмите кнопку Проиграть интервал");
-            }
-          });
-
-          $("#decimaMinore").on("click", function() {
-            if (playClicked) {
-              if (intervalli[lastNameInterval] === "Малая децима") {
-                showAlert("Верно! Малая децима.");
-              } else {
-                showAlert('Неверно! Правильный ответ: ' + intervalName);
-              }
-              playClicked = false;
-            } else {
-              showAlert("Сначала нажмите кнопку Проиграть интервал");
-            }
-          });
-
-          $("#decimaMaggiore").on("click", function() {
-            if (playClicked) {
-              if (intervalli[lastNameInterval] === "Большая децима") {
-                showAlert("Верно! Большая децима.");
-              } else {
-                showAlert('Неверно! Правильный ответ: ' + intervalName);
-              }
-              playClicked = false;
-            } else {
-              showAlert("Сначала нажмите кнопку Проиграть интервал");
-            }
-          });
-
         }).fail(function() {
           console.log("Не удалось загрузить данные.");
         });
@@ -708,13 +578,6 @@ $(document).ready(function() {
   });
 
   $(document).tooltip();
-
-  function playSound(note) {
-    var audio = new Audio("snd/note/" + note + ".mp3");
-    audio.play().catch(function(error) {
-      console.error("Ошибка воспроизведения звука:", error);
-    });
-  }
 
   function scrollToElement(sourceSelector, targetSelector) {
     var $source = $(sourceSelector);
