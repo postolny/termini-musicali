@@ -11,32 +11,49 @@
 
 $(document).ready(function() {
 
-  var myArray1;
-  var randomArray;
-  var quizArray;
-  var tooltips = {};
   var history = [];
   var copy = '<span id="copyButton"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="currentColor" fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/></svg></span>';
   var playBtnRand = '<span id="playButtonRandom"></span><br>';
   var playBtn = '<span id="playButton"></span><br>';
   var lastPlayedInterval = "";
   var lastNameInterval = "";
-  var intervalli = {};
   var playClicked = false;
   var delayTime = 1000;
 
-  function handleDataLoadingError() {
-    console.log("Не удалось загрузить данные.");
-  }
+  // Загрузка данных из json и кэширование результатов
+  const loadData = (function() {
+    // Объект для кэширования данных
+    const cache = {};
 
-  $.getJSON('data/data.json').done(function(data) {
-    var myArray1 = data;
+    return function(url) {
+      if (cache[url]) {
+        // Если данные уже загружены, возвращаем их из кэша
+        return Promise.resolve(cache[url]);
+      } else {
+        // Иначе выполняем запрос
+        return new Promise((resolve, reject) => {
+          $.getJSON(url)
+            .done(data => {
+              // Сохраняем данные в кэше
+              cache[url] = data;
+              resolve(data);
+            })
+            .fail(reject);
+        });
+      }
+    };
+  })();
 
-    console.log(myArray1);
+  async function loadDataAndProcess() {
+    try {
+      const dizionario = await loadData('data/data.json');
 
-    $.getJSON('data/tooltips.json').done(function(data) {
-      var tooltips = data;
-      console.log(tooltips);
+      console.log('Данные из data.json', dizionario);
+
+      const tooltips = await loadData('data/tooltips.json');
+
+      console.log('Данные из tooltips.json', tooltips);
+
       // Заполняем объект подсказками
       tooltips.forEach(function(item) {
         tooltips[item.word] = item.tooltip;
@@ -54,18 +71,16 @@ $(document).ready(function() {
         });
       }
 
+      const randomArray = await loadData('data/data.json');
+
+      console.log('Данные из data.json для случайного термина:', randomArray);
+
       function loadRandomData() {
-        $.getJSON('data/data.json').done(function(data) {
-          randomArray = data;
-          console.log(randomArray);
-          var rand = Math.floor(Math.random() * randomArray.length);
-          $("#rand").html('<span>' + randomArray[rand].label + '</span>' + copy + playBtnRand + randomArray[rand].value);
-          handlePlayButton(randomArray[rand], "#playButtonRandom");
-          addTitle();
-          replaceTextWithLinks();
-        }).fail(function() {
-          setTimeout(loadRandomData, 5000);
-        });
+        var rand = Math.floor(Math.random() * randomArray.length);
+        $("#rand").html('<span>' + randomArray[rand].label + '</span>' + copy + playBtnRand + randomArray[rand].value);
+        handlePlayButton(randomArray[rand], "#playButtonRandom");
+        addTitle();
+        replaceTextWithLinks();
       }
 
       loadRandomData();
@@ -97,7 +112,7 @@ $(document).ready(function() {
           var exactMatch = []; // Массив для точных совпадений с введённым словом
           var rest = []; // Массив для остальных слов
 
-          var filteredData = myArray1.filter(function(item) {
+          var filteredData = dizionario.filter(function(item) {
             return item.label.toLowerCase().indexOf(term) !== -1;
           });
 
@@ -115,7 +130,7 @@ $(document).ready(function() {
         },
         select: function(event, ui) {
           var term = ui.item.label.toLowerCase();
-          var foundItem = myArray1.find(function(item) {
+          var foundItem = dizionario.find(function(item) {
             return item.label.toLowerCase() === term || item.value.toLowerCase() === term;
           });
           if (term !== "") {
@@ -192,11 +207,12 @@ $(document).ready(function() {
         $("#search-res").html('');
         $(this).css('opacity', '0');
       });
+
       // Обработка клика по ссылке
       $("#search-res").on("click", "a", function(event) {
         event.preventDefault();
         var term = $(this).text().trim().toLowerCase();
-        var foundItem = myArray1.find(function(item) {
+        var foundItem = dizionario.find(function(item) {
           return item.label.toLowerCase() === term || item.value.toLowerCase() === term;
         });
         // Если найденный элемент не добавлен в историю, то он добавляется, а история обновляется
@@ -259,7 +275,7 @@ $(document).ready(function() {
         $("#history li").removeClass("current"); // Убираем класс "current" у всех элементов списка
         $(this).parent().addClass("current"); // Добавляем класс "current" к родительскому элементу текущей ссылки
         var term = $(this).text().trim().toLowerCase();
-        var foundItem = myArray1.find(function(item) {
+        var foundItem = dizionario.find(function(item) {
           return item.label.toLowerCase() === term || item.value.toLowerCase() === term;
         });
         if (foundItem) {
@@ -299,7 +315,7 @@ $(document).ready(function() {
       $("#rand").on("click", "a", function(event) {
         event.preventDefault();
         var term = $(this).text().trim().toLowerCase();
-        var foundItem = myArray1.find(function(item) {
+        var foundItem = dizionario.find(function(item) {
           return item.label.toLowerCase() === term;
         });
         if (foundItem) {
@@ -356,226 +372,220 @@ $(document).ready(function() {
         }
       }
 
-    }).fail(handleDataLoadingError);
-  }).fail(handleDataLoadingError);
+      const quizArray = await loadData('data/quiz.json');
 
-  $.getJSON('data/quiz.json').done(function(data) {
-    var quizArray = data;
+      console.log('Данные из quiz.json', quizArray);
 
-    console.log(quizArray);
+      var usedQuestions = [];
+      var totalQuestions = quizArray.length;
 
-    var usedQuestions = [];
-    var totalQuestions = quizArray.length;
-
-    function getRandomQuestion() {
-      var remainingQuestions = quizArray.filter(function(question) {
-        return !usedQuestions.includes(question);
-      });
-
-      if (remainingQuestions.length === 0) {
-        // Если все вопросы использованы, начинаем заново
-        //usedQuestions = [];
-        remainingQuestions = quizArray.slice(); // Копируем все вопросы
-      }
-
-      var randomIndex = Math.floor(Math.random() * remainingQuestions.length);
-      var randomQuestion = remainingQuestions[randomIndex];
-      usedQuestions.push(randomQuestion); // Добавляем использованный вопрос в список
-      return randomQuestion;
-    }
-
-    function displayQuestion() {
-      var randomQuestion = getRandomQuestion();
-      $('#question-text').text(randomQuestion.question);
-
-      var answersContainer = $('#answers-container');
-      answersContainer.empty(); // Очищаем контейнер перед добавлением новых кнопок
-
-      // Создаем кнопки на основе ответов
-      randomQuestion.answers.forEach(function(answer, index) {
-        var answerButton = $('<button type="button" class="answer-btn">' + answer + '</button>');
-        answerButton.click(function() {
-          handleAnswer(randomQuestion, index);
-          $("#answerModal").fadeIn();
+      function getRandomQuestion() {
+        var remainingQuestions = quizArray.filter(function(question) {
+          return !usedQuestions.includes(question);
         });
-        answersContainer.append(answerButton);
-      });
-    }
 
-    $(".quizModalClose").click(function() {
-      $(".quizModalWrapper, .active").removeClass('active');
-    });
-
-    function handleAnswer(question, selectedIndex) {
-      var correctIndex = question.correctIndex;
-      if (selectedIndex === correctIndex) {
-        $("#quizModalContent").text('Правильный ответ!');
-        $(".quizModalWrapper, .active").addClass('active');
-      } else {
-        $("#quizModalContent").text('Неправильный ответ. Правильный ответ был: ' + question.answers[correctIndex]);
-        $(".quizModalWrapper, .active").addClass('active');
-      }
-
-      if (usedQuestions.length === totalQuestions) {
-        finishQuiz();
-      } else {
-        displayQuestion();
-      }
-    }
-
-    function finishQuiz() {
-      $('#quiz-result').text('Викторина завершена!');
-      $('#quiz-container button').prop('disabled', true); // Отключаем кнопки
-    }
-
-    displayQuestion();
-
-  }).fail(function() {
-    console.log("Не удалось загрузить данные из quiz.json.");
-  });
-
-  $.getJSON("data/intervalli.json", function(data) {
-    var intervalli = data;
-
-    console.log(intervalli);
-
-    // Получаем все ноты из ключей объекта intervalli
-    var allNotes = Object.keys(intervalli).flatMap(interval => interval.split('-'));
-
-    // Функция проверки интервала и вывода сообщений
-    function handleIntervalCheck(intervalName) {
-      var resultMessage;
-
-      if (playClicked) {
-        if (intervalli[lastNameInterval] === intervalName) {
-          resultMessage = "Верно! " + intervalName + ".";
-        } else {
-          resultMessage = "Неверно! Не " + intervalName + ", а " + intervalli[lastNameInterval];
+        if (remainingQuestions.length === 0) {
+          // Если все вопросы использованы, начинаем заново
+          //usedQuestions = [];
+          remainingQuestions = quizArray.slice(); // Копируем все вопросы
         }
-        // Сбрасываем флаг после выполнения проверки
-        playClicked = false;
-      } else {
-        resultMessage = "Сначала нажмите кнопку Проиграть интервал";
+
+        var randomIndex = Math.floor(Math.random() * remainingQuestions.length);
+        var randomQuestion = remainingQuestions[randomIndex];
+        usedQuestions.push(randomQuestion); // Добавляем использованный вопрос в список
+        return randomQuestion;
       }
 
-      showAlert(resultMessage);
-    }
+      function displayQuestion() {
+        var randomQuestion = getRandomQuestion();
+        $('#question-text').text(randomQuestion.question);
 
-    $("#unisono").on("click", function() {
-      handleIntervalCheck("Унисон");
-    });
+        var answersContainer = $('#answers-container');
+        answersContainer.empty(); // Очищаем контейнер перед добавлением новых кнопок
 
-    $("#secondaMinore").on("click", function() {
-      handleIntervalCheck("Малая секунда");
-    });
+        // Создаем кнопки на основе ответов
+        randomQuestion.answers.forEach(function(answer, index) {
+          var answerButton = $('<button type="button" class="answer-btn">' + answer + '</button>');
+          answerButton.click(function() {
+            handleAnswer(randomQuestion, index);
+            $("#answerModal").fadeIn();
+          });
+          answersContainer.append(answerButton);
+        });
+      }
 
-    $("#secondaMaggiore").on("click", function() {
-      handleIntervalCheck("Большая секунда");
-    });
-
-    $("#terzaMinore").on("click", function() {
-      handleIntervalCheck("Малая терция");
-    });
-
-    $("#terzaMaggiore").on("click", function() {
-      handleIntervalCheck("Большая терция");
-    });
-
-    $("#quarta").on("click", function() {
-      handleIntervalCheck("Кварта");
-    });
-
-    $("#tritono").on("click", function() {
-      handleIntervalCheck("Увеличенная кварта");
-    });
-
-    $("#quinta").on("click", function() {
-      handleIntervalCheck("Квинта");
-    });
-
-    $("#sestaMinore").on("click", function() {
-      handleIntervalCheck("Малая секста");
-    });
-
-    $("#sestaMaggiore").on("click", function() {
-      handleIntervalCheck("Большая секста");
-    });
-
-    $("#settimaMinore").on("click", function() {
-      handleIntervalCheck("Малая септима");
-    });
-
-    $("#settimaMaggiore").on("click", function() {
-      handleIntervalCheck("Большая септима");
-    });
-
-    $("#ottava").on("click", function() {
-      handleIntervalCheck("Октава");
-    });
-
-    $("#nonaMinore").on("click", function() {
-      handleIntervalCheck("Малая нона");
-    });
-
-    $("#nonaMaggiore").on("click", function() {
-      handleIntervalCheck("Большая нона");
-    });
-
-    $("#decimaMinore").on("click", function() {
-      handleIntervalCheck("Малая децима");
-    });
-
-    $("#decimaMaggiore").on("click", function() {
-      handleIntervalCheck("Большая децима");
-    });
-
-    $(".intervalloPlayButton").click(function() {
-
-      playClicked = true; // Устанавливаем флаг, что кнопка .intervalloPlayButton была нажата
-
-      var note1 = allNotes[Math.floor(Math.random() * allNotes.length)];
-      var note2 = allNotes[Math.floor(Math.random() * allNotes.length)];
-
-      playSound(note1);
-      setTimeout(function() {
-        playSound(note2);
-
-        intervalName = intervalli[note1 + "-" + note2];
-        lastPlayedInterval = note1 + "-" + note2;
-        console.log("Проигран интервал:", lastPlayedInterval);
-        console.log("Название:", intervalName);
-
-        lastNameInterval = lastPlayedInterval;
-      }, delayTime); // Задержка 1s или 0
-    });
-
-    function playSound(note) {
-      var audio = new Audio("snd/note/" + note + ".mp3");
-      audio.play().catch(function(error) {
-        console.error("Ошибка воспроизведения звука:", error);
+      $(".quizModalClose").click(function() {
+        $(".quizModalWrapper, .active").removeClass('active');
       });
-    }
 
-    $('#toggleTimeout').change(function() {
-      // Проверяем состояние чекбокса
-      if ($(this).is(':checked')) {
-        // Если чекбокс отмечен, обнуляем delayTime
-        delayTime = 0;
-      } else {
-        // Если чекбокс не отмечен, устанавливаем delayTime обратно в 1000
-        delayTime = 1000;
+      function handleAnswer(question, selectedIndex) {
+        var correctIndex = question.correctIndex;
+        if (selectedIndex === correctIndex) {
+          $("#quizModalContent").text('Правильный ответ!');
+          $(".quizModalWrapper, .active").addClass('active');
+        } else {
+          $("#quizModalContent").text('Неправильный ответ. Правильный ответ был: ' + question.answers[correctIndex]);
+          $(".quizModalWrapper, .active").addClass('active');
+        }
+
+        if (usedQuestions.length === totalQuestions) {
+          finishQuiz();
+        } else {
+          displayQuestion();
+        }
       }
-    });
 
-    function showAlert(text) {
-      var alert = $('#quizModalContent');
-      alert.text(text);
-      $(".quizModalWrapper, .active").addClass('active');
+      function finishQuiz() {
+        $('#quiz-result').text('Викторина завершена!');
+        $('#quiz-container button').prop('disabled', true); // Отключаем кнопки
+      }
+
+      displayQuestion();
+
+      const intervalli = await loadData('data/intervalli.json');
+
+      console.log('Данные из intervalli.json', intervalli);
+
+      // Получаем все ноты из ключей объекта intervalli
+      var allNotes = Object.keys(intervalli).flatMap(interval => interval.split('-'));
+
+      // Функция проверки интервала и вывода сообщений
+      function handleIntervalCheck(intervalName) {
+        var resultMessage;
+
+        if (playClicked) {
+          if (intervalli[lastNameInterval] === intervalName) {
+            resultMessage = "Верно! " + intervalName + ".";
+          } else {
+            resultMessage = "Неверно! Не " + intervalName + ", а " + intervalli[lastNameInterval];
+          }
+          // Сбрасываем флаг после выполнения проверки
+          playClicked = false;
+        } else {
+          resultMessage = "Сначала нажмите кнопку Проиграть интервал";
+        }
+
+        showAlert(resultMessage);
+      }
+
+      $("#unisono").on("click", function() {
+        handleIntervalCheck("Унисон");
+      });
+
+      $("#secondaMinore").on("click", function() {
+        handleIntervalCheck("Малая секунда");
+      });
+
+      $("#secondaMaggiore").on("click", function() {
+        handleIntervalCheck("Большая секунда");
+      });
+
+      $("#terzaMinore").on("click", function() {
+        handleIntervalCheck("Малая терция");
+      });
+
+      $("#terzaMaggiore").on("click", function() {
+        handleIntervalCheck("Большая терция");
+      });
+
+      $("#quarta").on("click", function() {
+        handleIntervalCheck("Кварта");
+      });
+
+      $("#tritono").on("click", function() {
+        handleIntervalCheck("Увеличенная кварта");
+      });
+
+      $("#quinta").on("click", function() {
+        handleIntervalCheck("Квинта");
+      });
+
+      $("#sestaMinore").on("click", function() {
+        handleIntervalCheck("Малая секста");
+      });
+
+      $("#sestaMaggiore").on("click", function() {
+        handleIntervalCheck("Большая секста");
+      });
+
+      $("#settimaMinore").on("click", function() {
+        handleIntervalCheck("Малая септима");
+      });
+
+      $("#settimaMaggiore").on("click", function() {
+        handleIntervalCheck("Большая септима");
+      });
+
+      $("#ottava").on("click", function() {
+        handleIntervalCheck("Октава");
+      });
+
+      $("#nonaMinore").on("click", function() {
+        handleIntervalCheck("Малая нона");
+      });
+
+      $("#nonaMaggiore").on("click", function() {
+        handleIntervalCheck("Большая нона");
+      });
+
+      $("#decimaMinore").on("click", function() {
+        handleIntervalCheck("Малая децима");
+      });
+
+      $("#decimaMaggiore").on("click", function() {
+        handleIntervalCheck("Большая децима");
+      });
+
+      $(".intervalloPlayButton").click(function() {
+
+        playClicked = true; // Устанавливаем флаг, что кнопка .intervalloPlayButton была нажата
+
+        var note1 = allNotes[Math.floor(Math.random() * allNotes.length)];
+        var note2 = allNotes[Math.floor(Math.random() * allNotes.length)];
+
+        playSound(note1);
+        setTimeout(function() {
+          playSound(note2);
+
+          intervalName = intervalli[note1 + "-" + note2];
+          lastPlayedInterval = note1 + "-" + note2;
+          console.log("Проигран интервал:", lastPlayedInterval);
+          console.log("Название:", intervalName);
+
+          lastNameInterval = lastPlayedInterval;
+        }, delayTime); // Задержка 1s или 0
+      });
+
+      function playSound(note) {
+        var audio = new Audio("snd/note/" + note + ".mp3");
+        audio.play().catch(function(error) {
+          console.error("Ошибка воспроизведения звука:", error);
+        });
+      }
+
+      $('#toggleTimeout').change(function() {
+        // Проверяем состояние чекбокса
+        if ($(this).is(':checked')) {
+          // Если чекбокс отмечен, обнуляем delayTime
+          delayTime = 0;
+        } else {
+          // Если чекбокс не отмечен, устанавливаем delayTime обратно в 1000
+          delayTime = 1000;
+        }
+      });
+
+      function showAlert(text) {
+        var alert = $('#quizModalContent');
+        alert.text(text);
+        $(".quizModalWrapper, .active").addClass('active');
+      }
+
+    } catch (error) {
+      console.log("Не удалось загрузить данные.");
     }
+  }
 
-  }).fail(function() {
-    console.log("Не удалось загрузить данные из intervalli.json.");
-  });
+  loadDataAndProcess();
 
   $(document).tooltip();
 
