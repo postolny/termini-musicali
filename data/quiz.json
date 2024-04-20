@@ -18,5 +18,6 @@
   { "question": "Указание в нотах «con espressione» велит играть выразительно. Имеет ли слово «espressione» какое-либо отношение к математике?", "answers": ["да", "нет"], "correctIndex": 0 },
   { "question": "Переведите идиому «largo a parole»:", "answers": ["врун", "щедрый на слова", "тугодум"], "correctIndex": 1 },
   { "question": "Переведите идиому «avere delle fantasie»:", "answers": ["иметь слишком много желаний", "быть чудаковатым", "просто иметь фантазию"], "correctIndex": 1 },
-  { "question": "Какой частью речи является слово «piacere»?", "answers": ["глагол", "существительное", "глагол и существительное"], "correctIndex": 2 }
+  { "question": "Какой частью речи является слово «piacere»?", "answers": ["глагол", "существительное", "глагол и существительное"], "correctIndex": 2 },
+  { "question": "Выражение «poco a poco» означает «постепенно». Что из перечисленного является синонимом?", "answers": ["piano piano", "poco piano", "poco prima"], "correctIndex": 0 }
 ]
