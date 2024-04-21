@@ -8,7 +8,6 @@
  * в том или ином виде или распространять его,
  * нарушая тем самым авторские права.
  */
-
 $(document).ready(function() {
 
   var history = [];
@@ -147,8 +146,11 @@ $(document).ready(function() {
               }
             }
           }
-          $("#search-tr").val(ui.item.label).blur();
+          $("#search-tr").val(ui.item.label);
           $("#search-res").html('<span>' + ui.item.label + '</span>' + copy + playBtn + ui.item.value);
+          setTimeout(function() {
+            $('#search-tr').blur(); // Снять фокус с поля ввода
+          }, 0);
           handlePlayButton(ui.item, "#playButton");
           addTitle();
           replaceTextWithLinks();
