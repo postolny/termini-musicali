@@ -147,7 +147,7 @@ $(document).ready(function() {
               }
             }
           }
-          $("#search-tr").val(ui.item.label);
+          $("#search-tr").val(ui.item.label).blur();
           $("#search-res").html('<span>' + ui.item.label + '</span>' + copy + playBtn + ui.item.value);
           handlePlayButton(ui.item, "#playButton");
           addTitle();
