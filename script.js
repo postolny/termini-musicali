@@ -451,11 +451,24 @@ $(document).ready(function() {
 
       function playSound(note) {
         var audioElement = document.getElementById('audio' + note);
+
         if (audioElement) {
-          audioElement.currentTime = 0; // Сбросить текущее время воспроизведения до начала
-          audioElement.play().catch(function(error) {
-            console.error("Ошибка воспроизведения звука:", error);
-          });
+          if (audioElement.readyState === 4) {
+            audioElement.currentTime = 0; // Сбросить текущее время воспроизведения до начала
+            audioElement.play().catch(function(error) {
+              console.error("Ошибка воспроизведения звука:", error);
+            });
+          } else {
+            $(".intervalloPlayButton").addClass('loading'); // Добавить класс для показа спиннера
+
+            // Обработчик события загрузки аудио
+            audioElement.oncanplay = function() {
+              $(".intervalloPlayButton").removeClass('loading'); // Удалить класс после загрузки аудио
+              audioElement.play(); // Начать воспроизведение после загрузки
+            };
+          }
+        } else {
+          console.error("audioElement не найден", note);
         }
       }
 

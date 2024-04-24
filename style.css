@@ -665,6 +665,30 @@ kbd {
   text-align: center;
 }
 
+/* Спиннер */
+.loading::after {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #ccc;
+  border-top: 2px solid #333;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-left: 5px;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 /* Стили для обертки переключателя */
 .toggle-switch {
   position: relative;
