@@ -16,6 +16,7 @@ $(document).ready(function() {
   var playBtn = '<span id="playButton"></span><br>';
   var lastPlayedInterval = "";
   var lastNameInterval = "";
+  var intervalli = {};
   var playClicked = false;
   var delayTime = 1000;
 
@@ -448,26 +449,34 @@ $(document).ready(function() {
 
       console.log('Данные из intervalli.json', intervalli);
 
-      // Получаем все ноты из ключей объекта intervalli
-      var allNotes = Object.keys(intervalli).flatMap(interval => interval.split('-'));
+      function playSound(note) {
+        var audioElement = document.getElementById('audio' + note);
+        if (audioElement) {
+          audioElement.currentTime = 0; // Сбросить текущее время воспроизведения до начала
+          audioElement.play().catch(function(error) {
+            console.error("Ошибка воспроизведения звука:", error);
+          });
+        }
+      }
 
-      // Функция проверки интервала и вывода сообщений
-      function handleIntervalCheck(intervalName) {
+      // Функция проверки интервала и вывода сообщения
+      function handleIntervalCheck(expectedIntervalType) {
+        if (!playClicked) {
+          showAlert("Сначала нажмите кнопку Проиграть интервал");
+          return;
+        }
+
         var resultMessage;
+        var currentIntervalName = intervalli[lastNameInterval];
 
-        if (playClicked) {
-          if (intervalli[lastNameInterval] === intervalName) {
-            resultMessage = "Верно! " + intervalName + ".";
-          } else {
-            resultMessage = "Неверно! Не " + intervalName + ", а " + intervalli[lastNameInterval];
-          }
-          // Сбрасываем флаг после выполнения проверки
-          playClicked = false;
+        if (currentIntervalName === expectedIntervalType) {
+          resultMessage = "Верно! " + currentIntervalName + ".";
         } else {
-          resultMessage = "Сначала нажмите кнопку Проиграть интервал";
+          resultMessage = "Неверно! Не " + expectedIntervalType + ", а " + currentIntervalName + ".";
         }
 
         showAlert(resultMessage);
+        playClicked = false; // Сброс флага после проверки
       }
 
       $("#unisono").on("click", function() {
@@ -539,9 +548,9 @@ $(document).ready(function() {
       });
 
       $(".intervalloPlayButton").click(function() {
+        playClicked = true; // Установка флага, что кнопка "Проиграть интервал" была нажата
 
-        playClicked = true; // Устанавливаем флаг, что кнопка .intervalloPlayButton была нажата
-
+        var allNotes = Object.keys(intervalli).flatMap(interval => interval.split('-'));
         var note1 = allNotes[Math.floor(Math.random() * allNotes.length)];
         var note2 = allNotes[Math.floor(Math.random() * allNotes.length)];
 
@@ -549,21 +558,12 @@ $(document).ready(function() {
         setTimeout(function() {
           playSound(note2);
 
-          intervalName = intervalli[note1 + "-" + note2];
           lastPlayedInterval = note1 + "-" + note2;
           console.log("Проигран интервал:", lastPlayedInterval);
-          console.log("Название:", intervalName);
-
-          lastNameInterval = lastPlayedInterval;
+          console.log("Название интервала:", intervalli[lastPlayedInterval]);
+          lastNameInterval = lastPlayedInterval; // Обновляем последний интервал
         }, delayTime); // Задержка 1s или 0
       });
-
-      function playSound(note) {
-        var audio = new Audio("snd/note/" + note + ".mp3");
-        audio.play().catch(function(error) {
-          console.error("Ошибка воспроизведения звука:", error);
-        });
-      }
 
       $('#toggleTimeout').change(function() {
         // Проверяем состояние чекбокса
