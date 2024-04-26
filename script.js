@@ -735,7 +735,10 @@ $(document).ready(function() {
 
   $('.show-hidden-content').click(function(e) {
     e.preventDefault();
-    $('.hidden-content').toggleClass('visible');
+    // Клонируем скрытое содержимое из .hidden-content в .cloned-hidden-content (для избежания задержки)
+    var content = $('.hidden-content').html();
+    $('.cloned-hidden-content').html(content);
+    $('.hidden-content').toggle();
     $('.dots').toggle();
     $(this).text(function(i, text) {
       return text === "Показать больше" ? "Показать меньше" : "Показать больше";

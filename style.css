@@ -427,16 +427,13 @@ nav li {
   z-index: 2;
 }
 
-.hidden-content {
+.hidden-content,
+.cloned-hidden-content {
   display: none;
 }
 
 .show-hidden-content {
   white-space: nowrap;
-}
-
-.visible {
-  display: inline;
 }
 
 /* на странице Условные сокращения */
