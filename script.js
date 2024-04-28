@@ -19,6 +19,7 @@ $(document).ready(function() {
   var intervalli = {};
   var playClicked = false;
   var delayTime = 1000;
+  var usedComposers = [];
 
   // Загрузка данных из json и кэширование результатов
   const loadData = (function() {
@@ -594,6 +595,77 @@ $(document).ready(function() {
         alert.text(text);
         $(".quizModalWrapper, .active").addClass('active');
       }
+
+      const composers = await loadData('data/composers.json');
+
+      console.log('Данные из composers.json', composers);
+
+      // Функция для случайного выбора композитора из массива
+      function getRandomComposer() {
+        // Фильтруем композиторов, исключая уже выбранных
+        var availableComposers = composers.filter(function(composer) {
+          return usedComposers.indexOf(composer) === -1;
+        });
+
+        if (availableComposers.length === 0) {
+          // Если все композиторы уже выбраны, сбрасываем массив и начинаем сначала
+          usedComposers = [];
+          availableComposers = composers;
+        }
+
+        // Выбираем случайного композитора из доступных
+        var randomIndex = Math.floor(Math.random() * availableComposers.length);
+        var randomComposer = availableComposers[randomIndex];
+
+        // Добавляем выбранного композитора в массив уже выбранных
+        usedComposers.push(randomComposer);
+
+        return randomComposer;
+      }
+
+      // При загрузке страницы выбираем случайного композитора и отображаем его фотографию на карточке
+      var randomComposer = getRandomComposer();
+
+      $('.card .front').css('background-image', randomComposer.image);
+
+      function composerButtonClick() {
+        var composerName = $('.composer').val().replace(/ё/g, 'е').toUpperCase().replace(/\s+/g, ' ').trim();
+        var resultMessage;
+        // Проверяем, заполнено ли поле .composer
+        if (composerName === '') {
+          // Если не заполнено, выводим сообщение
+          resultMessage = 'Пожалуйста, заполните поле!';
+          showAlert(resultMessage);
+        } else {
+          // Проверяем ответ
+          if (composerName === randomComposer.name.replace(/ё/g, 'е').toUpperCase().replace(/\s+/g, ' ')) {
+            $('.back p').html('Правильно! ' + '<div>' + randomComposer.desc + '</div>');
+          } else {
+            $('.back p').text('Неправильно. Правильный ответ: ' + randomComposer.name);
+          }
+
+          // Поворачиваем карточку и показываем ответ
+          $('.card').css('transform', 'rotateY(.5turn)');
+        }
+      }
+
+      $('.composerButton').click(composerButtonClick);
+
+      $(document).on("keydown", function(event) {
+        if (event.key === "Enter") {
+          composerButtonClick();
+        }
+      });
+
+      $('.flipButton').click(function() {
+        // Поворачиваем карточку обратно
+        $('.card').css('transform', 'rotateY(0)');
+        // Выбираем нового случайного композитора
+        randomComposer = getRandomComposer();
+        $('.card .front').css('background-image', randomComposer.image);
+        // Очищаем поле
+        $('.composer').val('');
+      });
 
     } catch (error) {
       console.log("Не удалось загрузить данные.");

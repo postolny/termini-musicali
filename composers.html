@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Условия и положения</title>
-  <meta name="description" content="Онлайн-словарь иностранных музыкальных терминов. Условия и положения." />
+  <title>Угадай композитора</title>
+  <meta name="description" content="Проверьте себя, знаете ли вы известных композиторов в лицо? На этой странице вы сможете это сделать!" />
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
@@ -13,7 +13,7 @@
 <body>
 
   <header class="diagonal-header">
-    <h1>Условия и положения</h1>
+    <h1>Угадай композитора</h1>
   </header>
   <nav>
     <ul>
@@ -30,13 +30,21 @@
         </svg>
     </div>
     <section class="content">
-      <h2>1. Общие положения</h2>
-      <p>Используя данный сайт, вы автоматически соглашаетесь с данными Условиями и положениями. Если вы не согласны с данными Условиями, вы не должны использовать сайт.</p>
-      <h2>2. Авторские права</h2>
-      <p>Все права на контент, размещенный на сайте, включая текст, код и другие материалы, принадлежат его правообладателю – Постольному Игорю Анатольевичу. Запрещается распространять, модифицировать или использовать любые материалы сайта в корыстных целях.</p>
-      <h2>3. Использование кода</h2>
-      <p>Использование исходного кода сайта любым образом, включая копирование, изменение или распространение, строго запрещено.</p>
+      <div id="composers-container">
+    <div class="card">
+        <div class="card-content">
+            <div class="front"><h2>Кто это?</h2></div>
+            <div class="back">
+                <span class="flipButton">&#10006;</span>
+                <p></p>
+            </div>
+        </div>
+    </div>
+    <input class="composer" type="text" spellcheck="false">
+    <button class="composerButton">Проверить</button>
+</div>
     </section>
+
   </main>
   <footer class="footer">
     <div class="footer-inner">
@@ -50,8 +58,6 @@
       </div>
       <div class="footer-column">
         <ul>
-          <li><a href="https://postolny.github.io/termini-musicali/quiz">Викторина</a></li>
-          <li><a href="https://postolny.github.io/termini-musicali/composers">Угадай композитора</a></li>
           <li><a href="https://postolny.github.io/termini-musicali/intervalli">Интервалы</a></li>
           <li><a href="https://postolny.github.io/a-memoria/">A memoria</a></li>
           <li><a href="https://postolny.github.io/venice-classic-radio-2/">Venice Classic Radio</a></li>
@@ -62,6 +68,7 @@
           <li><a href="https://postolny.github.io/termini-musicali/">К словарю</a></li>
           <li><a href="https://postolny.github.io/termini-musicali/come-usare-il-dizionario">Как пользоваться словарём</a></li>
           <li><a href="https://postolny.github.io/termini-musicali/abbreviazioni">Условные сокращения</a></li>
+          <li><a href="https://postolny.github.io/termini-musicali/termini-e-condizioni">Условия и положения</a></li>
         </ul>
       </div>
     </div>
@@ -69,6 +76,12 @@
       <span id="currentYear"></span><a href="https://postolny.github.io/">Игорь Постольный</a> Все права защищены
     </div>
   </footer>
+  <div class="quizModalWrapper">
+    <div id="Modal" class="quizModal">
+      <span class="quizModalClose">&#10006;</span>
+      <div id="quizModalContent"></div>
+    </div>
+  </div>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script type="text/javascript" src="script.js"></script>
