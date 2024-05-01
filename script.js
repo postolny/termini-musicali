@@ -299,6 +299,29 @@ $(document).ready(function() {
         scrollToElement('#search-res', '#buttonWrap');
       });
 
+      // Обработчик клика по ссылке в .about
+      $(".about").on("click", "a", function(event) {
+        event.preventDefault();
+        var term = $(this).text().trim().toLowerCase();
+        var foundItem = dizionario.find(function(item) {
+          return item.label.toLowerCase() === term || item.value.toLowerCase() === term;
+        });
+        if (foundItem) {
+          $("#search-res").html('<span>' + foundItem.label + '</span>' + copy + playBtn + foundItem.value);
+          $("#search-tr").val(foundItem.label);
+        }
+
+        replaceTextWithLinks();
+        // Проверяем, имеет ли ссылка класс no-scroll
+        if (!$(this).hasClass("no-scroll")) {
+          // Запускаем функцию прокрутки
+          scrollToElement('#search-res', '#buttonWrap');
+        } else {
+          // Если имеет, предотвращаем выполнение действия по умолчанию
+          event.preventDefault();
+        }
+      });
+
       function replaceTextWithLinks() {
         $('#search-res, #rand').contents().each(function() {
           if (this.nodeType === Node.TEXT_NODE) {
