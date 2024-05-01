@@ -306,9 +306,22 @@ $(document).ready(function() {
         var foundItem = dizionario.find(function(item) {
           return item.label.toLowerCase() === term || item.value.toLowerCase() === term;
         });
-        if (foundItem) {
+        // Если найденный элемент не добавлен в историю, то он добавляется, а история обновляется
+        if (foundItem && history.indexOf(foundItem.label) === -1) {
           $("#search-res").html('<span>' + foundItem.label + '</span>' + copy + playBtn + foundItem.value);
-          $("#search-tr").val(foundItem.label);
+          $("#search-tr").val(foundItem.label); // Подставляем в поле результат обработки клика по ссылке
+          history.push(foundItem.label); // Добавляем переход в историю
+          updateHistory(); // Обновляем отображение истории
+        } else if (foundItem) {
+          $("#search-res").html('<span>' + foundItem.label + '</span>' + copy + playBtn + foundItem.value);
+          $("#search-tr").val(foundItem.label); // Подставляем в поле результат обработки клика по ссылке
+          // Если элемент уже есть в истории, просто отображаем его
+          var index = history.indexOf(foundItem.label);
+          if (index !== -1) {
+            updateHistory();
+            $("#history li").removeClass("current");
+            $("#history li:eq(" + index + ")").addClass("current");
+          }
         }
 
         replaceTextWithLinks();
@@ -317,7 +330,7 @@ $(document).ready(function() {
           // Запускаем функцию прокрутки
           scrollToElement('#search-res', '#buttonWrap');
         } else {
-          // Если имеет, предотвращаем выполнение действия по умолчанию
+          // Если имеет предотвращаем выполнение действия по умолчанию
           event.preventDefault();
         }
       });
