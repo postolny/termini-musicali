@@ -852,13 +852,15 @@ $(document).ready(function() {
 
   // Получаем адрес текущей страницы
   var currentPage = window.location.pathname;
+  console.log("Текущая страница: " + currentPage);
 
   // Обходим все ссылки в футере
   $("footer a").each(function() {
     // Получаем адрес ссылки
     var linkHref = $(this).attr("href");
-    // Проверяем, совпадает ли адрес ссылки с адресом текущей страницы
-    if (linkHref === currentPage) {
+    console.log("Адрес ссылки: " + linkHref);
+    // Проверяем, содержит ли адрес ссылки адрес текущей страницы
+    if (linkHref.indexOf(currentPage) !== -1) {
       // Если совпадает, скрываем ссылку и ее родительский элемент <li>
       $(this).parent().hide();
     }
