@@ -21,5 +21,7 @@
   { "question": "Какой частью речи является слово «piacere»?", "answers": ["глагол", "существительное", "глагол и существительное"], "correctIndex": 2 },
   { "question": "Выражение «poco a poco» означает «постепенно». Что из перечисленного является синонимом?", "answers": ["piano piano", "poco piano", "poco prima"], "correctIndex": 0 },
   { "question": "Музыкальный термин «staccato» означает «отрывисто, отделённо». Переведите фразу «colletto staccato»:", "answers": ["пристяжной воротничок", "оторвавшийся воротничок"], "correctIndex": 0 },
-  { "question": "Переведите фразу «danno subito»:", "answers": ["неожиданный ущерб", "непредвиденный ущерб", "понесённый ущерб"], "correctIndex": 2 }
+  { "question": "Переведите фразу «danno subito»:", "answers": ["неожиданный ущерб", "непредвиденный ущерб", "понесённый ущерб"], "correctIndex": 2 },
+  { "question": "Синонимами «allargando» являются:", "answers": ["rallentando", "allentando", "rallentando и allentando"], "correctIndex": 2 },
+  { "question": "Выражение «a prima vista» в музыке означает «играть с листа». В каком смысле может ещё употребляться это выражение?", "answers": ["увидеть в первый раз", "влюбиться с первого взгляда", "быстро просматривать"], "correctIndex": 1 }
 ]
