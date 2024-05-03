@@ -339,7 +339,7 @@ $(document).ready(function() {
         $('#search-res, #rand').contents().each(function() {
           if (this.nodeType === Node.TEXT_NODE) {
             var replacedText = $(this).text()
-              .replace(/#([\w'-]+)/g, function(match, words) {
+              .replace(/#([\w'àèéìòóù-]+)/g, function(match, words) {
                 // Заменяем дефисы и апострофы на пробелы и возвращаем результат
                 var cleanedWords = words.replace(/[-]/g, ' ');
                 // Создаем ссылку, вставляя слова внутри тега <a>, сохраняя апостроф
