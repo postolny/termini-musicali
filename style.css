@@ -607,6 +607,7 @@ kbd {
   right: 5px;
   font-size: 20px;
   cursor: pointer;
+  z-index: 1001;
 }
 
 /* Для анимации при открытии и закрытии модального окна */
