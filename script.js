@@ -21,6 +21,7 @@ $(document).ready(function() {
   var delayTime = 1000;
   var usedComposers = [];
   var currentData;
+  var mergedArray;
 
   // Загрузка данных из json и кэширование результатов
   const loadData = (function() {
@@ -104,7 +105,7 @@ $(document).ready(function() {
       console.log('Данные из data.json для случайного термина:', randomArray);
 
       function loadRandomData() {
-        var mergedArray = randomArray.concat(ru); // объединяем два массива
+        mergedArray = randomArray.concat(ru); // объединяем два массива
         var rand = Math.floor(Math.random() * mergedArray.length);
         $("#rand").html('<span>' + mergedArray[rand].label + '</span>' + copy + playBtnRand + mergedArray[rand].value);
         handlePlayButton(mergedArray[rand], "#playButtonRandom");
@@ -449,7 +450,7 @@ $(document).ready(function() {
       $("#rand").on("click", "a", function(event) {
         event.preventDefault();
         var term = $(this).text().trim().toLowerCase();
-        var foundItem = dizionario.find(function(item) {
+        var foundItem = mergedArray.find(function(item) {
           return item.label.toLowerCase() === term;
         });
         if (foundItem) {
