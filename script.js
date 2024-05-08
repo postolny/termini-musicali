@@ -949,6 +949,7 @@ $(document).ready(function() {
   });
 
   // Полноэкранный режим
+
   function toggleFullscreen() {
     var element = document.documentElement;
     if (!document.fullscreenElement &&
@@ -966,19 +967,36 @@ $(document).ready(function() {
       $("#normal-mode-icon").hide();
       $("#fullscreen-mode-icon").show();
     } else {
-      // Выход из полноэкранного режима
+      exitFullscreen();
+    }
+  }
+
+  function exitFullscreen() {
+    if (document.fullscreenElement ||
+      document.webkitFullscreenElement ||
+      document.mozFullScreenElement ||
+      document.msFullscreenElement) {
       if (document.exitFullscreen) {
         document.exitFullscreen();
-      } else if (document.msExitFullscreen) {
-        document.msExitFullscreen();
-      } else if (document.mozCancelFullScreen) {
-        document.mozCancelFullScreen();
       } else if (document.webkitExitFullscreen) {
         document.webkitExitFullscreen();
+      } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+      } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
       }
+    }
+  }
+
+  // Обработчик события для выхода из полноэкранного режима (иначе не меняется иконка)
+  $(document).on("fullscreenchange", function(event) {
+    if (!document.fullscreenElement &&
+      !document.webkitFullscreenElement &&
+      !document.mozFullScreenElement &&
+      !document.msFullscreenElement) {
       $("#normal-mode-icon").show();
       $("#fullscreen-mode-icon").hide();
     }
-  }
+  });
 
 });
