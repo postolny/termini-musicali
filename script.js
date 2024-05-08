@@ -256,6 +256,14 @@ $(document).ready(function() {
         var foundItem = currentData.find(function(item) {
           return item.label.toLowerCase() === term || item.value.toLowerCase() === term;
         });
+
+        // Проверяем, должна ли отображаться кнопка очистки ввода
+        if (foundItem.label !== '') {
+          $('#clearInput').css('opacity', '1');
+        } else {
+          $('#clearInput').css('opacity', '0');
+        }
+
         // Если найденный элемент не добавлен в историю, то он добавляется, а история обновляется
         if (foundItem && history.indexOf(foundItem.label) === -1) {
           $("#search-res").html('<span>' + foundItem.label + '</span>' + copy + playBtn + foundItem.value);
@@ -370,6 +378,14 @@ $(document).ready(function() {
         var foundItem = dizionario.find(function(item) {
           return item.label.toLowerCase() === term || item.value.toLowerCase() === term;
         });
+
+        // Проверяем, должна ли отображаться кнопка очистки ввода
+        if (foundItem.label !== '') {
+          $('#clearInput').css('opacity', '1');
+        } else {
+          $('#clearInput').css('opacity', '0');
+        }
+
         // Если найденный элемент не добавлен в историю, то он добавляется, а история обновляется
         if (foundItem && history.indexOf(foundItem.label) === -1) {
           $("#search-res").html('<span>' + foundItem.label + '</span>' + copy + playBtn + foundItem.value);
