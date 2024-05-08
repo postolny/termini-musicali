@@ -11,7 +11,6 @@
 </head>
 
 <body>
-
   <header class="diagonal-header">
     <h1>Интервалы</h1>
   </header>
@@ -19,15 +18,21 @@
     <ul>
       <li><a href="https://postolny.github.io/termini-musicali/">К словарю</a></li>
     </ul>
+    <span id="iconWrap">
+      <svg id="fullscreen-btn" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" onclick="toggleFullscreen()">
+        <path id="normal-mode-icon" fill="currentColor" d="M21 3v6h-2V6.41l-3.29 3.3l-1.42-1.42L17.59 5H15V3zM3 3v6h2V6.41l3.29 3.3l1.42-1.42L6.41 5H9V3zm18 18v-6h-2v2.59l-3.29-3.29l-1.41 1.41L17.59 19H15v2zM9 21v-2H6.41l3.29-3.29l-1.41-1.42L5 17.59V15H3v6z" />
+        <path id="fullscreen-mode-icon" fill="currentColor" d="M14 10V4h2v2.59l3.29-3.29l1.41 1.41L17.41 8H20v2zM4 10V8h2.59l-3.3-3.29l1.42-1.42L8 6.59V4h2v6zm16 4v2h-2.59l3.29 3.29l-1.41 1.41L16 17.41V20h-2v-6zm-10 0v6H8v-2.59l-3.29 3.3l-1.42-1.42L6.59 16H4v-2z" style="display: none;" />
+      </svg>
+    </span>
   </nav>
   <main>
     <div class="darkmodeIcon">
       <svg class="icon light-mode-icon" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 26 26">
-          <path d="M12.906-.031a1 1 0 0 0-.125.031A1 1 0 0 0 12 1v3a1 1 0 1 0 2 0V1a1 1 0 0 0-1.094-1.031M6.844 1.594a1 1 0 0 0-.719 1.5l1.5 2.625a1.008 1.008 0 0 0 1.75-1l-1.5-2.625a1 1 0 0 0-1.031-.5m11.968 0a1 1 0 0 0-.687.5l-1.5 2.625a1.008 1.008 0 0 0 1.75 1l1.5-2.625a1 1 0 0 0-.969-1.5a1 1 0 0 0-.093 0zm4.532 4.375A1 1 0 0 0 23.25 6a1 1 0 0 0-.344.125l-2.625 1.5a1.008 1.008 0 0 0 1 1.75l2.625-1.5a1 1 0 0 0-.562-1.906M2.437 6a1 1 0 0 0-.343 1.875l2.625 1.5a1.008 1.008 0 0 0 1-1.75l-2.625-1.5A1 1 0 0 0 2.438 6zM13 6a7 7 0 1 0 0 14a7 7 0 0 0 0-14m0 2c2.757 0 5 2.243 5 5s-2.243 5-5 5s-5-2.243-5-5s2.243-5 5-5M.719 12A1.004 1.004 0 0 0 1 14h3a1 1 0 1 0 0-2H1a1 1 0 0 0-.094 0a1.001 1.001 0 0 0-.094 0a1.004 1.004 0 0 0-.093 0m21 0A1.004 1.004 0 0 0 22 14h3a1 1 0 1 0 0-2h-3a1 1 0 0 0-.094 0a1.001 1.001 0 0 0-.093 0a1.004 1.004 0 0 0-.094 0M5.156 16.469a1 1 0 0 0-.093.031a1 1 0 0 0-.344.125l-2.625 1.5a1.008 1.008 0 0 0 1 1.75l2.625-1.5a1 1 0 0 0-.563-1.906m15.469.031a1 1 0 0 0-.344 1.875l2.625 1.5a1.008 1.008 0 0 0 1-1.75l-2.625-1.5a1 1 0 0 0-.656-.125M8.312 19.781a1 1 0 0 0-.687.5l-1.5 2.625a1.008 1.008 0 0 0 1.75 1l1.5-2.625a1 1 0 0 0-.969-1.5a1 1 0 0 0-.094 0m9.032 0a1 1 0 0 0-.719 1.5l1.5 2.625a1.008 1.008 0 0 0 1.75-1l-1.5-2.625a1 1 0 0 0-1.031-.5m-4.438 1.188a1 1 0 0 0-.125.031A1 1 0 0 0 12 22v3a1 1 0 1 0 2 0v-3a1 1 0 0 0-1.094-1.031" fill="#FFAC33" />
-        </svg>
+        <path d="M12.906-.031a1 1 0 0 0-.125.031A1 1 0 0 0 12 1v3a1 1 0 1 0 2 0V1a1 1 0 0 0-1.094-1.031M6.844 1.594a1 1 0 0 0-.719 1.5l1.5 2.625a1.008 1.008 0 0 0 1.75-1l-1.5-2.625a1 1 0 0 0-1.031-.5m11.968 0a1 1 0 0 0-.687.5l-1.5 2.625a1.008 1.008 0 0 0 1.75 1l1.5-2.625a1 1 0 0 0-.969-1.5a1 1 0 0 0-.093 0zm4.532 4.375A1 1 0 0 0 23.25 6a1 1 0 0 0-.344.125l-2.625 1.5a1.008 1.008 0 0 0 1 1.75l2.625-1.5a1 1 0 0 0-.562-1.906M2.437 6a1 1 0 0 0-.343 1.875l2.625 1.5a1.008 1.008 0 0 0 1-1.75l-2.625-1.5A1 1 0 0 0 2.438 6zM13 6a7 7 0 1 0 0 14a7 7 0 0 0 0-14m0 2c2.757 0 5 2.243 5 5s-2.243 5-5 5s-5-2.243-5-5s2.243-5 5-5M.719 12A1.004 1.004 0 0 0 1 14h3a1 1 0 1 0 0-2H1a1 1 0 0 0-.094 0a1.001 1.001 0 0 0-.094 0a1.004 1.004 0 0 0-.093 0m21 0A1.004 1.004 0 0 0 22 14h3a1 1 0 1 0 0-2h-3a1 1 0 0 0-.094 0a1.001 1.001 0 0 0-.093 0a1.004 1.004 0 0 0-.094 0M5.156 16.469a1 1 0 0 0-.093.031a1 1 0 0 0-.344.125l-2.625 1.5a1.008 1.008 0 0 0 1 1.75l2.625-1.5a1 1 0 0 0-.563-1.906m15.469.031a1 1 0 0 0-.344 1.875l2.625 1.5a1.008 1.008 0 0 0 1-1.75l-2.625-1.5a1 1 0 0 0-.656-.125M8.312 19.781a1 1 0 0 0-.687.5l-1.5 2.625a1.008 1.008 0 0 0 1.75 1l1.5-2.625a1 1 0 0 0-.969-1.5a1 1 0 0 0-.094 0m9.032 0a1 1 0 0 0-.719 1.5l1.5 2.625a1.008 1.008 0 0 0 1.75-1l-1.5-2.625a1 1 0 0 0-1.031-.5m-4.438 1.188a1 1 0 0 0-.125.031A1 1 0 0 0 12 22v3a1 1 0 1 0 2 0v-3a1 1 0 0 0-1.094-1.031" fill="#FFAC33" />
+      </svg>
       <svg class="icon dark-mode-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26" width="50" height="50">
-          <path d="M9.5 0.0625L8.875 2.34375L6.625 1.75L8.25 3.46875L6.625 5.15625L8.875 4.5625L9.5 6.875L10.125 4.5625L12.375 5.15625L10.75 3.46875L12.375 1.75L10.125 2.34375 Z M 2.46875 6.5L1.96875 8.3125L0.15625 7.84375L1.46875 9.1875L0.15625 10.53125L1.96875 10.0625L2.46875 11.875L3 10.0625L4.8125 10.53125L3.5 9.1875L4.8125 7.84375L3 8.3125 Z M 18.09375 7.1875C21.007813 8.464844 23.03125 11.386719 23.03125 14.78125C23.03125 19.363281 19.347656 23.0625 14.78125 23.0625C11.386719 23.0625 8.464844 21.015625 7.1875 18.09375C7.972656 22.488281 11.816406 25.8125 16.4375 25.8125C21.617188 25.8125 25.8125 21.632813 25.8125 16.4375C25.8125 11.8125 22.476563 7.972656 18.09375 7.1875Z" fill="#FFFFFF" />
-        </svg>
+        <path d="M9.5 0.0625L8.875 2.34375L6.625 1.75L8.25 3.46875L6.625 5.15625L8.875 4.5625L9.5 6.875L10.125 4.5625L12.375 5.15625L10.75 3.46875L12.375 1.75L10.125 2.34375 Z M 2.46875 6.5L1.96875 8.3125L0.15625 7.84375L1.46875 9.1875L0.15625 10.53125L1.96875 10.0625L2.46875 11.875L3 10.0625L4.8125 10.53125L3.5 9.1875L4.8125 7.84375L3 8.3125 Z M 18.09375 7.1875C21.007813 8.464844 23.03125 11.386719 23.03125 14.78125C23.03125 19.363281 19.347656 23.0625 14.78125 23.0625C11.386719 23.0625 8.464844 21.015625 7.1875 18.09375C7.972656 22.488281 11.816406 25.8125 16.4375 25.8125C21.617188 25.8125 25.8125 21.632813 25.8125 16.4375C25.8125 11.8125 22.476563 7.972656 18.09375 7.1875Z" fill="#FFFFFF" />
+      </svg>
     </div>
     <section class="content">
       <div id="intervalli-container">
@@ -35,14 +40,14 @@
           <label class="toggle-switch">
             <span class="before-content">
               <svg version="1.1" width="36.8" height="37.6" viewBox="0 0 36.8 37.6" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-              <path d="m28.8 2.4v2.1333h-28.8v0.53333h28.8v6.1333h-14.933v-3.2c-1.0754 0.69721-0.8 2.0304-0.8 3.2h-13.067v0.53333h13.067v5.8667h-13.067v0.8h13.067v5.8667h-13.067v0.8h13.067v3.2c-3.8919-1.2337-4.6426 1.2293-7.7786 2.5058-1.4467 0.58887-3.7389 0.1609-5.2881 0.1609v0.53333h5.3333c0.062435 2.5829 1.8072 3.5521 4.2667 3.1121 2.133-0.38157 3.1058-2.6842 5.0706-3.0512 2.2597-0.42212 4.8986-0.06091 7.1961-0.06091h14.933v-0.53333h-22.933v-5.8667h7.2c0.17975 3.283 3.7635 3.6039 6.1331 2.0977 0.91696-0.58281 1.6211-1.7255 2.6907-2.013 2.05-0.55088 4.788-0.08477 6.9095-0.08477v-0.8h-7.2v-5.8667h7.2v-0.8h-7.2v-5.8667h7.2v-0.53334h-7.2v-6.1333h7.2v-0.53333h-7.2v-2.1333h-0.8m0 9.3333v5.8667h-14.933v-5.8667h14.933m0 6.6667v3.2c-1.9946-0.45572-3.5628-0.55827-5.3331 0.7035-0.81015 0.57742-1.4569 1.6045-2.4455 1.8784-2.1043 0.5829-4.9718 0.08477-7.1547 0.08477v-5.8667z" />
-            </svg>
+                <path d="m28.8 2.4v2.1333h-28.8v0.53333h28.8v6.1333h-14.933v-3.2c-1.0754 0.69721-0.8 2.0304-0.8 3.2h-13.067v0.53333h13.067v5.8667h-13.067v0.8h13.067v5.8667h-13.067v0.8h13.067v3.2c-3.8919-1.2337-4.6426 1.2293-7.7786 2.5058-1.4467 0.58887-3.7389 0.1609-5.2881 0.1609v0.53333h5.3333c0.062435 2.5829 1.8072 3.5521 4.2667 3.1121 2.133-0.38157 3.1058-2.6842 5.0706-3.0512 2.2597-0.42212 4.8986-0.06091 7.1961-0.06091h14.933v-0.53333h-22.933v-5.8667h7.2c0.17975 3.283 3.7635 3.6039 6.1331 2.0977 0.91696-0.58281 1.6211-1.7255 2.6907-2.013 2.05-0.55088 4.788-0.08477 6.9095-0.08477v-0.8h-7.2v-5.8667h7.2v-0.8h-7.2v-5.8667h7.2v-0.53334h-7.2v-6.1333h7.2v-0.53333h-7.2v-2.1333h-0.8m0 9.3333v5.8667h-14.933v-5.8667h14.933m0 6.6667v3.2c-1.9946-0.45572-3.5628-0.55827-5.3331 0.7035-0.81015 0.57742-1.4569 1.6045-2.4455 1.8784-2.1043 0.5829-4.9718 0.08477-7.1547 0.08477v-5.8667z" />
+              </svg>
             </span>
             <input type="checkbox" id="toggleTimeout">
             <span class="slider"></span>
             <span class="after-content">
               <svg version="1.1" width="20.8" height="37.6" viewBox="0 0 20.8 37.6" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-              <path d="m13.067 2.4v2.1333h-13.067v0.53333h13.067v6.1333h-13.067v0.53333h13.067v5.8667h-13.067v0.8h13.067v3.2c-3.8919-1.2337-4.6426 1.2293-7.7786 2.5058-1.4467 0.58888-3.7389 0.1609-5.2881 0.1609v0.8h5.3333c0.12908 2.3576 1.5972 2.9272 3.7333 2.9333v0.26667l-3.7786 2.5058-5.2881 0.1609v0.53333h5.3333c0.082503 3.4131 3.5743 3.9909 6.1331 2.3644 1.0209-0.64895 1.7573-1.9094 2.944-2.2488 1.8948-0.54188 4.4242-0.11564 6.3895-0.11564v-0.53333h-6.9333v-5.8667h6.9333v-0.8h-6.9333v-5.8667h6.9333v-0.8h-6.9333v-5.8667h6.9333v-0.53333h-6.9333v-6.1333h6.9333v-0.53333h-6.9333v-2.1333h-0.8m0 23.467v2.4l-2.4-0.53333v-0.26667z" />
+                <path d="m13.067 2.4v2.1333h-13.067v0.53333h13.067v6.1333h-13.067v0.53333h13.067v5.8667h-13.067v0.8h13.067v3.2c-3.8919-1.2337-4.6426 1.2293-7.7786 2.5058-1.4467 0.58888-3.7389 0.1609-5.2881 0.1609v0.8h5.3333c0.12908 2.3576 1.5972 2.9272 3.7333 2.9333v0.26667l-3.7786 2.5058-5.2881 0.1609v0.53333h5.3333c0.082503 3.4131 3.5743 3.9909 6.1331 2.3644 1.0209-0.64895 1.7573-1.9094 2.944-2.2488 1.8948-0.54188 4.4242-0.11564 6.3895-0.11564v-0.53333h-6.9333v-5.8667h6.9333v-0.8h-6.9333v-5.8667h6.9333v-0.8h-6.9333v-5.8667h6.9333v-0.53333h-6.9333v-6.1333h6.9333v-0.53333h-6.9333v-2.1333h-0.8m0 23.467v2.4l-2.4-0.53333v-0.26667z" />
               </svg>
             </span>
           </label>
@@ -129,56 +134,56 @@
     </div>
   </div>
   <audio id="audioa" preload="auto">
-  <source src="snd/note/a.mp3" type="audio/mpeg">
-</audio>
+    <source src="snd/note/a.mp3" type="audio/mpeg">
+  </audio>
   <audio id="audiob" preload="auto">
-  <source src="snd/note/b.mp3" type="audio/mpeg">
-</audio>
+    <source src="snd/note/b.mp3" type="audio/mpeg">
+  </audio>
   <audio id="audioc" preload="auto">
-  <source src="snd/note/c.mp3" type="audio/mpeg">
-</audio>
+    <source src="snd/note/c.mp3" type="audio/mpeg">
+  </audio>
   <audio id="audioc2" preload="auto">
-  <source src="snd/note/c2.mp3" type="audio/mpeg">
-</audio>
+    <source src="snd/note/c2.mp3" type="audio/mpeg">
+  </audio>
   <audio id="audiocis" preload="auto">
-  <source src="snd/note/cis.mp3" type="audio/mpeg">
-</audio>
+    <source src="snd/note/cis.mp3" type="audio/mpeg">
+  </audio>
   <audio id="audiocis2" preload="auto">
-  <source src="snd/note/cis2.mp3" type="audio/mpeg">
-</audio>
+    <source src="snd/note/cis2.mp3" type="audio/mpeg">
+  </audio>
   <audio id="audiod" preload="auto">
-  <source src="snd/note/d.mp3" type="audio/mpeg">
-</audio>
+    <source src="snd/note/d.mp3" type="audio/mpeg">
+  </audio>
   <audio id="audiod2" preload="auto">
-  <source src="snd/note/d2.mp3" type="audio/mpeg">
-</audio>
+    <source src="snd/note/d2.mp3" type="audio/mpeg">
+  </audio>
   <audio id="audiodis" preload="auto">
-  <source src="snd/note/dis.mp3" type="audio/mpeg">
-</audio>
+    <source src="snd/note/dis.mp3" type="audio/mpeg">
+  </audio>
   <audio id="audiodis2" preload="auto">
-  <source src="snd/note/dis2.mp3" type="audio/mpeg">
-</audio>
+    <source src="snd/note/dis2.mp3" type="audio/mpeg">
+  </audio>
   <audio id="audioe" preload="auto">
-  <source src="snd/note/e.mp3" type="audio/mpeg">
-</audio>
+    <source src="snd/note/e.mp3" type="audio/mpeg">
+  </audio>
   <audio id="audioe2" preload="auto">
-  <source src="snd/note/e2.mp3" type="audio/mpeg">
-</audio>
+    <source src="snd/note/e2.mp3" type="audio/mpeg">
+  </audio>
   <audio id="audiofa" preload="auto">
-  <source src="snd/note/fa.mp3" type="audio/mpeg">
-</audio>
+    <source src="snd/note/fa.mp3" type="audio/mpeg">
+  </audio>
   <audio id="audiofis" preload="auto">
-  <source src="snd/note/fis.mp3" type="audio/mpeg">
-</audio>
+    <source src="snd/note/fis.mp3" type="audio/mpeg">
+  </audio>
   <audio id="audiog" preload="auto">
-  <source src="snd/note/g.mp3" type="audio/mpeg">
-</audio>
+    <source src="snd/note/g.mp3" type="audio/mpeg">
+  </audio>
   <audio id="audiogis" preload="auto">
-  <source src="snd/note/gis.mp3" type="audio/mpeg">
-</audio>
+    <source src="snd/note/gis.mp3" type="audio/mpeg">
+  </audio>
   <audio id="audioh" preload="auto">
-  <source src="snd/note/h.mp3" type="audio/mpeg">
-</audio>
+    <source src="snd/note/h.mp3" type="audio/mpeg">
+  </audio>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script type="text/javascript" src="script.js"></script>

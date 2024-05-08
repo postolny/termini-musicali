@@ -75,6 +75,29 @@ body {
   background-color: var(--bg-color);
 }
 
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+  border: 3px solid transparent;
+  /* Фон только вокруг содержимого */
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+
 header {
   padding: 20px;
   text-align: center;
@@ -203,8 +226,80 @@ nav ul {
 nav li {
   display: inline-block;
   /* Превращение элементов списка в строчные блоки */
-  margin-right: 20px;
-  /* Отступы между пунктами меню */
+  margin-right: 3px;
+}
+
+.languageSwitch {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 14px 7px 0 7px;
+}
+
+.radioWrap {
+  margin-right: 10px;
+}
+
+.radio {
+  display: block;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  text-align: left;
+}
+
+.radio+.radio {
+  margin-top: 5px;
+}
+
+.radio input {
+  display: none;
+}
+
+.radio input+span {
+  display: inline-block;
+  position: relative;
+  padding-left: 22px;
+  line-height: normal;
+}
+
+.radio input+span:before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  border-radius: 50%;
+  margin-right: 5px;
+  width: 16px;
+  height: 16px;
+  border: 1px solid #ccc;
+  background: #fff;
+  line-height: normal;
+}
+
+.radio input+span:after {
+  content: '';
+  display: block;
+  width: 10px;
+  height: 10px;
+  background: #222;
+  position: absolute;
+  border-radius: 50%;
+  top: 4px;
+  left: 4px;
+  opacity: 0;
+  -webkit-transform: scale(0, 0);
+  transform: scale(0, 0);
+  transition: all 0.2s cubic-bezier(0.64, 0.57, 0.67, 1.53);
+}
+
+.radio input:checked+span:after {
+  opacity: 1;
+  -webkit-transform: scale(1, 1);
+  transform: scale(1, 1);
 }
 
 #search {
@@ -218,10 +313,10 @@ nav li {
 #buttonWrap {
   display: flex;
   justify-content: center;
-  margin: 14px 7px 7px;
+  margin: 7px;
 }
 
-#openModal {
+#iconWrap {
   display: flex;
   align-items: center;
 }
@@ -238,10 +333,10 @@ nav li {
   display: inline-block;
 }
 
-.openModal {
+.openModal,
+#fullscreen-btn {
   width: 24px;
   height: 24px;
-  vertical-align: middle;
   cursor: pointer;
 }
 
@@ -381,7 +476,9 @@ nav li {
 #playButton+svg,
 #playButtonRandom+svg,
 #playIcon,
-#pdfIcon {
+#pdfIcon,
+#fullscreenEnter,
+#fullscreenExit {
   filter: var(--filter);
 }
 
@@ -410,7 +507,9 @@ nav li {
 #copyButton,
 #playButton,
 #playButtonRandom,
-#playIcon {
+#playIcon,
+#fullscreenEnter,
+#fullscreenExit {
   vertical-align: middle;
 }
 

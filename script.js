@@ -20,6 +20,7 @@ $(document).ready(function() {
   var playClicked = false;
   var delayTime = 1000;
   var usedComposers = [];
+  var currentData;
 
   // Загрузка данных из json и кэширование результатов
   const loadData = (function() {
@@ -51,6 +52,13 @@ $(document).ready(function() {
 
       console.log('Данные из data.json', dizionario);
 
+      const ru = await loadData('data/ru.json');
+
+      console.log('Данные из ru.json', ru);
+
+      // установка массива данных по умолчанию
+      currentData = dizionario;
+
       const tooltips = await loadData('data/tooltips.json');
 
       console.log('Данные из tooltips.json', tooltips);
@@ -72,14 +80,34 @@ $(document).ready(function() {
         });
       }
 
+      $("input[name='language']").change(function() {
+        console.log("Язык переключен");
+        const selectedLanguage = $(this).val(); // получаем выбранный язык
+        console.log("Выбранный язык:", selectedLanguage);
+        if (selectedLanguage === "dizionario") {
+          currentData = dizionario; // устанавливаем массив данных словаря иностранных терминов
+          // При ручном переключении языка сбрасываем данные, устанавливаем фокус и скрываем крестик
+          $('#search-tr').val('').focus();
+          $("#search-res").html('');
+          $('#clearInput').css('opacity', '0');
+        } else if (selectedLanguage === "ru") {
+          currentData = ru; // устанавливаем массив данных русского словаря
+          $('#search-tr').val('').focus();
+          $("#search-res").html('');
+          $('#clearInput').css('opacity', '0');
+        }
+        console.log("Текущие данные:", currentData);
+      });
+
       const randomArray = await loadData('data/data.json');
 
       console.log('Данные из data.json для случайного термина:', randomArray);
 
       function loadRandomData() {
-        var rand = Math.floor(Math.random() * randomArray.length);
-        $("#rand").html('<span>' + randomArray[rand].label + '</span>' + copy + playBtnRand + randomArray[rand].value);
-        handlePlayButton(randomArray[rand], "#playButtonRandom");
+        var mergedArray = randomArray.concat(ru); // объединяем два массива
+        var rand = Math.floor(Math.random() * mergedArray.length);
+        $("#rand").html('<span>' + mergedArray[rand].label + '</span>' + copy + playBtnRand + mergedArray[rand].value);
+        handlePlayButton(mergedArray[rand], "#playButtonRandom");
         addTitle();
         replaceTextWithLinks();
       }
@@ -113,7 +141,7 @@ $(document).ready(function() {
           var exactMatch = []; // Массив для точных совпадений с введённым словом
           var rest = []; // Массив для остальных слов
 
-          var filteredData = dizionario.filter(function(item) {
+          var filteredData = currentData.filter(function(item) {
             return item.label.toLowerCase().indexOf(term) !== -1;
           });
 
@@ -131,7 +159,7 @@ $(document).ready(function() {
         },
         select: function(event, ui) {
           var term = ui.item.label.toLowerCase();
-          var foundItem = dizionario.find(function(item) {
+          var foundItem = currentData.find(function(item) {
             return item.label.toLowerCase() === term || item.value.toLowerCase() === term;
           });
           if (term !== "") {
@@ -156,7 +184,7 @@ $(document).ready(function() {
           handlePlayButton(ui.item, "#playButton");
           addTitle();
           replaceTextWithLinks();
-          scrollToElement('#search-res', '#buttonWrap');
+          scrollToElement('#search-res', '.languageSwitch');
           // Вызов функции с задержкой, дабы избежать конфликта функций прокрутки
           setTimeout(smoothScrollToCurrent, 1000);
           return false; // отменяем стандартное поведение
@@ -215,8 +243,17 @@ $(document).ready(function() {
       // Обработка клика по ссылке
       $("#search-res").on("click", "a", function(event) {
         event.preventDefault();
+        // Получаем значение атрибута data-language
+        var language = $(this).data("language");
+        console.log("Клик на языке:", language);
+        // Устанавливаем текущий массив данных в зависимости от выбранного языка
+        currentData = (language === "dizionario") ? dizionario : ru;
+
+        // Переключаем радиокнопки на соответствующий язык
+        $("input[name='language']").filter("[value='" + language + "']").prop("checked", true).change();
+
         var term = $(this).text().trim().toLowerCase();
-        var foundItem = dizionario.find(function(item) {
+        var foundItem = currentData.find(function(item) {
           return item.label.toLowerCase() === term || item.value.toLowerCase() === term;
         });
         // Если найденный элемент не добавлен в историю, то он добавляется, а история обновляется
@@ -244,7 +281,7 @@ $(document).ready(function() {
         handlePlayButton(foundItem, "#playButton");
         addTitle();
         replaceTextWithLinks();
-        scrollToElement('#search-res', '#buttonWrap');
+        scrollToElement('#search-res', '.languageSwitch');
         // Вызов функции с задержкой, дабы избежать конфликта функций прокрутки
         setTimeout(smoothScrollToCurrent, 1000);
       });
@@ -271,32 +308,59 @@ $(document).ready(function() {
         } else {
           $("#history").empty(); // Очищаем содержимое, если история пуста
         }
+        // Устанавливаем атрибут data-language для каждой ссылки
+        $("#history a").each(function() {
+          var term = $(this).text().trim().toLowerCase();
+          var language = "ru"; // По умолчанию устанавливаем русский язык
+
+          // Проверяем, есть ли слово в массиве данных dizionario
+          if (dizionario.some(item => item.label.toLowerCase() === term || item.value.toLowerCase() === term)) {
+            language = "dizionario";
+          }
+
+          // Устанавливаем атрибут data-language
+          $(this).attr("data-language", language);
+        });
       }
 
       // Обработчик клика по ссылке в блоке #history
-      $("#history").on("click", "a", function(event) {
+      $("#history").on("click", "a", async function(event) {
         event.preventDefault();
-        $("#history li").removeClass("current"); // Убираем класс "current" у всех элементов списка
-        $(this).parent().addClass("current"); // Добавляем класс "current" к родительскому элементу текущей ссылки
+        $("#history li").removeClass("current");
+        $(this).parent().addClass("current");
         var term = $(this).text().trim().toLowerCase();
-        var foundItem = dizionario.find(function(item) {
+
+        var language = $(this).data("language");
+        console.log("Клик на языке в Истории:", language);
+        // Устанавливаем текущий массив данных в зависимости от выбранного языка
+        currentData = (language === "dizionario") ? dizionario : ru;
+        // Переключаем радиокнопки на соответствующий язык
+        $("input[name='language']").filter("[value='" + language + "']").prop("checked", true).change();
+        // Проверяем, существует ли элемент в текущем массиве данных
+        var foundItem = currentData.find(function(item) {
           return item.label.toLowerCase() === term || item.value.toLowerCase() === term;
         });
+
+        console.log("Найденный элемент:", foundItem);
+
+        // Если элемент найден, обновляем результаты поиска и другие элементы интерфейса
         if (foundItem) {
           $("#search-res").html('<span>' + foundItem.label + '</span>' + copy + playBtn + foundItem.value);
           $("#search-tr").val(foundItem.label);
+
+          // Проверяем, должна ли отображаться кнопка очистки ввода
+          if (foundItem.label !== '') {
+            $('#clearInput').css('opacity', '1');
+          } else {
+            $('#clearInput').css('opacity', '0');
+          }
+
+          handlePlayButton(foundItem, "#playButton");
+          addTitle();
+          replaceTextWithLinks();
+          scrollToElement('#search-res', '.languageSwitch');
         }
 
-        // Проверяем, нужно ли показывать крестик
-        if (foundItem.label !== '') {
-          $('#clearInput').css('opacity', '1');
-        } else {
-          $('#clearInput').css('opacity', '0');
-        }
-        handlePlayButton(foundItem, "#playButton");
-        addTitle();
-        replaceTextWithLinks();
-        scrollToElement('#search-res', '#buttonWrap');
       });
 
       // Обработчик клика по ссылке в .about
@@ -328,7 +392,7 @@ $(document).ready(function() {
         // Проверяем, имеет ли ссылка класс no-scroll
         if (!$(this).hasClass("no-scroll")) {
           // Запускаем функцию прокрутки
-          scrollToElement('#search-res', '#buttonWrap');
+          scrollToElement('#search-res', '.languageSwitch');
         } else {
           // Если имеет предотвращаем выполнение действия по умолчанию
           event.preventDefault();
@@ -339,8 +403,8 @@ $(document).ready(function() {
         $('#search-res, #rand').contents().each(function() {
           if (this.nodeType === Node.TEXT_NODE) {
             var replacedText = $(this).text()
-              .replace(/#([\w'àèéìòóù-]+)/g, function(match, words) {
-                // Заменяем дефисы и апострофы на пробелы и возвращаем результат
+              .replace(/#([\w'àèéìòóùА-Яа-я-]+)/g, function(match, words) {
+                // Заменяем дефисы и апострофы на пробелы
                 var cleanedWords = words.replace(/[-]/g, ' ');
                 // Создаем ссылку, вставляя слова внутри тега <a>, сохраняя апостроф
                 return "<a href='#'>" + cleanedWords.replace(/'/g, '&#39;') + "</a>";
@@ -349,6 +413,20 @@ $(document).ready(function() {
 
             $(this).replaceWith(replacedText);
           }
+        });
+
+        // Устанавливаем атрибут data-language для каждой ссылки
+        $("#search-res a").each(function() {
+          var term = $(this).text().trim().toLowerCase();
+          var language = "ru"; // По умолчанию устанавливаем русский язык
+
+          // Проверяем, есть ли слово в массиве данных dizionario
+          if (dizionario.some(item => item.label.toLowerCase() === term || item.value.toLowerCase() === term)) {
+            language = "dizionario";
+          }
+
+          // Устанавливаем атрибут data-language
+          $(this).attr("data-language", language);
         });
       }
 
@@ -371,43 +449,43 @@ $(document).ready(function() {
         var playButton = $(buttonSelector);
         var playIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2 14.959V9.04C2 8.466 2.448 8 3 8h3.586a.98.98 0 0 0 .707-.305l3-3.388c.63-.656 1.707-.191 1.707.736v13.914c0 .934-1.09 1.395-1.716.726l-2.99-3.369A.98.98 0 0 0 6.578 16H3c-.552 0-1-.466-1-1.041M16 8.5c1.333 1.778 1.333 5.222 0 7M19 5c3.988 3.808 4.012 10.217 0 14"/></svg>';
         var stopIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3a9 9 0 1 0 0 18a9 9 0 0 0 0-18M1 12C1 5.925 5.925 1 12 1s11 4.925 11 11s-4.925 11-11 11S1 18.075 1 12"/><path fill="currentColor" d="M8 8h8v8H8z"/></svg>';
-        var audio = new Audio(uiItem.audio); // Создаем объект Audio
 
-        // Изначально устанавливаем иконку воспроизведения
-        setPlayButtonIcon(false);
+        // Проверка определены ли uiItem и uiItem.audio
+        if (uiItem && uiItem.audio) {
+          var audio = new Audio(uiItem.audio); // Создаем объект Audio
 
-        // Функция для установки иконки на кнопке воспроизведения
-        function setPlayButtonIcon(isPlaying) {
-          var iconPath = isPlaying ? stopIcon : playIcon;
-          playButton.html(iconPath);
-          uiItem.isPlaying = isPlaying; // Сохраняем состояние проигрывания
-        }
+          // Изначально устанавливаем иконку воспроизведения
+          setPlayButtonIcon(false);
 
-        playButton.off("click").on("click", function() {
-
-          if (!uiItem.isPlaying || audio.paused) {
-            // Если не воспроизводится или на паузе, начинаем воспроизведение заново
-            audio.currentTime = 0; // Сбрасываем текущую позицию
-            audio.play();
-            setPlayButtonIcon(true); // Устанавливаем иконку паузы
-          } else {
-            // Если уже воспроизводится, ставим на паузу
-            audio.pause();
-            setPlayButtonIcon(false); // Устанавливаем иконку воспроизведения
+          // Функция для установки иконки на кнопке воспроизведения
+          function setPlayButtonIcon(isPlaying) {
+            var iconPath = isPlaying ? stopIcon : playIcon;
+            playButton.html(iconPath);
+            uiItem.isPlaying = isPlaying; // Сохраняем состояние проигрывания
           }
-        });
 
-        // Обработчик события завершения проигрывания аудио
-        $(audio).on("ended", function() {
-          setPlayButtonIcon(false); // Восстанавливаем иконку воспроизведения
-        });
+          playButton.off("click").on("click", function() {
+            if (!uiItem.isPlaying || audio.paused) {
+              // Если не воспроизводится или на паузе, начинаем воспроизведение заново
+              audio.currentTime = 0; // Сбрасываем текущую позицию
+              audio.play();
+              setPlayButtonIcon(true); // Устанавливаем иконку паузы
+            } else {
+              // Если уже воспроизводится, ставим на паузу
+              audio.pause();
+              setPlayButtonIcon(false); // Устанавливаем иконку воспроизведения
+            }
+          });
 
-        // Проверяем наличие аудио для выбранного элемента
-        if (uiItem.audio) {
+          // Обработчик события завершения проигрывания аудио
+          $(audio).on("ended", function() {
+            setPlayButtonIcon(false); // Восстанавливаем иконку воспроизведения
+          });
+
           // Показываем кнопку воспроизведения
           playButton.show();
         } else {
-          // Если аудио отсутствует, скрываем кнопку воспроизведения
+          // Если uiItem или uiItem.audio отсутствует, скрываем кнопку воспроизведения
           playButton.hide();
         }
       }
@@ -688,7 +766,7 @@ $(document).ready(function() {
       $('.composerButton').click(composerButtonClick);
 
       $(document).on("keydown", function(event) {
-        if (event.key === "Enter") {
+        if (event.ctrlKey && event.keyCode === 81) {
           composerButtonClick();
         }
       });
@@ -715,7 +793,7 @@ $(document).ready(function() {
   function scrollToElement(sourceSelector, targetSelector) {
     var $source = $(sourceSelector);
     var $target = $(targetSelector);
-    var targetOffset = $target.offset().top;
+    var targetOffset = $target.offset().top - 10;
 
     // Прокручиваем страницу так, чтобы верх source элемента была выровнена с верхом target элемента
     $('html, body').animate({
@@ -787,8 +865,8 @@ $(document).ready(function() {
     if (event.ctrlKey && event.altKey && (event.key === 'm' || event.keyCode === 77)) {
       $("#historyModal").fadeIn();
     }
-    // Закрытие окна истории по нажатию Escape
-    if (event.key === "Escape") {
+    // Закрытие окна истории по нажатию Ctrl + Q
+    if (event.ctrlKey && event.keyCode === 81) {
       $("#historyModal").fadeOut();
       $(".quizModalWrapper, .active").removeClass('active');
     }
@@ -865,5 +943,42 @@ $(document).ready(function() {
       $(this).parent().hide();
     }
   });
+
+  $("#fullscreen-btn").click(function() {
+    toggleFullscreen();
+  });
+
+  // Полноэкранный режим
+  function toggleFullscreen() {
+    var element = document.documentElement;
+    if (!document.fullscreenElement &&
+      !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
+      // Переключение в полноэкранный режим
+      if (element.requestFullscreen) {
+        element.requestFullscreen();
+      } else if (element.msRequestFullscreen) {
+        element.msRequestFullscreen();
+      } else if (element.mozRequestFullScreen) {
+        element.mozRequestFullScreen();
+      } else if (element.webkitRequestFullscreen) {
+        element.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+      }
+      $("#normal-mode-icon").hide();
+      $("#fullscreen-mode-icon").show();
+    } else {
+      // Выход из полноэкранного режима
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+      } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+      $("#normal-mode-icon").show();
+      $("#fullscreen-mode-icon").hide();
+    }
+  }
 
 });
