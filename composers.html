@@ -39,16 +39,23 @@
         <div class="card">
           <div class="card-content">
             <div class="front">
-              <h2>Кто это?</h2>
+              <p></p>
             </div>
             <div class="back">
               <span class="flipButton">&#10006;</span>
               <p></p>
+              <div id="overlay"></div>
             </div>
           </div>
         </div>
         <input class="composer" type="text" spellcheck="false">
-        <button class="composerButton">Проверить</button>
+        <div id="containerBtn">
+          <button class="composerButton">Проверить</button>
+          <div id="audioPlayer">
+            <img id="playPauseIcon" src="images/play.svg" alt="Play">
+            <audio id="audioElement" src=""></audio>
+          </div>
+        </div>
       </div>
     </section>
   </main>

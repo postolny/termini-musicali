@@ -20,6 +20,7 @@ $(document).ready(function() {
   var playClicked = false;
   var delayTime = 1000;
   var usedComposers = [];
+  var composerAudio = $("#audioElement")[0];
   var currentData;
   var mergedArray;
 
@@ -731,6 +732,11 @@ $(document).ready(function() {
 
       console.log('Данные из composers.json', composers);
 
+      // Функция для изменения иконки кнопки воспроизведения
+      function togglePlayPauseIcon() {
+        $("#playPauseIcon").attr("src", composerAudio.paused ? "images/play.svg" : "images/stop.svg");
+      }
+
       // Функция для случайного выбора композитора из массива
       function getRandomComposer() {
         // Фильтруем композиторов, исключая уже выбранных
@@ -754,13 +760,16 @@ $(document).ready(function() {
         return randomComposer;
       }
 
-      // При загрузке страницы выбираем случайного композитора и отображаем его фотографию на карточке
+      // При загрузке страницы выбираем случайного композитора
+
       var randomComposer = getRandomComposer();
 
-      $('.card .front').css('background-image', randomComposer.image);
+      // Сведения о композиторе на лицевой стороне карточки
+      $('.card .front p').text(randomComposer.desc);
 
       function composerButtonClick() {
-        var composerName = $('.composer').val().replace(/ё/g, 'е').toUpperCase().replace(/\s+/g, ' ').trim();
+        var composerName = $('.composer').val().replace(/ё/g, 'е').toUpperCase().replace(/\s+/g, ' ').replace(/(ференц|франц)\s+лист/ig, 'ФЕРЕНЦ (ФРАНЦ) ЛИСТ').replace(/Вольфганг Амадей Моцарт/ig, 'ИОАНН ХРИЗОСТОМ ВОЛЬФГАНГ АМАДЕЙ ТЕОФИЛ МОЦАРТ').replace(/Франц Шуберт/ig, 'ФРАНЦ ПЕТЕР ШУБЕРТ').replace(/Фредерик Шопен/ig, 'ФРЕДЕРИК ФРАНЦИШЕК ШОПЕН').trim();
+        console.log(composerName);
         var resultMessage;
         // Проверяем, заполнено ли поле .composer
         if (composerName === '') {
@@ -769,34 +778,84 @@ $(document).ready(function() {
           showAlert(resultMessage);
         } else {
           // Проверяем ответ
-          if (composerName === randomComposer.name.replace(/ё/g, 'е').toUpperCase().replace(/\s+/g, ' ')) {
-            $('.back p').html('Правильно! ' + '<div>' + randomComposer.desc + '</div>');
+          if (composerName === randomComposer.name.replace(/ё/g, 'е').toUpperCase().replace(/\s+/g, ' ').replace(/(ференц|франц)\s+лист/ig, 'ФЕРЕНЦ (ФРАНЦ) ЛИСТ').replace(/Вольфганг Амадей Моцарт/ig, 'ИОАНН ХРИЗОСТОМ ВОЛЬФГАНГ АМАДЕЙ ТЕОФИЛ МОЦАРТ').replace(/Франц Шуберт/ig, 'ФРАНЦ ПЕТЕР ШУБЕРТ').replace(/Фредерик Шопен/ig, 'ФРЕДЕРИК ФРАНЦИШЕК ШОПЕН')) {
+            console.log(composerName);
+            $('.card .back p').html('Правильно!' + '<div>' + randomComposer.musica + '</div>');
+            $('.card .back').css('background-image', randomComposer.image);
           } else {
-            $('.back p').text('Неправильно. Правильный ответ: ' + randomComposer.name);
+            console.log(composerName);
+            $('.card .back p').html('Неправильно! Правильный ответ: ' + randomComposer.name + '<div>' + randomComposer.musica + '</div>');
+            $('.card .back').css('background-image', randomComposer.image);
           }
 
           // Поворачиваем карточку и показываем ответ
           $('.card').css('transform', 'rotateY(.5turn)');
+          setOverlaySize();
         }
       }
 
       $('.composerButton').click(composerButtonClick);
 
-      $(document).on("keydown", function(event) {
-        if (event.ctrlKey && event.keyCode === 81) {
-          composerButtonClick();
-        }
-      });
 
-      $('.flipButton').click(function() {
+      function flipButtonClick() {
         // Поворачиваем карточку обратно
         $('.card').css('transform', 'rotateY(0)');
         // Выбираем нового случайного композитора
         randomComposer = getRandomComposer();
-        $('.card .front').css('background-image', randomComposer.image);
+        $('.card .front p').text(randomComposer.desc);
         // Очищаем поле
         $('.composer').val('');
+        playRandomTrack();
+      }
+
+      $('.flipButton').click(flipButtonClick);
+
+      // Функция для установки размеров подложки
+      function setOverlaySize() {
+        var paragraph = $('.back p');
+        var overlay = $('#overlay');
+        // Учитываем внутренние отступы абзаца
+        var paddingX = parseInt(paragraph.css('padding-left')) + parseInt(paragraph.css('padding-right'));
+        var paddingY = parseInt(paragraph.css('padding-top')) + parseInt(paragraph.css('padding-bottom'));
+
+        // Устанавливаем размеры подложки с учетом внутренних отступов абзаца
+        overlay.css('width', (paragraph.width() + paddingX) + 'px');
+        overlay.css('height', (paragraph.height() + paddingY) + 'px');
+      }
+
+      $(document).on("keydown", function(event) {
+        // Проверяем по нажатию Enter
+        if (event.keyCode === 13) {
+          composerButtonClick();
+        }
+        // Поворачиваем карточку обратно по нажатию Ctrl + Q
+        if (event.ctrlKey && event.keyCode === 81) {
+          flipButtonClick()
+        }
       });
+
+      function playRandomTrack() {
+        var audioFile = randomComposer.composerAudio; // Получаем ссылку на аудиофайл текущего композитора
+
+        composerAudio.src = audioFile; // Устанавливаем аудиофайл в качестве источника для проигрывания
+        composerAudio.play(); // Воспроизводим аудио
+        togglePlayPauseIcon(); // Меняем иконку кнопки воспроизведения
+      }
+
+      // Обработчик события клика по кнопке воспроизведения
+      $("#playPauseIcon").click(function() {
+        if (composerAudio.paused) {
+          playRandomTrack();
+        } else {
+          composerAudio.pause();
+          togglePlayPauseIcon();
+        }
+      });
+
+      // Обработчик события окончания воспроизведения
+      composerAudio.onended = function() {
+        togglePlayPauseIcon();
+      };
 
     } catch (error) {
       console.log("Не удалось загрузить данные.");
