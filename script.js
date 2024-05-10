@@ -768,7 +768,7 @@ $(document).ready(function() {
       $('.card .front p').text(randomComposer.desc);
 
       function composerButtonClick() {
-        var composerName = $('.composer').val().replace(/ё/g, 'е').toUpperCase().replace(/\s+/g, ' ').replace(/(ференц|франц)\s+лист/ig, 'ФЕРЕНЦ (ФРАНЦ) ЛИСТ').replace(/Вольфганг Амадей Моцарт/ig, 'ИОАНН ХРИЗОСТОМ ВОЛЬФГАНГ АМАДЕЙ ТЕОФИЛ МОЦАРТ').replace(/Франц Шуберт/ig, 'ФРАНЦ ПЕТЕР ШУБЕРТ').replace(/Фредерик Шопен/ig, 'ФРЕДЕРИК ФРАНЦИШЕК ШОПЕН').trim();
+        var composerName = $('.composer').val().replace(/ё/g, 'е').toUpperCase().replace(/\s+/g, ' ').replace(/иоганн себастьян бах/ig, 'БАХ').replace(/франц йозеф гайдн|йозеф гайдн/ig, 'ГАЙДН').replace(/вольфганг амадей моцарт|иоанн хризостом вольфганг амадей теофил моцарт/ig, 'МОЦАРТ').replace(/людвиг ван бетховен/ig, 'БЕТХОВЕН').replace(/франц шуберт|франц петер шуберт/ig, 'ШУБЕРТ').replace(/фредерик шопен|фредерик францишек шопен/ig, 'ШОПЕН').replace(/ференц лист|франц лист/ig, 'ЛИСТ').replace(/модест петрович мусоргский/ig, 'МУСОРГСКИЙ').replace(/петр ильич чайковский/ig, 'ЧАЙКОВСКИЙ').replace(/эдвард григ/ig, 'ГРИГ').replace(/сергей васильевич рахманинов/ig, 'РАХМАНИНОВ').trim();
         console.log(composerName);
         var resultMessage;
         // Проверяем, заполнено ли поле .composer
@@ -778,7 +778,7 @@ $(document).ready(function() {
           showAlert(resultMessage);
         } else {
           // Проверяем ответ
-          if (composerName === randomComposer.name.replace(/ё/g, 'е').toUpperCase().replace(/\s+/g, ' ').replace(/(ференц|франц)\s+лист/ig, 'ФЕРЕНЦ (ФРАНЦ) ЛИСТ').replace(/Вольфганг Амадей Моцарт/ig, 'ИОАНН ХРИЗОСТОМ ВОЛЬФГАНГ АМАДЕЙ ТЕОФИЛ МОЦАРТ').replace(/Франц Шуберт/ig, 'ФРАНЦ ПЕТЕР ШУБЕРТ').replace(/Фредерик Шопен/ig, 'ФРЕДЕРИК ФРАНЦИШЕК ШОПЕН')) {
+          if (composerName === randomComposer.name.replace(/ё/g, 'е').toUpperCase().replace(/\s+/g, ' ').replace(/иоганн себастьян бах/ig, 'БАХ').replace(/франц йозеф гайдн|йозеф гайдн/ig, 'ГАЙДН').replace(/вольфганг амадей моцарт|иоанн хризостом вольфганг амадей теофил моцарт/ig, 'МОЦАРТ').replace(/людвиг ван бетховен/ig, 'БЕТХОВЕН').replace(/франц шуберт|франц петер шуберт/ig, 'ШУБЕРТ').replace(/фредерик шопен|фредерик францишек шопен/ig, 'ШОПЕН').replace(/ференц лист|франц лист/ig, 'ЛИСТ').replace(/модест петрович мусоргский/ig, 'МУСОРГСКИЙ').replace(/пётр ильич чайковский/ig, 'ЧАЙКОВСКИЙ').replace(/эдвард григ/ig, 'ГРИГ').replace(/сергей васильевич рахманинов/ig, 'РАХМАНИНОВ')) {
             console.log(composerName);
             $('.card .back p').html('Правильно!' + '<div>' + randomComposer.musica + '</div>');
             $('.card .back').css('background-image', randomComposer.image);
