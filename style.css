@@ -944,7 +944,6 @@ kbd {
 }
 
 .card p,
-.card h2,
 .flipButton {
   transform: translateZ(100px);
 }
@@ -962,11 +961,6 @@ kbd {
 .card p {
   font-size: 0.9em;
   line-height: 1.2em;
-}
-
-.card h2 {
-  font-size: 2em;
-  margin: 0;
 }
 
 .card .front p,
