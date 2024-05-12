@@ -14,6 +14,7 @@
     {"word": "inf", "tooltip": "infinito - неопределённая форма глагола"},
     {"word": "invar", "tooltip": "(forma) invariabile - неизменяемая форма"},
     {"word": "m", "tooltip": "(sostantivo) maschile - существительное мужского рода"},
+    {"word": "n.", "tooltip": "neutro, средний (род)"},
     {"word": "pf.", "tooltip": "perfettivo - совершенный (вид)"},
     {"word": "p.pass.", "tooltip": "participio passato - причастие прошедшего времени"},
     {"word": "p.pres.", "tooltip": "participio presente - причастие настоящего времени"},
