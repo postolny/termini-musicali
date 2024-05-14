@@ -548,6 +548,7 @@ $(document).ready(function() {
           });
           answersContainer.append(answerButton);
         });
+        animateButtons();
       }
 
       $(".quizModalClose").click(function() {
@@ -574,6 +575,18 @@ $(document).ready(function() {
       function finishQuiz() {
         $('#quiz-result').text('Викторина завершена!');
         $('#quiz-container button').prop('disabled', true); // Отключаем кнопки
+      }
+
+      // Функция для анимации кнопок
+      function animateButtons() {
+        $('.answer-btn').each(function(index) {
+          $(this).delay(200 * index).fadeIn({
+            duration: 500,
+            start: function() {
+              $(this).addClass('revealing');
+            }
+          });
+        });
       }
 
       displayQuestion();
@@ -798,7 +811,6 @@ $(document).ready(function() {
       }
 
       $('.composerButton').click(composerButtonClick);
-
 
       function flipButtonClick() {
         // Поворачиваем карточку обратно

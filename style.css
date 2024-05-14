@@ -678,6 +678,23 @@ kbd {
   text-align: center;
 }
 
+.answer-btn {
+  transform: perspective(400px) rotateX(-90deg);
+  transform-origin: top;
+}
+
+@keyframes reveal {
+  0% {
+    opacity: 0;
+    transform: perspective(400px) rotateX(90deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: perspective(400px) rotateX(0deg);
+  }
+}
+
 .quizModalWrapper {
   display: none;
   position: fixed;
