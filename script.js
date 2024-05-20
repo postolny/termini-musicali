@@ -137,16 +137,13 @@ $(document).ready(function() {
       });
 
       function sanitizeText(text) {
-        // Заменяем * и # на пробелы
-        text = text.replace(/[*#]/g, ' ');
+        // Заменяем * на | с пробелами
+        text = text.replace(/\*/g, ' | ');
 
-        // Очищаем ссылки
-        text = text.replace(/#(\w+)-(\w+)/g, '$1 $2');
+        // Удаляем все # перед словами
+        text = text.replace(/#/g, '');
 
-        text = text.replace(/#[^\s]+/g, function(match) {
-          return match.slice(1);
-        });
-
+        // Заменяем - на пробелы
         text = text.replace(/-/g, ' ');
 
         return text;
