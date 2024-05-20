@@ -136,6 +136,81 @@ $(document).ready(function() {
         scrollToElement('#rand', '#termineCasuale');
       });
 
+      function sanitizeText(text) {
+        // Заменяем * и # на пробелы
+        text = text.replace(/[*#]/g, ' ');
+
+        // Очищаем ссылки
+        text = text.replace(/#(\w+)-(\w+)/g, '$1 $2');
+
+        text = text.replace(/#[^\s]+/g, function(match) {
+          return match.slice(1);
+        });
+
+        text = text.replace(/-/g, ' ');
+
+        return text;
+      }
+
+      // Склеиваем массивы
+      var mergedArray = dizionario.concat(ru);
+      console.log('mergedArray contents:', mergedArray);
+
+      // Функция для отображения и подсветки текста
+      function displayAndHighlight(searchTerm) {
+        var content = '';
+        if (searchTerm) {
+          var sanitizedSearchTerm = sanitizeText(searchTerm);
+          var regex = new RegExp(sanitizedSearchTerm, 'gi');
+          $.each(mergedArray, function(index, item) {
+            if (item && item.value) {
+              var text = sanitizeText(item.value);
+              if (text.match(regex)) {
+                var highlightedText = text.replace(regex, function(match) {
+                  return '<span class="highlight">' + match + '</span>';
+                });
+                content += '<p><strong>' + item.label + '</strong></p>';
+                content += '<p>' + highlightedText + '</p>';
+              }
+            } else {
+              console.warn('Элемент с индексом ' + index + ' не имеет свойства value: ', item);
+            }
+          });
+        } else {
+          $.each(mergedArray, function(index, item) {
+            if (item && item.value) {
+              content += '<p><strong>' + item.label + '</strong></p>';
+              content += '<p>' + sanitizeText(item.value) + '</p>';
+            } else {
+              console.warn('Элемент с индексом ' + index + ' не имеет свойства value: ', item);
+            }
+          });
+        }
+        $('#content').html(content);
+      }
+
+      $('#searchInDictionary').on('input', function() {
+        var searchTerm = $(this).val();
+        displayAndHighlight(searchTerm);
+        toggleClearButton(searchTerm);
+      });
+
+      $('#clear-search').on('click', function() {
+        $('#searchInDictionary').val('');
+        displayAndHighlight('');
+        toggleClearButton('');
+      });
+
+      function toggleClearButton(value) {
+        if (value) {
+          $('#clear-search').css('visibility', 'visible');
+        } else {
+          $('#clear-search').css('visibility', 'hidden');
+        }
+      }
+
+      displayAndHighlight('');
+
       // Инициализация автозаполнения при загрузке страницы
       $("#search-tr").autocomplete({
         source: function(request, response) {
@@ -881,6 +956,16 @@ $(document).ready(function() {
 
   $(document).tooltip();
 
+  $("#openFullscreenButton").click(function() {
+    $("#fullscreenWindow").fadeIn();
+    $("body").css("overflow", "hidden");
+  });
+
+  $("#closeFullscreen").click(function() {
+    $("#fullscreenWindow").fadeOut();
+    $("body").css("overflow", "auto");
+  });
+
   function scrollToElement(sourceSelector, targetSelector) {
     var $source = $(sourceSelector);
     var $target = $(targetSelector);
@@ -952,14 +1037,22 @@ $(document).ready(function() {
   });
 
   $(document).on("keydown", function(event) {
-    // Открытие окна истории по нажатию Ctrl + M (или той же клавиши с кодом 77 для русской раскладки)
+    // Открытие окна истории по нажатию Ctrl + Alt + M (или той же клавиши с кодом 77 для русской раскладки)
     if (event.ctrlKey && event.altKey && (event.key === 'm' || event.keyCode === 77)) {
       $("#historyModal").fadeIn();
+    }
+    // Открытие окна чтения полного текста по нажатию Ctrl + Alt + L (или той же клавиши с кодом 76 для русской раскладки)
+    if (event.ctrlKey && event.altKey && (event.key === 'l' || event.keyCode === 76)) {
+      $("#fullscreenWindow").fadeIn();
+      $("body").css("overflow", "hidden");
     }
     // Закрытие окна истории по нажатию Ctrl + Q
     if (event.ctrlKey && event.keyCode === 81) {
       $("#historyModal").fadeOut();
       $(".quizModalWrapper, .active").removeClass('active');
+      // Закрытие окна чтения полного текста
+      $("#fullscreenWindow").fadeOut();
+      $("body").css("overflow", "auto");
     }
     // Очистка поля поиска и удаление результатов поиска по нажатию Ctrl + Backspace
     if (event.ctrlKey && event.key === "Backspace") {
@@ -969,12 +1062,27 @@ $(document).ready(function() {
     }
   });
 
-  $("#search-all").on("keyup", function() {
+  $("#search-all").on("input", function() {
     var s = $(this).val().toLowerCase();
     $(".search-all tbody tr").filter(function() {
       $(this).toggle($(this).text().toLowerCase().indexOf(s) > -1);
     });
+    toggleClearButton(s); // Обновляем вызов функции toggleClearButton с актуальным значением
   });
+
+  $('#clear-search-all').on('click', function() {
+    $('#search-all').val('');
+    toggleClearButton(''); // Обновляем вызов функции toggleClearButton с пустым значением
+    $(".search-all tbody tr").show(); // Показываем все строки таблицы
+  });
+
+  function toggleClearButton(value) {
+    if (value) {
+      $('#clear-search-all').css('visibility', 'visible');
+    } else {
+      $('#clear-search-all').css('visibility', 'hidden');
+    }
+  }
 
   var currentYear = new Date().getFullYear();
   $('#currentYear').html("&copy; " + currentYear + " ");
@@ -1035,11 +1143,11 @@ $(document).ready(function() {
     }
   });
 
-  $("#fullscreen-btn").click(function() {
+  // Полноэкранный режим
+
+  $("#toggleFullscreen").on("click", function() {
     toggleFullscreen();
   });
-
-  // Полноэкранный режим
 
   function toggleFullscreen() {
     var element = document.documentElement;
@@ -1078,7 +1186,6 @@ $(document).ready(function() {
       }
     }
   }
-
   // Обработчик события для выхода из полноэкранного режима (иначе не меняется иконка)
   $(document).on("fullscreenchange", function(event) {
     if (!document.fullscreenElement &&
