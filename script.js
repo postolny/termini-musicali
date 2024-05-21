@@ -917,9 +917,14 @@ $(document).ready(function() {
       function playRandomTrack() {
         var audioFile = randomComposer.composerAudio; // Получаем ссылку на аудиофайл текущего композитора
 
-        composerAudio.src = audioFile; // Устанавливаем аудиофайл в качестве источника для проигрывания
-        composerAudio.play(); // Воспроизводим аудио
-        togglePlayPauseIcon(); // Меняем иконку кнопки воспроизведения
+        // Обработка undefined
+        if (composerAudio) {
+          composerAudio.src = audioFile; // Устанавливаем аудиофайл в качестве источника для проигрывания
+          composerAudio.play(); // Воспроизводим аудио
+          togglePlayPauseIcon(); // Меняем иконку кнопки воспроизведения
+        } else {
+          console.error('composerAudio является undefined');
+        }
       }
 
       // Обработчик события клика по кнопке воспроизведения
