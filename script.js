@@ -184,6 +184,7 @@ $(document).ready(function() {
           });
         }
         $('#content').html(content);
+        addTitle();
       }
 
       $('#searchInDictionary').on('input', function() {
