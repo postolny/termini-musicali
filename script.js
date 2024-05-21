@@ -137,7 +137,7 @@ $(document).ready(function() {
         text = text.replace(/\*/g, ' | ');
 
         // Очищаем ссылки
-        return text.replace(/#([a-zA-Zа-яА-ЯёЁ0-9]+(?:-[a-zA-Zа-яА-ЯёЁ0-9]+)*)/g, function(match, p1) {
+        return text.replace(/#([a-zA-Zа-яА-ЯёЁ0-9'àèéìòóù]+(?:-[a-zA-Zа-яА-ЯёЁ0-9'àèéìòóù]+)*)/g, function(match, p1) {
           return p1.replace(/-/g, ' ');
         });
       }
