@@ -446,39 +446,41 @@ $(document).ready(function() {
           return item.label.toLowerCase() === term || item.value.toLowerCase() === term;
         });
 
-        // Проверяем, должна ли отображаться кнопка очистки ввода
-        if (foundItem.label !== '') {
-          $('#clearInput').css('opacity', '1');
-        } else {
-          $('#clearInput').css('opacity', '0');
-        }
-
-        // Если найденный элемент не добавлен в историю, то он добавляется, а история обновляется
-        if (foundItem && history.indexOf(foundItem.label) === -1) {
-          $("#search-res").html('<span>' + foundItem.label + '</span>' + copy + playBtn + foundItem.value);
-          $("#search-tr").val(foundItem.label); // Подставляем в поле результат обработки клика по ссылке
-          history.push(foundItem.label); // Добавляем переход в историю
-          updateHistory(); // Обновляем отображение истории
-        } else if (foundItem) {
-          $("#search-res").html('<span>' + foundItem.label + '</span>' + copy + playBtn + foundItem.value);
-          $("#search-tr").val(foundItem.label); // Подставляем в поле результат обработки клика по ссылке
-          // Если элемент уже есть в истории, просто отображаем его
-          var index = history.indexOf(foundItem.label);
-          if (index !== -1) {
-            updateHistory();
-            $("#history li").removeClass("current");
-            $("#history li:eq(" + index + ")").addClass("current");
+        if (foundItem) {
+          // Проверяем, должна ли отображаться кнопка очистки ввода
+          if (foundItem.label !== '') {
+            $('#clearInput').css('opacity', '1');
+          } else {
+            $('#clearInput').css('opacity', '0');
           }
-        }
 
-        replaceTextWithLinks();
-        // Проверяем, имеет ли ссылка класс no-scroll
-        if (!$(this).hasClass("no-scroll")) {
-          // Запускаем функцию прокрутки
-          scrollToElement('#search-res', '.languageSwitch');
-        } else {
-          // Если имеет предотвращаем выполнение действия по умолчанию
-          event.preventDefault();
+          // Если найденный элемент не добавлен в историю, то он добавляется, а история обновляется
+          if (foundItem && history.indexOf(foundItem.label) === -1) {
+            $("#search-res").html('<span>' + foundItem.label + '</span>' + copy + playBtn + foundItem.value);
+            $("#search-tr").val(foundItem.label); // Подставляем в поле результат обработки клика по ссылке
+            history.push(foundItem.label); // Добавляем переход в историю
+            updateHistory(); // Обновляем отображение истории
+          } else if (foundItem) {
+            $("#search-res").html('<span>' + foundItem.label + '</span>' + copy + playBtn + foundItem.value);
+            $("#search-tr").val(foundItem.label); // Подставляем в поле результат обработки клика по ссылке
+            // Если элемент уже есть в истории, просто отображаем его
+            var index = history.indexOf(foundItem.label);
+            if (index !== -1) {
+              updateHistory();
+              $("#history li").removeClass("current");
+              $("#history li:eq(" + index + ")").addClass("current");
+            }
+          }
+
+          replaceTextWithLinks();
+          // Проверяем, имеет ли ссылка класс no-scroll
+          if (!$(this).hasClass("no-scroll")) {
+            // Запускаем функцию прокрутки
+            scrollToElement('#search-res', '.languageSwitch');
+          } else {
+            // Если имеет предотвращаем выполнение действия по умолчанию
+            event.preventDefault();
+          }
         }
       });
 
