@@ -136,13 +136,10 @@ $(document).ready(function() {
         // Заменяем * на | с пробелами
         text = text.replace(/\*/g, ' | ');
 
-        // Удаляем все # перед словами
-        text = text.replace(/#/g, '');
-
-        // Заменяем - на пробелы
-        text = text.replace(/-/g, ' ');
-
-        return text;
+        // Очищаем ссылки
+        return text.replace(/#([a-zA-Zа-яА-ЯёЁ0-9]+(?:-[a-zA-Zа-яА-ЯёЁ0-9]+)*)/g, function(match, p1) {
+          return p1.replace(/-/g, ' ');
+        });
       }
 
       // Функция для отображения и подсветки текста
