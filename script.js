@@ -149,10 +149,6 @@ $(document).ready(function() {
         return text;
       }
 
-      // Склеиваем массивы
-      var mergedArray = dizionario.concat(ru);
-      console.log('mergedArray contents:', mergedArray);
-
       // Функция для отображения и подсветки текста
       function displayAndHighlight(searchTerm) {
         var content = '';
