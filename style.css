@@ -465,7 +465,8 @@ nav li {
 }
 
 #search-res i,
-#rand i {
+#rand i,
+#content i {
   color: #03c03c;
   cursor: help;
 }
