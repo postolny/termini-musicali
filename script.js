@@ -101,12 +101,8 @@ $(document).ready(function() {
         console.log("Текущие данные:", currentData);
       });
 
-      const randomArray = await loadData('data/data.json');
-
-      console.log('Данные из data.json для случайного термина:', randomArray);
-
       function loadRandomData() {
-        mergedArray = randomArray.concat(ru); // объединяем два массива
+        mergedArray = dizionario.concat(ru); // объединяем два массива
         var rand = Math.floor(Math.random() * mergedArray.length);
         $("#rand").html('<span>' + mergedArray[rand].label + '</span>' + copy + playBtnRand + mergedArray[rand].value);
         handlePlayButton(mergedArray[rand], "#playButtonRandom");
