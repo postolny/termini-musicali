@@ -471,12 +471,10 @@ nav li {
   cursor: help;
 }
 
+/* Иконки на странице Как пользоваться словарём */
 #randomIcon,
 #historyIcon,
 #copyIcon,
-#copyButton+svg,
-#playButton+svg,
-#playButtonRandom+svg,
 #playIcon,
 #playPauseIcon,
 #pdfIcon,
@@ -696,7 +694,7 @@ nav li {
   /* Ширина иконки */
   height: 24px;
   /* Высота иконки */
-  fill: #000;
+  color: #000;
   /* Цвет иконки */
 }
 
