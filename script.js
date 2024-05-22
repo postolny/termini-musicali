@@ -213,14 +213,31 @@ $(document).ready(function() {
         navigateHighlights(1);
       });
 
+      $(document).on("keydown", function(event) {
+        if (event.ctrlKey) {
+          if (event.key === "ArrowLeft") {
+            navigateHighlights(-1);
+          } else if (event.key === "ArrowRight") {
+            navigateHighlights(1);
+          }
+        }
+        if ((event.ctrlKey && event.key === "Backspace") || (event.target.id === "clear-search")) {
+          clearSearch();
+        }
+      });
+
       $('#clear-search').on('click', function() {
+        clearSearch();
+      });
+
+      function clearSearch() {
         $('#searchInDictionary').val('');
         $('#fullscreenWindow').animate({
           scrollTop: 0
         }, 300);
         displayAndHighlight('');
         toggleClearButton('');
-      });
+      }
 
       function toggleClearButton(value) {
         if (value) {
