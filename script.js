@@ -173,7 +173,30 @@ $(document).ready(function() {
           });
         }
         $('#content').html(content);
+        if (searchTerm) {
+          currentIndex = -1;
+          highlights = $('.highlight');
+        }
         addTitle();
+      }
+
+      var highlights = [];
+      var currentIndex = -1;
+
+      function navigateHighlights(direction) {
+        if (highlights.length > 0) {
+          highlights.removeClass('currentWord');
+          currentIndex = (currentIndex + direction + highlights.length) % highlights.length;
+          var currentHighlight = highlights.eq(currentIndex);
+          currentHighlight.addClass('currentWord');
+          var windowHeight = $('#fullscreenWindow').height();
+          var highlightPosition = currentHighlight.offset().top - $('#fullscreenWindow').offset().top;
+          if (highlightPosition < 0 || highlightPosition > windowHeight) {
+            $('#fullscreenWindow').animate({
+              scrollTop: $('#fullscreenWindow').scrollTop() + highlightPosition - (windowHeight / 2)
+            }, 200);
+          }
+        }
       }
 
       $('#searchInDictionary').on('input', function() {
@@ -182,8 +205,19 @@ $(document).ready(function() {
         toggleClearButton(searchTerm);
       });
 
+      $('#prev').on('click', function() {
+        navigateHighlights(-1);
+      });
+
+      $('#next').on('click', function() {
+        navigateHighlights(1);
+      });
+
       $('#clear-search').on('click', function() {
         $('#searchInDictionary').val('');
+        $('#fullscreenWindow').animate({
+          scrollTop: 0
+        }, 300);
         displayAndHighlight('');
         toggleClearButton('');
       });

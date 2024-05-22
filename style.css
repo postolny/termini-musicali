@@ -554,11 +554,65 @@ nav li {
   display: inline;
 }
 
-/* На странице Условные сокращения */
+/* Контейнер для поля поиска на странице Условные сокращения */
 .searchWrap {
   position: relative;
   max-width: 300px;
   margin: 20px 0;
+}
+
+/* Контейнер для поля поиска в полноэкранном окне */
+#search-container {
+  position: fixed;
+  display: flex;
+  top: 10px;
+  /* 100% - 80% (ширина #fullscreenContent) = 20% / 2 = 10% + 13px (подгонка) */
+  left: calc(10% + 13px);
+  background-color: white;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  width: auto;
+}
+
+#prev {
+  margin-right: 5px;
+}
+
+#prev,
+#next {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+#prev:hover,
+#next:hover {
+  background-color: #4caf50;
+}
+
+.input-container {
+  position: relative;
+  display: inline-flex;
+  flex-grow: 1;
+  width: 100%;
+}
+
+.button-container {
+  display: inline-flex;
+  margin-left: 5px;
+  flex-grow: 1;
+  align-items: center;
+  width: auto;
 }
 
 .search-icon {
@@ -608,7 +662,7 @@ nav li {
   background-color: #fff;
   z-index: 9999;
   overflow-y: auto;
-  padding: 20px;
+  padding: 80px 20px 20px;
   box-sizing: border-box;
 }
 
@@ -621,20 +675,43 @@ nav li {
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
 }
 
-.closeFullscreen {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 24px;
-  height: 24px;
-  color: #333;
+#close-icon-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  background-color: #fff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
+  z-index: 9999;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.closeFullscreen {
+  width: 24px;
+  /* Ширина иконки */
+  height: 24px;
+  /* Высота иконки */
+  fill: #000;
+  /* Цвет иконки */
+}
+
+.highlight,
+.currentWord {
+  padding: 2px 3px;
+  border-radius: 3px;
 }
 
 .highlight {
   background-color: yellow;
-  padding: 2px 3px;
-  border-radius: 3px;
+}
+
+.currentWord {
+  background-color: orange;
 }
 
 table {
@@ -1122,14 +1199,6 @@ footer ul li {
   /* Расстояние между элементами списка */
 }
 
-@media (max-width:1050px) {
-  .input-search {
-    width: 100%;
-    float: none;
-  }
-
-}
-
 @media (max-width:768px) {
 
   .diagonal-header h1 {
@@ -1168,6 +1237,50 @@ footer ul li {
     font-size: 14px;
   }
 
+  #fullscreenWindow {
+    padding-top: 140px;
+  }
+
+  #search-container {
+    width: calc(100% - 60px);
+    left: 20px;
+    top: 10px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .input-container {
+    width: 100%;
+    margin-bottom: 5px;
+  }
+
+  .button-container {
+    width: 100%;
+    margin-top: 5px;
+    margin-left: 0;
+    flex-direction: column;
+  }
+
+  #prev,
+  #next {
+    padding: 4px 8px;
+    width: 100%;
+    margin-bottom: 5px;
+  }
+
+  #prev {
+    margin-right: 0;
+  }
+
+  #next {
+    margin-bottom: 0;
+  }
+
+  .closeFullscreen {
+    top: 5px;
+    right: 5px;
+  }
+
   #fullscreenContent {
     max-width: 100%;
     padding: 10px;
@@ -1199,6 +1312,15 @@ footer ul li {
   .footer-inner {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+}
+
+@media (max-width:1050px) {
+
+  .input-search {
+    width: 100%;
+    float: none;
   }
 
 }
