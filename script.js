@@ -1001,14 +1001,23 @@ $(document).ready(function() {
 
   $(document).tooltip();
 
+  // Вычисляем ширину скроллбара
+  var scrollbarWidth = window.innerWidth - $(window).width() + "px";
+
   $("#openFullscreenButton").click(function() {
     $("#fullscreenWindow").fadeIn();
     $("body").css("overflow", "hidden");
+    $("body, #fullscreenWindow, .darkmodeIcon").css("paddingRight", scrollbarWidth);
+    $("#closeFullscreen").css("marginRight", scrollbarWidth);
+    $('#search-container').css('marginLeft', '0');
   });
 
   $("#closeFullscreen").click(function() {
     $("#fullscreenWindow").fadeOut();
     $("body").css("overflow", "auto");
+    $("body, #fullscreenWindow, .darkmodeIcon").css("paddingRight", 0);
+    $("#closeFullscreen").css("marginRight", 0);
+    $('#search-container').css('marginLeft', '2px');
   });
 
   function scrollToElement(sourceSelector, targetSelector) {
