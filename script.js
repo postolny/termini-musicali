@@ -530,6 +530,7 @@ $(document).ready(function() {
             event.preventDefault();
           }
         }
+        addTitle();
       });
 
       function replaceTextWithLinks() {
