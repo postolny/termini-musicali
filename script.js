@@ -1001,25 +1001,6 @@ $(document).ready(function() {
 
   $(document).tooltip();
 
-  // Вычисляем ширину скроллбара
-  var scrollbarWidth = window.innerWidth - $(window).width() + "px";
-
-  $("#openFullscreenButton").click(function() {
-    $("#fullscreenWindow").fadeIn();
-    $("body").css("overflow", "hidden");
-    $("body, #fullscreenWindow, .darkmodeIcon").css("paddingRight", scrollbarWidth);
-    $("#closeFullscreen").css("marginRight", scrollbarWidth);
-    $('#search-container').css('marginLeft', '0');
-  });
-
-  $("#closeFullscreen").click(function() {
-    $("#fullscreenWindow").fadeOut();
-    $("body").css("overflow", "auto");
-    $("body, #fullscreenWindow, .darkmodeIcon").css("paddingRight", 0);
-    $("#closeFullscreen").css("marginRight", 0);
-    $('#search-container').css('marginLeft', '2px');
-  });
-
   function scrollToElement(sourceSelector, targetSelector) {
     var $source = $(sourceSelector);
     var $target = $(targetSelector);
@@ -1090,6 +1071,33 @@ $(document).ready(function() {
     $("#historyModal").fadeOut();
   });
 
+  $("#openFullscreenButton").click(function() {
+    openFullscreen();
+  });
+
+  $("#closeFullscreenButton").click(function() {
+    closeFullscreen();
+  });
+
+  // Вычисляем ширину скроллбара
+  var scrollbarWidth = window.innerWidth - $(window).width() + "px";
+
+  function openFullscreen() {
+    $("#fullscreenWindow").fadeIn();
+    $("body").css("overflow", "hidden");
+    $("body, #fullscreenWindow, .darkmodeIcon").css("paddingRight", scrollbarWidth);
+    $("#closeFullscreenButton").css("marginRight", scrollbarWidth);
+    $('#search-container').css('marginLeft', '0');
+  }
+
+  function closeFullscreen() {
+    $("#fullscreenWindow").fadeOut();
+    $("body").css("overflow", "auto");
+    $("body, #fullscreenWindow, .darkmodeIcon").css("paddingRight", 0);
+    $("#closeFullscreenButton").css("marginRight", 0);
+    $('#search-container').css('marginLeft', '2px');
+  }
+
   $(document).on("keydown", function(event) {
     // Открытие окна истории по нажатию Ctrl + Alt + M (или той же клавиши с кодом 77 для русской раскладки)
     if (event.ctrlKey && event.altKey && (event.key === 'm' || event.keyCode === 77)) {
@@ -1097,16 +1105,14 @@ $(document).ready(function() {
     }
     // Открытие окна чтения полного текста по нажатию Ctrl + Alt + L (или той же клавиши с кодом 76 для русской раскладки)
     if (event.ctrlKey && event.altKey && (event.key === 'l' || event.keyCode === 76)) {
-      $("#fullscreenWindow").fadeIn();
-      $("body").css("overflow", "hidden");
+      openFullscreen();
     }
     // Закрытие окна истории по нажатию Ctrl + Q
     if (event.ctrlKey && event.keyCode === 81) {
       $("#historyModal").fadeOut();
       $(".quizModalWrapper, .active").removeClass('active');
       // Закрытие окна чтения полного текста
-      $("#fullscreenWindow").fadeOut();
-      $("body").css("overflow", "auto");
+      closeFullscreen();
     }
     // Очистка поля поиска и удаление результатов поиска по нажатию Ctrl + Backspace
     if (event.ctrlKey && event.key === "Backspace") {
