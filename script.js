@@ -1188,6 +1188,25 @@ $(document).ready(function() {
     });
   });
 
+  var suDiMeText = $("#suDiMe").html();
+
+  function updateText() {
+    var currentHour = new Date().getHours();
+
+    if (currentHour < 5) {
+      $("#suDiMe").html(suDiMeText + " Спокойной ночи!");
+    } else if (currentHour < 12) {
+      $("#suDiMe").html("Доброе утро! " + suDiMeText);
+    } else if (currentHour < 17) {
+      $("#suDiMe").html("Добрый день! " + suDiMeText);
+    } else {
+      $("#suDiMe").html("Добрый вечер! " + suDiMeText);
+    }
+  }
+
+  updateText();
+  setInterval(updateText, 60000);
+
   // Получаем адрес текущей страницы
   var currentPage = window.location.href;
   console.log("Текущая страница: " + currentPage);
