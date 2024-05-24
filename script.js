@@ -1194,7 +1194,7 @@ $(document).ready(function() {
     var currentHour = new Date().getHours();
 
     if (currentHour < 5) {
-      $("#suDiMe").html(suDiMeText + " Спокойной ночи!");
+      $("#suDiMe").html(suDiMeText + " Однако час уже поздний и утро вечера мудренее. Советую вам отложить все дела на завтра и пойти спать. Спокойной ночи!");
     } else if (currentHour < 12) {
       $("#suDiMe").html("Доброе утро! " + suDiMeText);
     } else if (currentHour < 17) {
