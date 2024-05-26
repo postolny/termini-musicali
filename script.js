@@ -145,6 +145,7 @@ $(document).ready(function() {
       // Функция для отображения и подсветки текста
       function displayAndHighlight(searchTerm) {
         var content = '';
+        var found = false;
         if (searchTerm) {
           var sanitizedSearchTerm = sanitizeText(searchTerm);
           var regex = new RegExp(sanitizedSearchTerm, 'gi');
@@ -171,6 +172,9 @@ $(document).ready(function() {
               console.warn('Элемент с индексом ' + index + ' не имеет свойства value: ', item);
             }
           });
+        }
+        if (!found) {
+          content += '<p>Ничего не найдено</p>';
         }
         $('#content').html(content);
         if (searchTerm) {
