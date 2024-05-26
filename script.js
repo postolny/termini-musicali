@@ -228,6 +228,34 @@ $(document).ready(function() {
         if ((event.ctrlKey && event.key === "Backspace") || (event.target.id === "clear-search")) {
           clearSearch();
         }
+        // Очистка поля поиска и удаление результатов поиска по нажатию Ctrl + Backspace
+        if (event.ctrlKey && event.key === "Backspace") {
+          $('#search-tr').val('').focus();
+          $("#search-res").html('');
+          $('#clearInput').css('opacity', '0');
+        }
+        // Открытие окна истории по нажатию Ctrl + Alt + M (или той же клавиши с кодом 77 для русской раскладки)
+        if (event.ctrlKey && event.altKey && (event.key === 'm' || event.keyCode === 77)) {
+          $("#historyModal").fadeIn();
+          updateHistory();
+        }
+        // Открытие окна чтения полного текста по нажатию Ctrl + Alt + L (или той же клавиши с кодом 76 для русской раскладки)
+        if (event.ctrlKey && event.altKey && (event.key === 'l' || event.keyCode === 76)) {
+          openFullscreen();
+        }
+        // Закрытие окна истории по нажатию Ctrl + Q
+        if (event.ctrlKey && event.keyCode === 81) {
+          $("#historyModal").fadeOut();
+          // Закрытие окна чтения полного текста
+          $(".quizModalWrapper, .active").removeClass('active');
+          closeFullscreen();
+          // Поворачиваем карточку обратно
+          flipButtonClick();
+        }
+        // Проверяем правильный ответ по нажатию Enter
+        if (event.keyCode === 13) {
+          composerButtonClick();
+        }
       });
 
       $('#clear-search').on('click', function() {
@@ -295,11 +323,8 @@ $(document).ready(function() {
               }
             }
           }
-          $("#search-tr").val(ui.item.label);
+          $("#search-tr").val(ui.item.label).blur();
           $("#search-res").html('<span>' + ui.item.label + '</span>' + copy + playBtn + ui.item.value);
-          setTimeout(function() {
-            $('#search-tr').blur(); // Снять фокус с поля ввода
-          }, 0);
           handlePlayButton(ui.item, "#playButton");
           addTitle();
           replaceTextWithLinks();
@@ -386,7 +411,7 @@ $(document).ready(function() {
         // Если найденный элемент не добавлен в историю, то он добавляется, а история обновляется
         if (foundItem && history.indexOf(foundItem.label) === -1) {
           $("#search-res").html('<span>' + foundItem.label + '</span>' + copy + playBtn + foundItem.value);
-          $("#search-tr").val(foundItem.label); // Подставляем в поле результат обработки клика по ссылке
+          $("#search-tr").val(foundItem.label).blur(); // Подставляем в поле результат обработки клика по ссылке
           history.push(foundItem.label); // Добавляем переход в историю
           updateHistory(); // Обновляем отображение истории
 
@@ -396,7 +421,7 @@ $(document).ready(function() {
           // А иначе, если элемент уже есть в истории, он просто отображается без изменений
         } else if (foundItem) {
           $("#search-res").html('<span>' + foundItem.label + '</span>' + copy + playBtn + foundItem.value);
-          $("#search-tr").val(foundItem.label); // Подставляем в поле результат обработки клика по ссылке
+          $("#search-tr").val(foundItem.label).blur(); // Подставляем в поле результат обработки клика по ссылке
           // Если элемент уже есть в истории, просто отображаем его
           var index = history.indexOf(foundItem.label);
           if (index !== -1) {
@@ -433,7 +458,8 @@ $(document).ready(function() {
           var historyWithHeader = "<h4>История</h4>" + historyList;
           $("#history").html(historyWithHeader);
         } else {
-          $("#history").empty(); // Очищаем содержимое, если история пуста
+          // $("#history").empty(); // Очищаем содержимое, если история пуста
+          $("#history").html("История поиска и переходов пока отсутствует");
         }
         // Устанавливаем атрибут data-language для каждой ссылки
         $("#history a").each(function() {
@@ -473,7 +499,7 @@ $(document).ready(function() {
         // Если элемент найден, обновляем результаты поиска и другие элементы интерфейса
         if (foundItem) {
           $("#search-res").html('<span>' + foundItem.label + '</span>' + copy + playBtn + foundItem.value);
-          $("#search-tr").val(foundItem.label);
+          $("#search-tr").val(foundItem.label).blur();
 
           // Проверяем, должна ли отображаться кнопка очистки ввода
           if (foundItem.label !== '') {
@@ -488,6 +514,15 @@ $(document).ready(function() {
           scrollToElement('#search-res', '.languageSwitch');
         }
 
+      });
+
+      $(".openModal").click(function() {
+        $("#historyModal").fadeIn();
+        updateHistory();
+      });
+
+      $(".close").click(function() {
+        $("#historyModal").fadeOut();
       });
 
       // Обработчик клика по ссылке в .about
@@ -958,17 +993,6 @@ $(document).ready(function() {
         overlay.css('height', (paragraph.height() + paddingY) + 'px');
       }
 
-      $(document).on("keydown", function(event) {
-        // Проверяем по нажатию Enter
-        if (event.keyCode === 13) {
-          composerButtonClick();
-        }
-        // Поворачиваем карточку обратно по нажатию Ctrl + Q
-        if (event.ctrlKey && event.keyCode === 81) {
-          flipButtonClick()
-        }
-      });
-
       function playRandomTrack() {
         var audioFile = randomComposer.composerAudio; // Получаем ссылку на аудиофайл текущего композитора
 
@@ -1068,14 +1092,6 @@ $(document).ready(function() {
     }, 2000);
   });
 
-  $(".openModal").click(function() {
-    $("#historyModal").fadeIn();
-  });
-
-  $(".close").click(function() {
-    $("#historyModal").fadeOut();
-  });
-
   $("#openFullscreenButton").click(function() {
     openFullscreen();
   });
@@ -1102,30 +1118,6 @@ $(document).ready(function() {
     $("#closeFullscreenButton").css("marginRight", 0);
     $('#search-container').css('marginLeft', '2px');
   }
-
-  $(document).on("keydown", function(event) {
-    // Открытие окна истории по нажатию Ctrl + Alt + M (или той же клавиши с кодом 77 для русской раскладки)
-    if (event.ctrlKey && event.altKey && (event.key === 'm' || event.keyCode === 77)) {
-      $("#historyModal").fadeIn();
-    }
-    // Открытие окна чтения полного текста по нажатию Ctrl + Alt + L (или той же клавиши с кодом 76 для русской раскладки)
-    if (event.ctrlKey && event.altKey && (event.key === 'l' || event.keyCode === 76)) {
-      openFullscreen();
-    }
-    // Закрытие окна истории по нажатию Ctrl + Q
-    if (event.ctrlKey && event.keyCode === 81) {
-      $("#historyModal").fadeOut();
-      $(".quizModalWrapper, .active").removeClass('active');
-      // Закрытие окна чтения полного текста
-      closeFullscreen();
-    }
-    // Очистка поля поиска и удаление результатов поиска по нажатию Ctrl + Backspace
-    if (event.ctrlKey && event.key === "Backspace") {
-      $('#search-tr').val('').focus();
-      $("#search-res").html('');
-      $('#clearInput').css('opacity', '0');
-    }
-  });
 
   $("#search-all").on("input", function() {
     var s = $(this).val().toLowerCase();
