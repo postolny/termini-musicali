@@ -527,6 +527,7 @@ $(document).ready(function() {
 
       $("#historyModal").draggable({
         handle: "#modalHeader",
+        containment: "window",
         start: function(event, ui) {
           if (event.originalEvent.touches) {
             var touch = event.originalEvent.touches[0] || event.originalEvent.changedTouches[0];
