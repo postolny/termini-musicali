@@ -525,6 +525,17 @@ $(document).ready(function() {
         $("#historyModal").fadeOut();
       });
 
+      $("#historyModal").draggable({
+        handle: "#modalHeader",
+        start: function(event, ui) {
+          if (event.originalEvent.touches) {
+            var touch = event.originalEvent.touches[0] || event.originalEvent.changedTouches[0];
+            ui.position.left = touch.pageX - $(this).offset().left;
+            ui.position.top = touch.pageY - $(this).offset().top;
+          }
+        }
+      });
+
       // Обработчик клика по ссылке в .about
       $(".about").on("click", "a", function(event) {
         event.preventDefault();
