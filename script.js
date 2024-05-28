@@ -342,23 +342,9 @@ $(document).ready(function() {
         }
       });
 
-      $('#search-tr').on('keydown', function(event) {
-        if (event.keyCode === $.ui.keyCode.DOWN || event.keyCode === $.ui.keyCode.UP) {
-          event.preventDefault();
-        }
-      });
-
-      var previousValue = $('#search-tr').val();
-
       $('#search-tr').on('input', function(event) {
         var currentValue = $(this).val();
-
-        if (currentValue === '' && previousValue !== '') {
-          $("#search-res").html('');
-        }
-
-        previousValue = currentValue;
-
+        // Если значение не пустое, показываем крестик
         if (currentValue !== '') {
           $('#clearInput').css('opacity', '1');
         } else {
@@ -366,7 +352,7 @@ $(document).ready(function() {
         }
       });
 
-      // Обработчик события отпускания клавиши
+      // Обработчик события отпускания клавиши (для удаления результатов поиска в #search-res при удалении выделенного в поле #search-tr текста нажатием Backspace)
       $('#search-tr').on('keyup', function(event) {
         if (event.which === 8) { // Проверяем нажатие клавиши Backspace
           var currentValue = $(this).val();
