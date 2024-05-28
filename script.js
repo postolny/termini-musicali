@@ -521,20 +521,62 @@ $(document).ready(function() {
         updateHistory();
       });
 
-      $(".close").click(function() {
-        $("#historyModal").fadeOut();
+      // $(".close").click(function() {
+      //   $("#historyModal").fadeOut();
+      // });
+
+      // $("#historyModal").draggable({
+      //   handle: "#modalHeader",
+      //   containment: "window"
+      // });
+
+      var historyModal = $("#historyModal");
+      var modalHeader = $("#modalHeader");
+      var isDragging = false;
+      var startX, startY, initialX, initialY;
+
+      function startDrag(e) {
+        isDragging = true;
+        var event = e.type.startsWith('touch') ? e.touches[0] : e;
+        startX = event.pageX;
+        startY = event.pageY;
+        initialX = historyModal.position().left;
+        initialY = historyModal.position().top;
+        document.addEventListener(e.type.startsWith('touch') ? "touchmove" : "mousemove", drag, {
+          passive: false
+        });
+        document.addEventListener(e.type.startsWith('touch') ? "touchend" : "mouseup", stopDrag);
+        e.preventDefault();
+      }
+
+      function drag(e) {
+        if (isDragging) {
+          var event = e.type.startsWith('touch') ? e.touches[0] : e;
+          var deltaX = event.pageX - startX;
+          var deltaY = event.pageY - startY;
+          historyModal.css({
+            left: initialX + deltaX,
+            top: initialY + deltaY
+          });
+          e.preventDefault();
+        }
+      }
+
+      function stopDrag() {
+        isDragging = false;
+        document.removeEventListener("mousemove", drag);
+        document.removeEventListener("touchmove", drag);
+        document.removeEventListener("mouseup", stopDrag);
+        document.removeEventListener("touchend", stopDrag);
+      }
+
+      modalHeader.on("mousedown touchstart", function(e) {
+        startDrag(e.originalEvent);
       });
 
-      $("#historyModal").draggable({
-        handle: "#modalHeader",
-        containment: "window",
-        start: function(event, ui) {
-          if (event.originalEvent.touches) {
-            var touch = event.originalEvent.touches[0] || event.originalEvent.changedTouches[0];
-            ui.position.left = touch.pageX - $(this).offset().left;
-            ui.position.top = touch.pageY - $(this).offset().top;
-          }
-        }
+      $(".close").on("click touchend", function(e) {
+        e.stopPropagation();
+        $("#historyModal").fadeOut();
       });
 
       // Обработчик клика по ссылке в .about
