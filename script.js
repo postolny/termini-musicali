@@ -151,12 +151,17 @@ $(document).ready(function() {
           var regex = new RegExp(sanitizedSearchTerm, 'gi');
           $.each(mergedArray, function(index, item) {
             if (item && item.value) {
-              var text = sanitizeText(item.value);
-              if (text.match(regex)) {
-                var highlightedText = text.replace(regex, function(match) {
+              var label = item.label;
+              var value = sanitizeText(item.value);
+              if (label.match(regex) || value.match(regex)) {
+                found = true;
+                var highlightedLabel = label.replace(regex, function(match) {
                   return '<span class="highlight">' + match + '</span>';
                 });
-                content += '<p><strong>' + item.label + '</strong></p>';
+                var highlightedText = value.replace(regex, function(match) {
+                  return '<span class="highlight">' + match + '</span>';
+                });
+                content += '<p><strong>' + highlightedLabel + '</strong></p>';
                 content += '<p>' + highlightedText + '</p>';
               }
             } else {
