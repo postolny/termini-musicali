@@ -20,6 +20,7 @@
     {"word": "p.pres.", "tooltip": "participio presente - причастие настоящего времени"},
     {"word": "pl", "tooltip": "plurale - множественное число"},
     {"word": "prep", "tooltip": "preposizione - предлог"},
+    {"word": "prepos.", "tooltip": "prepositivo, предложный (падеж)"},
     {"word": "pron", "tooltip": "pronome - местоимение"},
     {"word": "prov", "tooltip": "proverbio - пословица, поговорка"},
     {"word": "strum.", "tooltip": "strumentale - творительный (падеж)"},

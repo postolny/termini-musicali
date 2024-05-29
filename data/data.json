@@ -1,8 +1,8 @@
 [ 
-  {"label": "8 va", "value": "также, ottava alta, all'ottava; исполнять на октаву выше<br>см. #ottava"},
-  {"label": "8 vb", "value": "также, ottava bassa; исполнять на октаву ниже<br>см. #ottava"},
-  {"label": "22 va", "value": "также, tre ottave alta; исполнять на 3 октавы выше<br>см. #ottava"},
-  {"label": "22 vb", "value": "также, tre ottave bassa; исполнять на 3 октавы ниже<br>см. #ottava"},
+  {"label": "8va", "value": "также, ottava alta, all'ottava; исполнять на октаву выше<br>см. #ottava"},
+  {"label": "8vb", "value": "также, ottava bassa; исполнять на октаву ниже<br>см. #ottava"},
+  {"label": "22va", "value": "также, tre ottave alta; исполнять на 3 октавы выше<br>см. #ottava"},
+  {"label": "22vb", "value": "также, tre ottave bassa; исполнять на 3 октавы ниже<br>см. #ottava"},
   {"label": "ad libitum", "value": "[ˈad] [ˈlibitum]<br><i>лат.</i><br>1) <i>муз.</i> по желанию, свободно, произвольно<br>2) (принимать) по усмотрению (надпись на рецептах) см. #a-piacere"},
   {"label": "a cappella", "value": "['a] [kapˈpɛlla]<br>(как в капелле, см. #cappella) определение в музыке, используемое с XVIII века для любого полифонического сочинения, преимущественно сакрального характера, без инструментального сопровождения*esecuzione a cappella - выступление a cappella*eseguire a cappella - #исполнять a cappella*cantare a cappella - #петь a cappella*coro a cappella - хор a cappella*musica a cappella - #музыка a cappella*arrangiamento a cappella - аранжировка a cappella*composizione polifonica a cappella - полифоническое #сочинение a cappella"},
   {"label": "a capriccio", "value": "[ˈa] [kaˈpritʧo]<br><i>муз.</i> <i>уст.</i> произвольно, по усмотрению исполнителя<br>см. #capriccio, #capriccioso", "audio": "snd/a_capriccio.mp3"},
