@@ -573,8 +573,17 @@ $(document).ready(function() {
       // Обработчик клика по ссылке в .about
       $(".about").on("click", "a", function(event) {
         event.preventDefault();
+        // Получаем значение атрибута data-language
+        var language = $(this).data("language");
+        console.log("Клик на языке:", language);
+        // Устанавливаем текущий массив данных в зависимости от выбранного языка
+        currentData = (language === "dizionario") ? dizionario : ru;
+
+        // Переключаем радиокнопки на соответствующий язык
+        $("input[name='language']").filter("[value='" + language + "']").prop("checked", true).change();
+
         var term = $(this).text().trim().toLowerCase();
-        var foundItem = dizionario.find(function(item) {
+        var foundItem = mergedArray.find(function(item) {
           return item.label.toLowerCase() === term || item.value.toLowerCase() === term;
         });
 
@@ -608,7 +617,7 @@ $(document).ready(function() {
           // Проверяем, имеет ли ссылка класс no-scroll
           if (!$(this).hasClass("no-scroll")) {
             // Запускаем функцию прокрутки
-            scrollToElement('#search-res', '.languageSwitch');
+            scrollToElement('.about', '.languageSwitch');
           } else {
             // Если имеет предотвращаем выполнение действия по умолчанию
             event.preventDefault();
@@ -618,7 +627,7 @@ $(document).ready(function() {
       });
 
       function replaceTextWithLinks() {
-        $('#search-res, #rand').contents().each(function() {
+        $('#search-res, #rand, .about').contents().each(function() {
           if (this.nodeType === Node.TEXT_NODE) {
             var replacedText = $(this).text()
               .replace(/#([\w'àèéìòóùА-Яа-я-]+)/g, function(match, words) {
@@ -634,7 +643,7 @@ $(document).ready(function() {
         });
 
         // Устанавливаем атрибут data-language для каждой ссылки
-        $("#search-res a").each(function() {
+        $("#search-res a, .about a").not(".no-scroll").each(function() {
           var term = $(this).text().trim().toLowerCase();
           var language = "ru"; // По умолчанию устанавливаем русский язык
 
