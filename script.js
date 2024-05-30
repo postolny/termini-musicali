@@ -583,7 +583,7 @@ $(document).ready(function() {
         $("input[name='language']").filter("[value='" + language + "']").prop("checked", true).change();
 
         var term = $(this).text().trim().toLowerCase();
-        var foundItem = mergedArray.find(function(item) {
+        var foundItem = currentData.find(function(item) {
           return item.label.toLowerCase() === term || item.value.toLowerCase() === term;
         });
 
