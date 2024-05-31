@@ -89,12 +89,12 @@ $(document).ready(function() {
         if (selectedLanguage === "dizionario") {
           currentData = dizionario; // устанавливаем массив данных словаря иностранных терминов
           // При ручном переключении языка сбрасываем данные, устанавливаем фокус и скрываем крестик
-          $('#search-tr').val('').focus();
+          $('#search-tr').val('');
           $("#search-res").html('');
           $('#clearInput').css('opacity', '0');
         } else if (selectedLanguage === "ru") {
           currentData = ru; // устанавливаем массив данных русского словаря
-          $('#search-tr').val('').focus();
+          $('#search-tr').val('');
           $("#search-res").html('');
           $('#clearInput').css('opacity', '0');
         }
@@ -572,6 +572,11 @@ $(document).ready(function() {
 
       // Обработчик клика по ссылке в .about
       $(".about").on("click", "a", function(event) {
+        // Проверяем, имеет ли ссылка класс no-scroll
+        if ($(this).hasClass('no-scroll')) {
+          // Если имеет, выходим из обработчика
+          return;
+        }
         event.preventDefault();
         // Получаем значение атрибута data-language
         var language = $(this).data("language");
@@ -614,14 +619,7 @@ $(document).ready(function() {
           }
 
           replaceTextWithLinks();
-          // Проверяем, имеет ли ссылка класс no-scroll
-          if (!$(this).hasClass("no-scroll")) {
-            // Запускаем функцию прокрутки
-            scrollToElement('.about', '.languageSwitch');
-          } else {
-            // Если имеет предотвращаем выполнение действия по умолчанию
-            event.preventDefault();
-          }
+          scrollToElement('.about', '.languageSwitch');
         }
         addTitle();
       });
