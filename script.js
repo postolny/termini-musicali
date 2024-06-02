@@ -249,7 +249,7 @@ $(document).ready(function() {
           openFullscreen();
         }
         // Закрытие окна истории по нажатию Ctrl + Q
-        if (event.ctrlKey && event.keyCode === 81) {
+        if (event.ctrlKey && (event.key === 'q' || event.keyCode === 81)) {
           $("#historyModal").fadeOut();
           // Закрытие окна чтения полного текста
           $(".quizModalWrapper, .active").removeClass('active');
