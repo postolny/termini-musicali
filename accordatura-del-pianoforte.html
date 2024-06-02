@@ -1,0 +1,247 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <title>План настройки области темперирования</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+  body {
+    margin: 0 20px 0;
+  }
+
+  .table-container th,
+  .table-container td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  .table-container th {
+    background-color: #f2f2f2;
+  }
+
+  .table-container thead th {
+    font-size: 1.4em;
+    font-weight: bold;
+  }
+
+  @media (max-width:768px) {
+    body {
+      margin: 0 10px 0;
+    }
+  }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <ul>
+      <li><a href="https://postolny.github.io/termini-musicali/">К словарю</a></li>
+    </ul>
+  </nav>
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th colspan="5">План настройки области темперирования</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td rowspan="2">Номер шага настройки<sup>*</sup></td>
+          <td rowspan="2">Обозначение тонов<sup>**</sup></td>
+          <td rowspan="2">Интервал<sup>***</sup></td>
+          <td colspan="2">Число биений в секунду<sup>****</sup></td>
+        </tr>
+        <tr>
+          <td>биения основные</td>
+          <td>октавные биения (квинт и кварт)</td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>ля<sup>1</sup> - ля</td>
+          <td>октава</td>
+          <td>0,0</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>ля<sup>1</sup> - ре<sup>1</sup><br>ля - ре<sup>1</sup></td>
+          <td>квинта-<br>кварта+</td>
+          <td>1,0<br>1,0</td>
+          <td>2,0<br>2,0</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>ре<sup>1</sup> - соль<sup>1</sup></td>
+          <td>кварта+</td>
+          <td>1.3</td>
+          <td>2.6</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>соль<sup>1</sup> - до<sup>1</sup><br>ля - до<sup>1</sup><br>до<sup>1</sup> - ля<sup>1</sup><br>до<sup>1</sup> - соль<sup>1</sup><br>ре<sup>1</sup> - ля<sup>1</sup></td>
+          <td>квинта-<br>м. терция-<br>б. секста+<br>квинта-<br>квинта-</td>
+          <td>0,9<br>11,9<br>11,9<br>0,9<br>1,0</td>
+          <td>1,8<br>-<br>-<br>1,8<br>2,0</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>до<sup>1</sup> - фа<sup>1</sup><br>ре<sup>1</sup> - соль<sup>1</sup><br>до<sup>1</sup> - ля<sup>1</sup><br>фа<sup>1</sup> - ля<sup>1</sup></td>
+          <td>кварта+<br>кварта+<br>б. секста+<br>б. терция+</td>
+          <td>1,2<br>1,3<br>11,9<br>13,9</td>
+          <td>2,4<br>2,6<br>-<br>-</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>фа<sup>1</sup> - си-бемоль<br>до<sup>1</sup> - соль<sup>1</sup><br>ре<sup>1</sup> - ля<sup>1</sup><br>си-бемоль - соль<sup>1</sup><br>ля - до<sup>1</sup></td>
+          <td>квинта-<br>квинта-<br>квинта-<br>б. секста+<br>м. терция-</td>
+          <td>0,8<br>0,9<br>1,0<br>10,6<br>11,9</td>
+          <td>1,6<br>1,8<br>2,0<br>-<br>-</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>си-бемоль - ми-бемоль<sup>1</sup><br>до<sup>1</sup> - фа<sup>1</sup><br>ре<sup>1</sup> - соль<sup>1</sup></td>
+          <td>кварта+<br>кварта+<br>кварта+</td>
+          <td>1,1<br>1,2<br>1,3</td>
+          <td>2,2<br>2,4<br>2,6</td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>ля - ми<sup>1</sup><br>си-бемоль<sup>1</sup> - фа<sup>1</sup><br>ре<sup>1</sup> - соль<sup>1</sup><br>ля - ми<sup>1</sup><br>до<sup>1</sup> - ми<sup>1</sup><br>си-бемоль - соль<sup>1</sup></td>
+          <td>квинта-<br>квинта-<br>кварта+<br>кварта+<br>б. терция+<br>б. секста+</td>
+          <td>0,7<br>0,8<br>1,3<br>1,5<br>10,4<br>10,6</td>
+          <td>1,5<br>1,6<br>2,6<br>3,0<br>-<br>-</td>
+        </tr>
+        <tr>
+          <td>9</td>
+          <td>ми<sup>1</sup> - си<br>до<sup>1</sup> - фа<sup>1</sup><br>ре<sup>1</sup> - соль<sup>1</sup><br>си - ми-бемоль<sup>1</sup><br>до<sup>1</sup> - ми<sup>1</sup></td>
+          <td>кварта+<br>кварта+<br>кварта+<br>б. терция+<br>б. терция+</td>
+          <td>1,1<br>1,2<br>1,3<br>9,8<br>10,4</td>
+          <td>2,2<br>2,4<br>2,6<br>-<br>-</td>
+        </tr>
+        <tr>
+          <td>10</td>
+          <td>си - фа-диез<sup>1</sup><br>до<sup>1</sup> - соль<sup>1</sup><br>ре<sup>1</sup> - ля<sup>1</sup><br>си-бемоль - фа<sup>1</sup><br>си - фа-диез<sup>1</sup><br>ля - фа-диез<sup>1</sup><br>си-бемоль - соль<sup>1</sup></td>
+          <td>квинта-<br>квинта-<br>квинта-<br>квинта-<br>квинта-<br>б. секста+<br>б. секста+</td>
+          <td>0,8<br>0,9<br>1,0<br>
+            <0,8<br>>0,8<br>10,0<br>10,6
+          </td>
+          <td>1,6<br>1,8<br>2,0<br>
+            <1,6<br>>1,6<br>-<br>-
+          </td>
+        </tr>
+        <tr>
+          <td>11</td>
+          <td>фа-диез<sup>1</sup> - до-диез<sup>1</sup><br>ре<sup>1</sup> - соль<sup>1</sup><br>до<sup>1</sup> - фа<sup>1</sup><br>до-диез<sup>1</sup> - фа-диез<sup>1</sup><br>ля - до-диез<sup>1</sup><br>си-бемоль - ре<sup>1</sup><br>ля - до-диез<sup>1</sup><br>до-диез<sup>1</sup> - фа<sup>1</sup><br>фа<sup>1</sup> - ля<sup>1</sup></td>
+          <td>кварта+<br>кварта+<br>кварта+<br>кварта+<br>б. терция+<br>б. терция+<br>б. терция+<br>б. терция+<br>б. терция+</td>
+          <td>1,2<br>1,3<br>
+            <1,2<br>>1,2<br>8,7<br>9,2<br>8,7<br>11,0<br>13,9
+          </td>
+          <td>2,4<br>2,6<br>
+            <2,4<br>>2,4<br>-<br>-<br>-<br>-<br>-
+          </td>
+        </tr>
+        <tr>
+          <td>12</td>
+          <td>до-диез<sup>1</sup> - соль-диез<sup>1</sup><br>ре<sup>1</sup> - ля<sup>1</sup><br>до<sup>1</sup> - соль<sup>1</sup><br>до-диез<sup>1</sup> - соль-диез<sup>1</sup><br>ми<sup>1</sup> - соль-диез<sup>1</sup><br>фа<sup>1</sup> - ля<sup>1</sup><br>си-бемоль - соль<sup>1</sup><br>си - соль-диез<sup>1</sup><br>до<sup>1</sup> - ля<sup>1</sup><br>до-диез<sup>1</sup> - фа<sup>1</sup><br>си - соль-диез<sup>1</sup></td>
+          <td>квинта-<br>квинта-<br>квинта-<br>квинта-<br>б. терция+<br>б. терция+<br>б. секста+<br>б. секста+<br>б. секста+<br>б. секста+<br>б. секста+</td>
+          <td>0,9<br>1,0<br>
+            <0,9<br>>0,9<br>13,1<br>13,9<br>10,6<br>11,2<br>11,9<br>11,0<br>11,2
+          </td>
+          <td>1,8<br>2,0<br>
+            <1,8<br>>1,8<br>-<br>-<br>-<br>-<br>-<br>-<br>-
+          </td>
+        </tr>
+        <tr>
+          <td>13</td>
+          <td>соль-диез<sup>1</sup> - ре-диез<sup>1</sup><br>ми<sup>1</sup> - ля<sup>1</sup><br>ре<sup>1</sup> - соль<sup>1</sup><br>ре-диез<sup>1</sup> - соль-диез<sup>1</sup><br>си-бемоль<sup>1</sup> - ре<sup>1</sup><br>си - ре-диез<sup>1</sup><br>до<sup>1</sup> - ми<sup>1</sup><br>си - ре-диез<sup>1</sup><br>ля - фа-диез<sup>1</sup></td>
+          <td>кварта+<br>кварта+<br>кварта+<br>кварта+<br>б. терция+<br>б. терция+<br>б. терция+<br>б. терция+<br>б. секста+</td>
+          <td>1,4<br>1,5<br>1,3<br>1,4<br>9,2<br>9,8<br>10,4<br>9,8<br>10,0</td>
+          <td>2,8<br>3,0<br>2,6<br>2,8<br>-<br>-<br>-<br>-<br>-</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <article>
+    <p><sup>*</sup> Здесь и в следующей таблице интервалы, не отмеченные номером шага настройки, являются контрольными.</p>
+    <p><sup>**</sup> Первым указан опорный тон, вторым - настраиваемый тон.</p>
+    <p><sup>***</sup> В равномерной темперации сужены: квинты, малые терции и малые сексты; расширены: кварты, большие терции и большие сексты.</p>
+    <p><sup>****</sup> Частота биений дана с округлением до 0,1. Скобка обозначает попарное сравнение биений интервалов.</p>
+  </article>
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th colspan="5">Вариант начала настройки области темперирования</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td rowspan="2">Номер шага настройки<sup>*</sup></td>
+          <td rowspan="2">Обозначение тонов<sup>**</sup></td>
+          <td rowspan="2">Интервал<sup>***</sup></td>
+          <td colspan="2">Число биений в секунду<sup>****</sup></td>
+        </tr>
+        <tr>
+          <td>биения основные</td>
+          <td>октавные биения (квинт и кварт)</td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>ля<sup>1</sup> - ля</td>
+          <td>октава</td>
+          <td>0,0</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>ля<sup>1</sup> - ре<sup>1</sup><br>ля - ре<sup>1</sup></td>
+          <td>квинта-<br>кварта+</td>
+          <td>1,0<br>1,0</td>
+          <td>2,0<br>2,0</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>ля<sup>1</sup> - до<sup>1</sup><br>ля - до<sup>1</sup></td>
+          <td>б. секста+<br>м. терция-</td>
+          <td>11.9<br>11,9</td>
+          <td>-<br>-</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>до<sup>1</sup> - соль<sup>1</sup><br>ре<sup>1</sup> - ля<sup>1</sup><br>ре<sup>1</sup> - соль<sup>1</sup></td>
+          <td>квинта-<br>квинта-<br>кварта+</td>
+          <td>0,9<br>1,0<br>1,3</td>
+          <td>1,8<br>2,0<br>2,6</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>до<sup>1</sup> - фа<sup>1</sup><br>ре<sup>1</sup> - соль<sup>1</sup></td>
+          <td>кварта+<br>кварта+</td>
+          <td>1,2<br>1,3</td>
+          <td>2,4<br>2,6</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>фа<sup>1</sup> - си-бемоль<br>до<sup>1</sup> - соль<sup>1</sup><br>ре<sup>1</sup> - ля<sup>1</sup></td>
+          <td>квинта-<br>квинта-<br>квинта-</td>
+          <td>0,8<br>0,9<br>1,0</td>
+          <td>1,6<br>1,8<br>2,0</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>си-бемоль - ми-бемоль<sup>1</sup> (лев. стр.)<br>до<sup>1</sup> - фа<sup>1</sup><br>ре<sup>1</sup> - соль<sup>1</sup></td>
+          <td>кварта+<br>кварта+<br>кварта+</td>
+          <td>1,1<br>1,2<br>1,3</td>
+          <td>2,2<br>2,4<br>2,6</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+
+</html>
