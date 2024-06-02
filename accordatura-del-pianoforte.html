@@ -8,29 +8,29 @@
   <link rel="stylesheet" href="style.css">
   <style>
   body {
-    margin: 0 20px 0;
+    margin: 0 20px 20px 20px;
   }
 
-  .table-container th,
-  .table-container td {
+  section th,
+  section td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: center;
     vertical-align: middle;
   }
 
-  .table-container th {
+  section th {
     background-color: #f2f2f2;
   }
 
-  .table-container thead th {
+  section thead th {
     font-size: 1.4em;
     font-weight: bold;
   }
 
   @media (max-width:768px) {
     body {
-      margin: 0 10px 0;
+      margin: 0 10px 10px 10px;
     }
   }
   </style>
@@ -42,7 +42,7 @@
       <li><a href="https://postolny.github.io/termini-musicali/">К словарю</a></li>
     </ul>
   </nav>
-  <div class="table-container">
+  <section>
     <table>
       <thead>
         <tr>
@@ -165,14 +165,12 @@
         </tr>
       </tbody>
     </table>
-  </div>
-  <article>
-    <p><sup>*</sup> Здесь и в следующей таблице интервалы, не отмеченные номером шага настройки, являются контрольными.</p>
-    <p><sup>**</sup> Первым указан опорный тон, вторым - настраиваемый тон.</p>
-    <p><sup>***</sup> В равномерной темперации сужены: квинты, малые терции и малые сексты; расширены: кварты, большие терции и большие сексты.</p>
-    <p><sup>****</sup> Частота биений дана с округлением до 0,1. Скобка обозначает попарное сравнение биений интервалов.</p>
-  </article>
-  <div class="table-container">
+    <article>
+      <p><sup>*</sup> Здесь и в следующей таблице интервалы, не отмеченные номером шага настройки, являются контрольными.</p>
+      <p><sup>**</sup> Первым указан опорный тон, вторым - настраиваемый тон.</p>
+      <p><sup>***</sup> В равномерной темперации сужены: квинты, малые терции и малые сексты; расширены: кварты, большие терции и большие сексты.</p>
+      <p><sup>****</sup> Частота биений дана с округлением до 0,1. Скобка обозначает попарное сравнение биений интервалов.</p>
+    </article>
     <table>
       <thead>
         <tr>
@@ -241,7 +239,10 @@
         </tr>
       </tbody>
     </table>
-  </div>
+    <article>
+      <p>Материал взят из книги: В. Порвенков, "Акустика и настройка музыкальных инструментов".</p>
+    </article>
+  </section>
 </body>
 
 </html>
