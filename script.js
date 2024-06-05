@@ -149,7 +149,7 @@ $(document).ready(function() {
         if (searchTerm) {
           var sanitizedSearchTerm = sanitizeText(searchTerm);
           var regex = new RegExp(sanitizedSearchTerm, 'gi');
-          $.each(mergedArray, function(index, item) {
+          $.each(dizionario, function(index, item) {
             if (item && item.value) {
               var label = item.label;
               var value = sanitizeText(item.value);
@@ -169,7 +169,7 @@ $(document).ready(function() {
             }
           });
         } else {
-          $.each(mergedArray, function(index, item) {
+          $.each(dizionario, function(index, item) {
             if (item && item.value) {
               content += '<p><strong>' + item.label + '</strong></p>';
               content += '<p>' + sanitizeText(item.value) + '</p>';
