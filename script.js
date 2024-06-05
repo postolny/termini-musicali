@@ -741,7 +741,7 @@ $(document).ready(function() {
 
       function displayQuestion() {
         var randomQuestion = getRandomQuestion();
-        $('#question-text').text(randomQuestion.question);
+        $('#question-text').html(randomQuestion.question);
 
         var answersContainer = $('#answers-container');
         answersContainer.empty(); // Очищаем контейнер перед добавлением новых кнопок
