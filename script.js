@@ -222,6 +222,28 @@ $(document).ready(function() {
         navigateHighlights(1);
       });
 
+      let showRU = true;
+
+      // Обработчик переключателя направления перевода в окне чтения полного текста
+      $('#toggle-language').on('click', function() {
+        var content = '';
+        if (showRU) {
+          ru.forEach(obj => {
+            content += '<p><strong>' + obj.label + '</strong></p>' + '<p>' + sanitizeText(obj.value) + '</p>';
+          });
+          $('#content').html(content);
+          $(this).text('ин-яз');
+        } else {
+          dizionario.forEach(obj => {
+            content += '<p><strong>' + obj.label + '</strong></p>' + '<p>' + sanitizeText(obj.value) + '</p>';
+          });
+          $('#content').html(content);
+          $(this).text('ру');
+        }
+        showRU = !showRU;
+        addTitle();
+      });
+
       $(document).on("keydown", function(event) {
         if (event.ctrlKey) {
           if (event.key === "ArrowLeft") {

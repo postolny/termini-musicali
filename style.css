@@ -668,6 +668,11 @@ nav li {
   width: auto;
 }
 
+.icons {
+  display: inline-flex;
+  flex-grow: 1;
+}
+
 .chevron {
   width: 32px;
   height: 32px;
@@ -677,6 +682,21 @@ nav li {
 
 .chevron:hover {
   color: #666;
+}
+
+#toggle-language {
+  width: 42px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  margin-left: 2px;
+  padding: 2px 4px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+#toggle-language:hover {
+  background-color: #0056b3;
 }
 
 #closeFullscreenButton {
@@ -1226,14 +1246,16 @@ footer ul li {
   }
 
   .button-container {
-    width: 100%;
+    display: flex;
     margin-top: 5px;
-    margin-left: 0;
   }
 
-  #prev,
-  #next {
-    width: 100%;
+  .icons {
+    display: flex;
+  }
+
+  #toggle-language {
+    margin-left: auto;
   }
 
   .closeFullscreen {
