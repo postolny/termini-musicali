@@ -230,9 +230,9 @@ $(document).ready(function() {
       $('#toggle-language').on('click', function() {
         var content = '';
         if (showRU) {
-          $(this).text('ин-яз');
-        } else {
           $(this).text('ру');
+        } else {
+          $(this).text('ин-яз');
         }
         showRU = !showRU;
         displayAndHighlight($('#searchInDictionary').val()); // Обновляем отображение после переключения языка
