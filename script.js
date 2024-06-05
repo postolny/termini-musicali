@@ -146,10 +146,12 @@ $(document).ready(function() {
       function displayAndHighlight(searchTerm) {
         var content = '';
         var found = false;
+        var data = showRU ? ru : dizionario; // Используем данные в зависимости от выбранного языка
+
         if (searchTerm) {
           var sanitizedSearchTerm = sanitizeText(searchTerm);
           var regex = new RegExp(sanitizedSearchTerm, 'gi');
-          $.each(dizionario, function(index, item) {
+          $.each(data, function(index, item) {
             if (item && item.value) {
               var label = item.label;
               var value = sanitizeText(item.value);
@@ -169,7 +171,7 @@ $(document).ready(function() {
             }
           });
         } else {
-          $.each(dizionario, function(index, item) {
+          $.each(data, function(index, item) {
             if (item && item.value) {
               content += '<p><strong>' + item.label + '</strong></p>';
               content += '<p>' + sanitizeText(item.value) + '</p>';
@@ -222,26 +224,18 @@ $(document).ready(function() {
         navigateHighlights(1);
       });
 
-      let showRU = true;
+      let showRU = false;
 
       // Обработчик переключателя направления перевода в окне чтения полного текста
       $('#toggle-language').on('click', function() {
         var content = '';
         if (showRU) {
-          ru.forEach(obj => {
-            content += '<p><strong>' + obj.label + '</strong></p>' + '<p>' + sanitizeText(obj.value) + '</p>';
-          });
-          $('#content').html(content);
           $(this).text('ин-яз');
         } else {
-          dizionario.forEach(obj => {
-            content += '<p><strong>' + obj.label + '</strong></p>' + '<p>' + sanitizeText(obj.value) + '</p>';
-          });
-          $('#content').html(content);
           $(this).text('ру');
         }
         showRU = !showRU;
-        addTitle();
+        displayAndHighlight($('#searchInDictionary').val()); // Обновляем отображение после переключения языка
       });
 
       $(document).on("keydown", function(event) {
