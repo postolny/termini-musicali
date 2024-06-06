@@ -1,9 +1,11 @@
 [
     {"word": "a", "tooltip": "вспомогательный глагол avere"},
     {"word": "acc.", "tooltip": "accusativo, винительный (падеж)"},
+    {"word": "accr.", "tooltip": "accrescitivo - увеличительное"},
     {"word": "agg", "tooltip": "aggettivo - прилагательное"},
     {"word": "avv", "tooltip": "avverbio - наречие"},
     {"word": "cong", "tooltip": "congiunzione - союз"},
+    {"word": "dat.", "tooltip": "dativo, дательный (падеж)"},
     {"word": "dim.", "tooltip": "diminutivo, уменьшительный"},
     {"word": "e", "tooltip": "вспомогательный глагол essere"},
     {"word": "ecc", "tooltip": "eccetera - и так далее"},
