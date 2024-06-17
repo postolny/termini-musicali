@@ -633,11 +633,11 @@ $(document).ready(function() {
               $("#history li:eq(" + index + ")").addClass("current");
             }
           }
-
-          replaceTextWithLinks();
-          scrollToElement('.about', '.languageSwitch');
         }
-        addTitle();
+        replaceTextWithLinks();
+        scrollToElement('.about', '.languageSwitch');
+        // Вызов функции с задержкой, дабы избежать конфликта функций прокрутки
+        setTimeout(smoothScrollToCurrent, 1000);
       });
 
       function replaceTextWithLinks() {
