@@ -82,6 +82,49 @@ $(document).ready(function() {
         });
       }
 
+      // Функция для определения языка на основе символа
+      function getLanguage(key) {
+        var russianCharacters = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя';
+        var differentCharacters = 'abcdefghijklmnopqrstuvwxyzàèéìòù';
+
+        if (russianCharacters.includes(key.toLowerCase())) {
+          return 'ru';
+        } else if (differentCharacters.includes(key.toLowerCase())) {
+          return 'dizionario';
+        } else {
+          return 'unknown'; // если символ не принадлежит ни одному языку
+        }
+      }
+
+      // Обработчик изменения языка
+      function changeLanguage(language) {
+        if (language === 'dizionario') {
+          currentData = dizionario; // устанавливаем массив данных словаря иностранных терминов
+        } else if (language === 'ru') {
+          currentData = ru; // устанавливаем массив данных русского словаря
+        } else {
+          console.log('Неизвестный язык: ', language);
+        }
+        // Автоматическое переключение радиокнопок
+        $("input[name='language'][value='" + language + "']").prop('checked', true);
+
+        console.log('Текущий язык: ', language);
+
+      }
+
+      // Обработка событий клавиатуры для автоматического переключения языка
+      $(document).on('keypress keydown', function(event) {
+        var key = event.key;
+        var detectedLanguage = getLanguage(key);
+
+        if (detectedLanguage !== 'unknown') {
+          console.log('Обнаруженный язык: ', detectedLanguage);
+          changeLanguage(detectedLanguage);
+        } else {
+          console.log('Неизвестный символ: ', key);
+        }
+      });
+
       $("input[name='language']").change(function() {
         console.log("Язык переключен");
         const selectedLanguage = $(this).val(); // получаем выбранный язык
