@@ -281,7 +281,11 @@ $(document).ready(function() {
         displayAndHighlight($('#searchInDictionary').val()); // Обновляем отображение после переключения языка
       });
 
-      $('#googleSearchButton').click(function() {
+      $('#googleSearchButton').on('click', function() {
+        searchInGoogle();
+      });
+
+      function searchInGoogle() {
         var query = $('#search-tr').val();
         if (query === "") {
           showAlert("Чтобы искать в Google введите слово в поле поиска.");
@@ -290,7 +294,7 @@ $(document).ready(function() {
         var googleUrl = determineGoogleUrl(query);
         // window.location.href = googleUrl + encodeURIComponent(query);
         window.open(googleUrl + encodeURIComponent(query), '_blank');
-      });
+      }
 
       function determineGoogleUrl(query) {
         var russianRegex = /[а-яА-ЯёЁ]/;
@@ -339,6 +343,10 @@ $(document).ready(function() {
         // Проверяем правильный ответ по нажатию Enter
         if (event.keyCode === 13) {
           composerButtonClick();
+        }
+        // Поиск в Google
+        if (event.ctrlKey && event.altKey && (event.key === 'g' || event.keyCode === 71)) {
+          searchInGoogle();
         }
       });
 
