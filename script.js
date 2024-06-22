@@ -113,7 +113,7 @@ $(document).ready(function() {
       }
 
       // Обработка событий клавиатуры для автоматического переключения языка
-      $(document).on('keypress keydown', function(event) {
+      $(document).on('keypress', function(event) {
         var key = event.key;
         var detectedLanguage = getLanguage(key);
 
