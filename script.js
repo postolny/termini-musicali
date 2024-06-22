@@ -281,6 +281,26 @@ $(document).ready(function() {
         displayAndHighlight($('#searchInDictionary').val()); // Обновляем отображение после переключения языка
       });
 
+      $('#googleSearchButton').click(function() {
+        var query = $('#search-tr').val();
+        if (query === "") {
+          showAlert("Чтобы искать в Google введите слово в поле поиска.");
+          return;
+        }
+        var googleUrl = determineGoogleUrl(query);
+        // window.location.href = googleUrl + encodeURIComponent(query);
+        window.open(googleUrl + encodeURIComponent(query), '_blank');
+      });
+
+      function determineGoogleUrl(query) {
+        var russianRegex = /[а-яА-ЯёЁ]/;
+        if (russianRegex.test(query)) {
+          return 'https://www.google.ru/search?hl=ru&q=';
+        } else {
+          return 'https://www.google.it/search?hl=it&q=';
+        }
+      }
+
       $(document).on("keydown", function(event) {
         if (event.ctrlKey) {
           if (event.key === "ArrowLeft") {
@@ -566,7 +586,7 @@ $(document).ready(function() {
 
       });
 
-      $(".openModal").click(function() {
+      $("#openModal").click(function() {
         $("#historyModal").fadeIn();
         updateHistory();
       });

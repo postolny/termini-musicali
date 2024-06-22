@@ -216,7 +216,8 @@ main {
   width: 20px;
   height: 20px;
   margin-right: 5px;
-  vertical-align: middle;
+  /*  vertical-align: middle;
+  filter: var(--filter);*/
 }
 
 nav {
@@ -331,6 +332,12 @@ nav li {
   align-items: center;
 }
 
+#iconWrap svg {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
 #buttonWrap button {
   margin: 3px 3px;
   padding: 5px 10px;
@@ -341,14 +348,6 @@ nav li {
 #inputWrap {
   position: relative;
   display: inline-block;
-}
-
-.openModal,
-.fullscreen-btn,
-.global-search-icon {
-  width: 24px;
-  height: 24px;
-  cursor: pointer;
 }
 
 .modal {
@@ -495,16 +494,13 @@ nav li {
   cursor: help;
 }
 
-/* Иконки на странице Как пользоваться словарём */
-#randomIcon,
-#historyIcon,
-#copyIcon,
-#playIcon,
-#playPauseIcon,
 #pdfIcon,
-#fullscreenEnter,
-#fullscreenExit,
-#viewAllIcon {
+.tool-icon {
+  vertical-align: middle;
+  filter: var(--filter);
+}
+
+#playPauseIcon {
   filter: var(--filter);
 }
 
@@ -513,6 +509,7 @@ nav li {
 #playButtonRandom {
   display: inline-block;
   margin-left: 5px;
+  vertical-align: middle;
   cursor: pointer;
 }
 
@@ -526,19 +523,6 @@ nav li {
 #audioPlayer {
   width: 24px;
   height: 24px;
-}
-
-#randomIcon,
-#historyIcon,
-#copyIcon,
-#copyButton,
-#playButton,
-#playButtonRandom,
-#playIcon,
-#fullscreenEnter,
-#fullscreenExit,
-#viewAllIcon {
-  vertical-align: middle;
 }
 
 #clipboardAlert {
