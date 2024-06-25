@@ -31,5 +31,6 @@
   { "question": "Как по-итальянски называется такая длительность ноты: <svg style=\"vertical-align: middle;\" xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" viewBox=\"-7 -1.5 24 24\"><path fill=\"currentColor\" d=\"M7.954 12.87V1.564a1 1 0 0 1 1-1h.028a1 1 0 0 1 1 1V15.63c.197 1.969-1.42 3.99-3.874 4.693c-2.69.772-5.368-.333-5.98-2.468c-.612-2.135 1.073-4.491 3.764-5.263c1.47-.421 2.935-.283 4.062.277z\"/></svg>?", "answers": ["minima", "semiminima"], "correctIndex": 1 },
   { "question": "В музыке словом «sincope» называют смещение акцента с сильной доли на слабую. Какое ещё значение имеет это слово?", "answers": ["приседание", "хромой", "обморок"], "correctIndex": 2 },
   { "question": "Слово «diapason» имеет значение «диапазон», а слово «corista» – «хорист» или «хористка». Оба этих слова «diapason» и «corista» также дают название инструменту:", "answers": ["волынка", "варган", "камертон"], "correctIndex": 2 },
-  { "question": "Переведите на итальянский язык «полный аккорд»:", "answers": ["accordo pieno", "accordo perfetto"], "correctIndex": 1 }
+  { "question": "Переведите на итальянский язык «полный аккорд»:", "answers": ["accordo pieno", "accordo perfetto"], "correctIndex": 1 },
+  { "question": "Переведите на русский язык «andar a prendere una boccata d'aria»:", "answers": ["пойти подышать свежим воздухом", "выйти на улицу покурить", "взять высокую ноту в арии"], "correctIndex": 0 }
 ]
