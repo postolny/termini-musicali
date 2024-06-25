@@ -715,7 +715,7 @@ $(document).ready(function() {
         $('#search-res, #rand, .about').contents().each(function() {
           if (this.nodeType === Node.TEXT_NODE) {
             var replacedText = $(this).text()
-              .replace(/#([\w'àèéìòóùА-Яа-я-]+)/g, function(match, words) {
+              .replace(/#([\w'àèéìòóùА-Яа-яёЁ-]+)/g, function(match, words) {
                 // Заменяем дефисы и апострофы на пробелы
                 var cleanedWords = words.replace(/[-]/g, ' ');
                 // Создаем ссылку, вставляя слова внутри тега <a>, сохраняя апостроф
