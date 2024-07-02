@@ -1300,7 +1300,7 @@ $(document).ready(function() {
   function openFullscreen() {
     $("#fullscreenWindow").fadeIn();
     $("body").css("overflow", "hidden");
-    $("body, #fullscreenWindow, .darkmodeIcon").css("paddingRight", scrollbarWidth);
+    $("body, .darkmodeIcon").css("paddingRight", scrollbarWidth);
     $("#closeFullscreenButton").css("marginRight", scrollbarWidth);
     $('#search-container').css('marginLeft', '0');
   }
@@ -1308,7 +1308,7 @@ $(document).ready(function() {
   function closeFullscreen() {
     $("#fullscreenWindow").fadeOut();
     $("body").css("overflow", "auto");
-    $("body, #fullscreenWindow, .darkmodeIcon").css("paddingRight", 0);
+    $("body, .darkmodeIcon").css("paddingRight", 0);
     $("#closeFullscreenButton").css("marginRight", 0);
     $('#search-container').css('marginLeft', '2px');
   }
