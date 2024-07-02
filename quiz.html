@@ -8,7 +8,7 @@
   <meta name="description" content="Хотите проверить насколько хорошо вы знаете значение и применение музыкальных терминов? На этой странице вы сможете это сделать!" />
   <meta property="og:title" content="Викторина">
   <meta property="og:description" content="Хотите проверить насколько хорошо вы знаете значение и применение музыкальных терминов? На этой странице вы сможете это сделать!">
-  <meta property="og:image" content="/images/termini-musicali.png">
+  <meta property="og:image" content="https://postolny.github.io/termini-musicali/images/termini-musicali.png">
   <meta property="og:url" content="https://postolny.github.io/termini-musicali/quiz">
   <meta property="og:type" content="game">
   <link rel="stylesheet" href="style.css">
@@ -47,6 +47,7 @@
           <button type="button" class="answer-btn" data-answer="Ответ 2"></button>
           <button type="button" class="answer-btn" data-answer="Ответ 3"></button>
         </div>
+        <div id="remaining-questions">Осталось вопросов: <span id="remaining-count"></span></div>
         <p id="quiz-result"></p>
       </div>
     </section>
@@ -84,8 +85,8 @@
     </div>
   </footer>
   <div class="quizModalWrapper">
-    <div id="Modal" class="quizModal">
-      <span class="quizModalClose">&#10006;</span>
+    <div class="quizModal">
+      <span class="quizModalHeader"><span>&#10006;</span></span>
       <div id="quizModalContent"></div>
     </div>
   </div>

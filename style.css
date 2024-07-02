@@ -81,16 +81,16 @@ body {
   background-color: var(--bg-color);
 }
 
-::-webkit-scrollbar {
+body::-webkit-scrollbar {
   width: 20px;
 }
 
-::-webkit-scrollbar-track {
+body::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.4);
   border-radius: 10px;
 }
 
-::-webkit-scrollbar-thumb {
+body::-webkit-scrollbar-thumb {
   background: #888;
   border-radius: 10px;
   border: 3px solid transparent;
@@ -98,7 +98,7 @@ body {
   background-clip: content-box;
 }
 
-::-webkit-scrollbar-thumb:hover {
+body::-webkit-scrollbar-thumb:hover {
   background: #555;
   border: 3px solid transparent;
   background-clip: content-box;
@@ -216,8 +216,6 @@ main {
   width: 20px;
   height: 20px;
   margin-right: 5px;
-  /*  vertical-align: middle;
-  filter: var(--filter);*/
 }
 
 nav {
@@ -884,7 +882,6 @@ kbd {
   text-align: center;
 }
 
-/* Базовые стили для кнопок */
 #quiz-container button {
   width: 100%;
   padding: 20px;
@@ -908,6 +905,7 @@ kbd {
   background-color: #45a049;
 }
 
+#remaining-questions,
 #quiz-result {
   text-align: center;
 }
@@ -948,22 +946,50 @@ kbd {
 
 .quizModal {
   position: relative;
-  margin: 10% auto;
-  padding: 20px;
+  margin: 10px;
   background-color: #fff;
   border-radius: 5px;
-  max-width: 80%;
+  max-width: 700px;
+  max-height: 95%;
+  overflow-y: auto;
   z-index: 1000;
 }
 
-.quizModalClose,
-.flipButton {
-  position: absolute;
+.quizModalHeader {
+  position: sticky;
+  height: 30px;
   top: 0;
-  right: 5px;
-  font-size: 20px;
-  cursor: pointer;
   z-index: 1001;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: #fff;
+  background-color: rgb(0, 123, 255);
+}
+
+.quizModalHeader span {
+  padding-right: 10px;
+  cursor: pointer;
+}
+
+#quizModalContent {
+  padding: 15px 20px;
+}
+
+#quizModalContent ul {
+  list-style-type: none;
+}
+
+#quizModalContent svg {
+  vertical-align: middle;
+}
+
+#quizModalContent svg#correct {
+  color: green;
+}
+
+#quizModalContent svg#incorrect {
+  color: red;
 }
 
 /* Для анимации при открытии и закрытии модального окна */
@@ -975,6 +1001,13 @@ kbd {
 
 .quizModal.active {
   animation: modalFadeIn 0.3s forwards;
+}
+
+#quizModalContent img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 15px auto;
 }
 
 @keyframes modalFadeIn {
@@ -1251,6 +1284,15 @@ kbd {
   background-color: #45a049;
 }
 
+.flipButton {
+  position: absolute;
+  top: 0;
+  right: 5px;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 1001;
+}
+
 #audioPlayer {
   display: flex;
   align-items: center;
@@ -1377,6 +1419,10 @@ footer ul li {
   #quiz-container button {
     padding: 5px;
     font-size: 1em;
+  }
+
+  #quizModalContent {
+    padding: 10px 15px;
   }
 
   #intervalloButtonWrap button {
