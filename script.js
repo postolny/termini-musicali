@@ -914,10 +914,19 @@ $(document).ready(function() {
 
       function displayImages() {
         var folderPath = "images/quiz/";
-        // Установка путей к изображениям
+
+        $('#quizModalContent').html(function(index, html) {
+          return html.replace(/#(\w+)/g, function(match, p1) {
+            return '<img src="' + folderPath + p1 + '.png">';
+          });
+        });
+
         $('#quizModalContent img').each(function() {
-          var src = folderPath + $(this).attr('src') + '.png';
-          $(this).attr('src', src);
+          var src = $(this).attr('src');
+          if (!src.startsWith(folderPath)) {
+            src = folderPath + src;
+            $(this).attr('src', src);
+          }
         });
       }
 
