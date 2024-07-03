@@ -819,6 +819,7 @@ $(document).ready(function() {
 
       var usedQuestions = [];
       var totalQuestions = quizArray.length;
+      var correctAnswersCount = 0;
 
       function getRandomQuestion() {
         var remainingQuestions = quizArray.filter(function(question) {
@@ -903,6 +904,10 @@ $(document).ready(function() {
         $("#quizModalContent").html(contentHtml);
         $(".quizModalWrapper, .active").addClass('active');
 
+        if (selectedIndex === correctIndex) {
+          correctAnswersCount++;
+        }
+
         // $("body").css("overflow", "hidden");
         // $(".diagonal-header h1, .darkmodeIcon").css("paddingRight", scrollbarWidth);
 
@@ -931,7 +936,7 @@ $(document).ready(function() {
       }
 
       function finishQuiz() {
-        $('#quiz-result').text('Викторина завершена!');
+        $('#quiz-result').text('Викторина завершена! Правильных ответов: ' + correctAnswersCount + ' из ' + totalQuestions);
         $('#quiz-container button').prop('disabled', true); // Отключаем кнопки
       }
 
