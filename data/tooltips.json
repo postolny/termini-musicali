@@ -28,6 +28,7 @@
     {"word": "prepos.", "tooltip": "prepositivo, предложный (падеж)"},
     {"word": "pron", "tooltip": "pronome - местоимение"},
     {"word": "prov", "tooltip": "proverbio - пословица, поговорка"},
+    {"word": "qd", "tooltip": "qualcheduno (qualcuno), кто-н., кто-л."},
     {"word": "sing.", "tooltip": "singolare, единственное число"},
     {"word": "strum.", "tooltip": "strumentale - творительный (падеж)"},
     {"word": "superl.", "tooltip": "superlativo - превосходная степень"},
