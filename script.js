@@ -88,9 +88,21 @@ $(document).ready(function() {
         var russianCharacters = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя';
         var differentCharacters = 'abcdefghijklmnopqrstuvwxyzàèéìòù';
 
-        if (russianCharacters.includes(key.toLowerCase())) {
+        var containsRussian = false;
+        var containsDifferent = false;
+
+        for (var i = 0; i < key.length; i++) {
+          var char = key[i].toLowerCase();
+          if (russianCharacters.includes(char)) {
+            containsRussian = true;
+          } else if (differentCharacters.includes(char)) {
+            containsDifferent = true;
+          }
+        }
+
+        if (containsRussian && !containsDifferent) {
           return 'ru';
-        } else if (differentCharacters.includes(key.toLowerCase())) {
+        } else if (containsDifferent && !containsRussian) {
           return 'dizionario';
         } else {
           return 'unknown'; // если символ не принадлежит ни одному языку
@@ -105,9 +117,13 @@ $(document).ready(function() {
           currentData = ru; // устанавливаем массив данных русского словаря
         } else {
           console.log('Неизвестный язык: ', language);
+          return; // Выход из функции, если язык неизвестен
         }
         // Автоматическое переключение радиокнопок
         $("input[name='language'][value='" + language + "']").prop('checked', true);
+
+        // Обновление источника данных для автозаполнения
+        $('#search-tr').autocomplete('option', 'source', currentData);
 
         console.log('Текущий язык: ', language);
 
@@ -387,7 +403,7 @@ $(document).ready(function() {
       // Инициализация автозаполнения при загрузке страницы
       $("#search-tr").autocomplete({
         source: function(request, response) {
-          var term = request.term.toLowerCase();
+          var term = request.term.trim().toLowerCase();
           var exactMatch = []; // Массив для точных совпадений с введённым словом
           var rest = []; // Массив для остальных слов
 
@@ -446,7 +462,16 @@ $(document).ready(function() {
       });
 
       $('#search-tr').on('input', function(event) {
-        var currentValue = $(this).val();
+        var inputField = $(this);
+        var currentValue = inputField.val().trim();
+        setTimeout(function() {
+          var language = getLanguage(currentValue); // Определяем язык по введенному тексту
+          changeLanguage(language); // Изменяем текущий массив данных в зависимости от языка
+
+          // Открытие списка автозаполнения при вставке
+          inputField.autocomplete("search", currentValue);
+        }, 0);
+
         // Если значение не пустое, показываем крестик
         if (currentValue !== '') {
           $('#clearInput').css('opacity', '1');
