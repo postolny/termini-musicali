@@ -122,11 +122,7 @@ $(document).ready(function() {
         // Автоматическое переключение радиокнопок
         $("input[name='language'][value='" + language + "']").prop('checked', true);
 
-        // Обновление источника данных для автозаполнения
-        $('#search-tr').autocomplete('option', 'source', currentData);
-
         console.log('Текущий язык: ', language);
-
       }
 
       // Обработка событий клавиатуры для автоматического переключения языка
